@@ -49,7 +49,8 @@ Hooks.once('init', function () {
   CONFIG.Item.dataModels = {
     item: models.WyrdwoodWandItem,
     feature: models.WyrdwoodWandFeature,
-    spell: models.WyrdwoodWandSpell
+    spell: models.WyrdwoodWandSpell,
+    weapon: models.WyrdwoodWandWeapon
   }
 
   // Active Effects are never copied to the Actor,

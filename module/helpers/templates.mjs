@@ -7,7 +7,7 @@ export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
     'systems/wyrdwood-wand/templates/actor/parts/actor-features.hbs',
-    'systems/wyrdwood-wand/templates/actor/parts/actor-items.hbs',
+    'systems/wyrdwood-wand/templates/actor/parts/actor-weapons.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-spells.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-effects.hbs',
     // Item partials

@@ -8,3 +8,4 @@ export {default as WyrdwoodWandItemBase} from "./base-item.mjs";
 export {default as WyrdwoodWandItem} from "./item-item.mjs";
 export {default as WyrdwoodWandFeature} from "./item-feature.mjs";
 export {default as WyrdwoodWandSpell} from "./item-spell.mjs";
+export {default as WyrdwoodWandWeapon} from "./item-weapon.mjs";

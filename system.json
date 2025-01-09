@@ -42,5 +42,6 @@
   "background": "systems/wyrdwood-wand/assets/anvil-impact.png",
   "gridDistance": 1,
   "gridUnits": "m",
-  "primaryTokenAttribute": "health"
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "destiny"
 }

@@ -1,13 +1,5 @@
 {
   "WYRDWOOD_WAND": {
-    "Ability": {
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Con": { "long": "Constitution", "abbr": "con" },
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Wis": { "long": "Wisdom", "abbr": "wis" },
-      "Cha": { "long": "Charisma", "abbr": "cha" }
-    },
     "SheetLabels": {
       "Actor": "WyrdwoodWand Actor Sheet",
       "Item": "WyrdwoodWand Item Sheet"
@@ -16,6 +8,18 @@
       "Spell": {
         "SpellLVL": "Level {level} Spells",
         "AddLVL": "Add LVL {level}"
+      },
+      "Weapon": {
+        "WeaponTypes": {
+          "unarmed": "Unarmed",
+          "meleeImprovised": "Improvised Weapon",
+          "meleeBalanced": "Balanced Melee Weapon",
+          "meleeHeavy": "Heavy Melee Weapon",
+          "meleeLight": "Light Melee Weapon",
+          "rangedSmall": "Small Ranged Weapon",
+          "rangedLarge": "Large Ranged Weapon"
+        },
+        "weaponType": "Weapon Type"
       }
     },
     "Effect": {
@@ -33,6 +37,7 @@
       "npc": "NPC"
     },
     "Item": {
+      "weapon": "Weapon",
       "item": "Item",
       "feature": "Feature",
       "spell": "Spell"

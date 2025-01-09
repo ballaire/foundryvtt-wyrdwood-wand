@@ -1,8 +1,65 @@
 {
   "Actor": {
-    "types": ["character", "npc"]
+    "types": [
+      "character",
+      "npc"
+    ]
   },
   "Item": {
-    "types": ["item", "feature", "spell"]
+    "types": [
+      "weapon",
+      "spell",
+      "feature"
+    ],
+    "weapon": {
+      "name": null,
+      "weaponType": null,
+      "magical": false,
+      "rarity": "common",
+      "flavorDescription": null,
+      "mechanicsDescription": null,
+      "damageType": null,
+      "pathPrerequisite": null,
+      "spells": [],
+      "heldItemSlots": 1,
+      "melee": false,
+      "thrown": false,
+      "ranged": false,
+      "meleeReach": 1,
+      "rangeThrown": 5,
+      "rangeNormal": 30,
+      "rangeDisadvantage": 60,
+      "critRangeBonus": 0,
+      "evasionBonus": 0,
+      "resolveBonus": 0,
+      "tenacityBonus": 0,
+      "damage": {
+        "flat": 0,
+        "d4": 0,
+        "d6": 0,
+        "d8": 0,
+        "d10": 0,
+        "d12": 0,
+        "d20": 0
+      },
+      "conditionalDamage": {
+        "flat": 0,
+        "d4": 0,
+        "d6": 0,
+        "d8": 0,
+        "d10": 0,
+        "d12": 0,
+        "d20": 0
+      },
+      "critBonusDamage": {
+        "flat": 0,
+        "d4": 0,
+        "d6": 0,
+        "d8": 0,
+        "d10": 0,
+        "d12": 0,
+        "d20": 0
+      }
+    }
   }
 }
