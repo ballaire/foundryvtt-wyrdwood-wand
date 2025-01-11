@@ -46,19 +46,10 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
 
-    // Adding a pointer to CONFIG.WYRDWOOD_WAND
     context.config = CONFIG.WYRDWOOD_WAND;
 
-    // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
-    }
-
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
-    }
+    this._prepareItems(context);
+    this._prepareCharacterData(context);
 
     // Enrich biography info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
@@ -83,6 +74,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       this.actor.allApplicableEffects()
     );
 
+    console.log(context);
     return context;
   }
 

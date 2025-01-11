@@ -40,8 +40,8 @@
   "manifest": "https://raw.githubusercontent.com/ballaire/foundryvtt-wyrdwood-wand/refs/heads/master/system.json",
   "download": "https://github.com/ballaire/foundryvtt-wyrdwood-wand/archive/refs/heads/master.zip",
   "background": "systems/wyrdwood-wand/assets/anvil-impact.png",
-  "gridDistance": 1,
-  "gridUnits": "m",
+  "grid.distance": 1,
+  "grid.units": "m",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "destiny"
 }

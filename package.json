@@ -1,6 +1,6 @@
 {
   "name": "wyrdwood-wand",
-  "version": "2.0.0",
+  "version": "0.0.0",
   "description": "CSS compiler for the WyrdwoodWand system",
   "scripts": {
     "build": "sass src/scss/wyrdwood-wand.scss css/wyrdwood-wand.css --style=expanded --no-source-map --silence-deprecation=import",

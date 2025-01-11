@@ -40,7 +40,7 @@ Hooks.once('init', function () {
 
   // Note that you don't need to declare a DataModel
   // for the base actor/item classes - they are included
-  // with the Character/NPC as part of super.defineSchema()
+  // with the Character as part of super.defineSchema()
   CONFIG.Actor.dataModels = {
     character: models.WyrdwoodWandCharacter,
     npc: models.WyrdwoodWandNPC
@@ -62,12 +62,12 @@ Hooks.once('init', function () {
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('wyrdwood-wand', WyrdwoodWandActorSheet, {
     makeDefault: true,
-    label: 'WYRDWOOD_WAND.SheetLabels.Actor',
+    label: 'WYRDWOOD_WAND.SheetLabels.actor',
   });
   Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('wyrdwood-wand', WyrdwoodWandItemSheet, {
     makeDefault: true,
-    label: 'WYRDWOOD_WAND.SheetLabels.Item',
+    label: 'WYRDWOOD_WAND.SheetLabels.item',
   });
 
   // Preload Handlebars templates.

@@ -1,0 +1,61 @@
+<div class="actor-tab-stats">
+  <div class="stats-column stats-column-1">
+    <div class="stats-area">
+      <div class="title-line">
+        {{localize "WYRDWOOD_WAND.Actor.Stats.attributes"}}
+      </div>
+      <div class="stats-area-main stats-attributes">
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.agility"}}</div>
+          <input name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" />
+        </div>
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.focus"}}</div>
+          <input name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" />
+        </div>
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.strength"}}</div>
+          <input name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" />
+        </div>
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.evasion"}}</div>
+          <input name="system.evasion" disabled="disabled" type="text" value="{{system.evasion}}" data-dtype="Number" />
+        </div>
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.resolve"}}</div>
+          <input name="system.resolve" disabled="disabled" type="text" value="{{system.resolve}}" data-dtype="Number" />
+        </div>
+        <div class="attributes-item">
+          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.tenacity"}}</div>
+          <input name="system.tenacity" disabled="disabled" type="text" value="{{system.tenacity}}" data-dtype="Number" />
+        </div>
+      </div>
+    </div>
+    <div class="stats-area">
+      <div class="title-line">
+        {{localize "WYRDWOOD_WAND.Actor.Stats.skills"}}
+      </div>
+      <div class="stats-area-main stats-list">
+        
+      </div>
+    </div>
+  </div>
+  <div class="stats-column stats-column-2">
+    <div class="stats-area">
+      <div class="title-line">
+        {{localize "WYRDWOOD_WAND.Actor.Stats.paths"}}
+      </div>
+      <div class="stats-area-main stats-list">
+        
+      </div>
+    </div>
+    <div class="stats-area">
+      <div class="title-line">
+        {{localize "WYRDWOOD_WAND.Actor.Stats.talents"}}
+      </div>
+      <div class="stats-area-main stats-list">
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,5 @@ export default class WyrdwoodWandWeapon extends WyrdwoodWandItemBase {
   }
 
   prepareDerivedData() {
-    // Build the formula dynamically using string interpolation
   }
 }

@@ -3,7 +3,54 @@
     "types": [
       "character",
       "npc"
-    ]
+    ],
+    "templates": {
+      "common": {
+        "name": "",
+        "description": "",
+        "size": 1,
+        "health": {
+          "value": 10,
+          "max": 10
+        },
+        "destiny": {
+          "value": 0,
+          "max": 0
+        },
+        "aether": {
+          "value": 0,
+          "max": 0
+        },
+        "recoveries": {
+          "value": 0,
+          "max": 0
+        },
+        "agility": 0,
+        "focus": 0,
+        "strength": 0,
+        "evasionBonus": 0,
+        "resolveBonus": 0,
+        "tenacityBonus": 0,
+        "level": 1,
+        "prowess": 0,
+        "speed": 6
+      }
+    },
+    "character": {
+      "templates": [
+        "common"
+      ],
+      "role": ""
+    },
+    "npc": {
+      "templates": [
+        "common"
+      ],
+      "rank": "minion",
+      "type": "human",
+      "movementType": "standard",
+      "visionType": "standard"
+    }
   },
   "Item": {
     "types": [

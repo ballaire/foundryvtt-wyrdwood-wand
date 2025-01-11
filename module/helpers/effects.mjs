@@ -17,7 +17,7 @@ export function onManageActiveEffect(event, owner) {
           name: game.i18n.format('DOCUMENT.New', {
             type: game.i18n.localize('DOCUMENT.ActiveEffect'),
           }),
-          icon: 'icons/svg/aura.svg',
+          img: 'icons/svg/aura.svg',
           origin: owner.uuid,
           'duration.rounds':
             li.dataset.effectType === 'temporary' ? 1 : undefined,
@@ -43,17 +43,17 @@ export function prepareActiveEffectCategories(effects) {
   const categories = {
     temporary: {
       type: 'temporary',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.Temporary'),
+      label: game.i18n.localize('WYRDWOOD_WAND.Effect.temporary'),
       effects: [],
     },
     passive: {
       type: 'passive',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.Passive'),
+      label: game.i18n.localize('WYRDWOOD_WAND.Effect.passive'),
       effects: [],
     },
     inactive: {
       type: 'inactive',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.Inactive'),
+      label: game.i18n.localize('WYRDWOOD_WAND.Effect.inactive'),
       effects: [],
     },
   };

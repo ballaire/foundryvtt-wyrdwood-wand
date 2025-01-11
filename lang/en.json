@@ -1,14 +1,10 @@
 {
   "WYRDWOOD_WAND": {
     "SheetLabels": {
-      "Actor": "WyrdwoodWand Actor Sheet",
-      "Item": "WyrdwoodWand Item Sheet"
+      "actor": "WyrdwoodWand Actor Sheet",
+      "item": "WyrdwoodWand Item Sheet"
     },
     "Item": {
-      "Spell": {
-        "SpellLVL": "Level {level} Spells",
-        "AddLVL": "Add LVL {level}"
-      },
       "Weapon": {
         "WeaponTypes": {
           "unarmed": "Unarmed",
@@ -23,17 +19,37 @@
       }
     },
     "Effect": {
-      "Source": "Source",
-      "Toggle": "Toggle Effect",
-      "Temporary": "Temporary Effects",
-      "Passive": "Passive Effects",
-      "Inactive": "Inactive Effects"
+      "source": "Source",
+      "toggle": "Toggle Effect",
+      "temporary": "Temporary Effects",
+      "passive": "Passive Effects",
+      "inactive": "Inactive Effects"
+    },
+    "Actor": {
+      "level": "Level",
+      "stats": "Stats",
+      "actions": "Actions",
+      "equipment": "Equipment",
+      "effects": "Effects",
+      "biography": "Biography",
+      "Stats": {
+        "attributes": "Attributes",
+        "skills": "Skills",
+        "paths": "Paths",
+        "talents": "Talents",
+        "agility": "Agility",
+        "focus": "Focus",
+        "strength": "Strength",
+        "evasion": "Evasion",
+        "resolve": "Resolve",
+        "tenacity": "Tenacity"
+      }
     }
   },
 
   "TYPES": {
     "Actor": {
-      "character": "Character",
+      "character": "Player Character",
       "npc": "NPC"
     },
     "Item": {
