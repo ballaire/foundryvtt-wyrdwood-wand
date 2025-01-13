@@ -216,6 +216,31 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
       this.actor.deleteEmbeddedDocuments('Item', [itemId]);
     });
+
+    function updateInputSize(parent, input) {
+      console.log(input);
+      console.log(parent);
+      if (input.value) {
+        parent.dataset.value = input.value;
+      }
+      else {
+        parent.dataset.value = parent.dataset.defaultValue;
+      }
+    }
+
+    html.on('input', '.input-sizer-input', (event) => {
+      console.log(event);
+      let input = event.currentTarget;
+      let parent = input.parentNode;
+
+      updateInputSize(parent, input);
+    });
+
+    html[0].querySelectorAll('.input-sizer-input').forEach((input) => {
+      let parent = input.parentNode;
+
+      updateInputSize(parent, input);
+    });
   }
 
   /**

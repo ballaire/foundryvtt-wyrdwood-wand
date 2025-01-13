@@ -226,6 +226,30 @@
   border-color: rgba(0, 0, 0, 0);
   color: #000;
 }
+.wyrdwood-wand .input-sizer {
+  display: inline-grid;
+  vertical-align: top;
+  align-items: center;
+  position: relative;
+}
+.wyrdwood-wand .input-sizer::after,
+.wyrdwood-wand .input-sizer input {
+  width: auto;
+  min-width: 1rem;
+  grid-area: 1/2;
+  font: inherit;
+  padding: 0 0.125em 0 0.125em;
+  margin: 0;
+  resize: none;
+  background: none;
+  appearance: none;
+}
+.wyrdwood-wand .input-sizer::after {
+  border: none;
+  content: attr(data-value) " ";
+  visibility: hidden;
+  white-space: pre-wrap;
+}
 .wyrdwood-wand .actor-sheet {
   display: flex;
 }
@@ -315,21 +339,35 @@
 .wyrdwood-wand .actor-sheet .header .character-undername {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  padding-left: 0.375rem;
+  justify-content: space-between;
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .header .character-info {
-  flex: 1;
+.wyrdwood-wand .actor-sheet .header .character-undername .character-info {
+  display: flex;
+  flex-direction: column;
 }
-.wyrdwood-wand .actor-sheet .header .edit-mode-text {
+.wyrdwood-wand .actor-sheet .header .character-undername .character-info .line-1 {
+  padding-left: 0.375rem;
+  display: flex;
+}
+.wyrdwood-wand .actor-sheet .header .character-undername .character-info .line-2 {
+  padding-left: 0.125rem;
+  display: flex;
+}
+.wyrdwood-wand .actor-sheet .header .character-undername .character-info span {
+  align-self: center;
+}
+.wyrdwood-wand .actor-sheet .header .character-undername .edit-button-area {
+  align-self: flex-end;
+  display: flex;
+}
+.wyrdwood-wand .actor-sheet .header .character-undername .edit-button-area .edit-mode-text {
   font-weight: bold;
   font-size: 0.75rem;
-  justify-content: flex-end;
   align-items: center;
   padding-right: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .header .edit-button {
+.wyrdwood-wand .actor-sheet .header .character-undername .edit-button-area .edit-button {
   font-size: 1rem;
   background-color: rgba(187, 187, 187, 0.7529411765);
   border: 1px solid;
@@ -414,9 +452,8 @@
 }
 .wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item {
   display: flex;
+  justify-content: space-between;
   width: 100%;
-}
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item input {
   font-weight: bold;
   font-size: 1rem;
 }

@@ -31,21 +31,30 @@
       <input class="character-name edit-mode-input" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
       <div class="character-undername">
         <div class="character-info">
-          <div>
-            {{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}} {{system.role}}
+          <div class="line-1">
+            <span>{{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}}</span>
+            <label class="input-sizer" data-default-value="Role">
+              <input class="edit-mode-input input-sizer-input" name="system.role" type="text" value="{{system.role}}" placeholder="Role" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            </label>
           </div>
-          <div>
-            {{#if system.background1}}
-              {{system.background1}}; {{system.background2}}
-            {{/if}}
+          <div class="line-2">
+            <label class="input-sizer" data-default-value="Background 1">
+              <input class="edit-mode-input input-sizer-input" name="system.background1" type="text" value="{{system.background1}}" placeholder="Background 1" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            </label>
+            <span>|</span>
+            <label class="input-sizer" data-default-value="Background 2">
+              <input class="edit-mode-input input-sizer-input" name="system.background2" type="text" value="{{system.background2}}" placeholder="Background 2" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            </label>
           </div>
         </div>
-        <div class="edit-mode-text edit-mode-only">
-          {{localize "WYRDWOOD_WAND.Misc.editMode"}}
+        <div class="edit-button-area">
+          <div class="edit-mode-text edit-mode-only">
+            {{localize "WYRDWOOD_WAND.Misc.editMode"}}
+          </div>
+          <a class="edit-button">
+            <i class="fas fa-edit"></i>
+          </a>
         </div>
-        <a class="edit-button">
-          <i class="fas fa-edit"></i>
-        </a>
       </div>
     </div>
     <nav class="sheet-tabs tabs" data-group="primary">
