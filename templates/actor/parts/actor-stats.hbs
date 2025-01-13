@@ -7,15 +7,27 @@
       <div class="stats-area-main stats-attributes">
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.agility"}}</div>
-          <input class="edit-mode-input" name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" disabled="disabled" />
+          <input class="edit-mode-only" name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" />
+          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.agility}}"
+              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.agility'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+            {{numberFormat system.agility sign=true}}
+          </a>
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.focus"}}</div>
-          <input class="edit-mode-input" name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" disabled="disabled" />
+          <input class="edit-mode-only" name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" />
+          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.focus}}"
+              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.focus'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+            {{numberFormat system.focus sign=true}}
+          </a>
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.strength"}}</div>
-          <input class="edit-mode-input" name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" disabled="disabled" />
+          <input class="edit-mode-only" name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" />
+          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.strength}}"
+              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.strength'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+            {{numberFormat system.strength sign=true}}
+          </a>
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.evasion"}}</div>
@@ -43,11 +55,13 @@
       </div>
       <div class="stats-area-main feature-list">
         {{#each skills as |skill id|}}
-        <div class="feature-list-item">
-          <input class="edit-mode-input" type="text" value="{{skill.name}}" disabled="disabled" />
-        </div>
+          {{> "systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs" skill}}
         {{/each}}
       </div>
+      <a class="edit-mode-only add-item" data-type="skill" data-new-text="TYPES.Item.newSkill">
+        <i class="fas fa-plus"></i>
+        <div>{{localize "TYPES.Item.addSkill"}}</div>
+      </a>
     </div>
   </div>
   <div class="stats-column stats-column-2">
@@ -60,6 +74,10 @@
         {{> "systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs" path}}
         {{/each}}
       </div>
+      <a class="edit-mode-only add-item" data-type="path" data-new-text="TYPES.Item.newPath">
+        <i class="fas fa-plus"></i>
+        <div>{{localize "TYPES.Item.addPath"}}</div>
+      </a>
     </div>
     <div class="stats-area">
       <div class="title-line">
@@ -70,6 +88,10 @@
         {{> "systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs" talent}}
         {{/each}}
       </div>
+      <a class="edit-mode-only add-item" data-type="talent" data-new-text="TYPES.Item.newTalent">
+        <i class="fas fa-plus"></i>
+        <div>{{localize "TYPES.Item.addTalent"}}</div>
+      </a>
     </div>
   </div>
 </div>

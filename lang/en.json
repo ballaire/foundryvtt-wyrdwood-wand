@@ -45,6 +45,9 @@
         "tenacity": "Tenacity"
       }
     },
+    "Terms": {
+      "risk": "Risk"
+    },
     "Misc": {
       "editMode": "Edit Mode"
     }
@@ -59,7 +62,15 @@
       "weapon": "Weapon",
       "skill": "Skill",
       "path": "Path",
-      "talent": "Talent"
+      "talent": "Talent",
+      "newWeapon": "New Weapon",
+      "newSkill": "New Skill",
+      "newPath": "New Path",
+      "newTalent": "New Talent",
+      "addWeapon": "Add Weapon",
+      "addSkill": "Add Skill",
+      "addPath": "Add Path",
+      "addTalent": "Add Talent"
     }
   }
 }

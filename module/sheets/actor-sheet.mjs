@@ -161,7 +161,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     function setEditMode(sheet) {
       const inputs = sheet.querySelectorAll('input.edit-mode-input');
-      var editMode = sheet.classList.contains('edit-mode');
+      let editMode = sheet.classList.contains('edit-mode');
       
       inputs.forEach(input => {
         input.disabled = !editMode;
@@ -169,8 +169,10 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     };
 
     html.on('click', '.edit-button', (event) => {
+      event.preventDefault();
+
       const sheet = event.delegateTarget.parentNode;
-      var editMode = sheet.classList.toggle('edit-mode');
+      let editMode = sheet.classList.toggle('edit-mode');
       setEditMode(sheet);
 
       if (editMode && !this.editors['system.description'].active) {
@@ -182,6 +184,38 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     });
 
     setEditMode(html[0].parentNode);
+
+    html.on('click', '.add-item', (event) => {
+      event.preventDefault();
+      
+      let element = event.currentTarget;
+      let itemData = {
+        name: game.i18n.localize(element.dataset.newText),
+        type: element.dataset.type
+      }
+
+      this.actor.createEmbeddedDocuments('Item', [itemData]);
+    });
+
+    html.on('change', '.item-inline-edit', (event) => {
+      event.preventDefault();
+
+      let element = event.currentTarget;
+      let itemId = element.closest('.item').dataset.itemId;
+      let item = this.actor.items.get(itemId);
+      let field = element.dataset.field;
+
+      item.update({[field]: element.value});
+    });
+
+    html.on('click', '.delete-item', (event) => {
+      event.preventDefault();
+      
+      let element = event.currentTarget;
+      let itemId = element.closest('.item').dataset.itemId;
+
+      this.actor.deleteEmbeddedDocuments('Item', [itemId]);
+    });
   }
 
   /**
@@ -232,11 +266,10 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
+        flavor: dataset.label,
         rollMode: game.settings.get('core', 'rollMode'),
       });
       return roll;
