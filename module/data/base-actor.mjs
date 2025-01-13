@@ -7,7 +7,8 @@ export default class WyrdwoodWandActorBase extends WyrdwoodWandDataModel {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = {};
 
-    schema.name = new fields.StringField({ required: true, nullable: false });
+    schema.name = new fields.StringField({ required: true });
+    schema.description = new fields.StringField({ required: true });
 
     schema.health = new fields.SchemaField({
       value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),

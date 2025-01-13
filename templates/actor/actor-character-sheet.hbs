@@ -6,7 +6,7 @@
       <span class="bar-text">
         <input class="left-input" name="system.health.value" type="text" value="{{system.health.value}}" data-dtype="Number" />
         <div class="bar-slash">/</div>
-        <input class="right-input" name="system.health.max" type="text" value="{{system.health.max}}" data-dtype="Number" />
+        <input class="right-input edit-mode-input" name="system.health.max" type="text" value="{{system.health.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
     <div class="bar destiny-empty">
@@ -14,7 +14,7 @@
       <span class="bar-text">
         <input class="left-input" name="system.destiny.value" type="text" value="{{system.destiny.value}}" data-dtype="Number" />
         <div class="bar-slash">/</div>
-        <input class="right-input" name="system.destiny.max" type="text" value="{{system.destiny.max}}" data-dtype="Number" />
+        <input class="right-input edit-mode-input" name="system.destiny.max" type="text" value="{{system.destiny.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
     <div class="bar aether-empty">
@@ -22,18 +22,30 @@
       <span class="bar-text">
         <input class="left-input" name="system.aether.value" type="text" value="{{system.aether.value}}" data-dtype="Number" />
         <div class="bar-slash">/</div>
-        <input class="right-input" name="system.aether.max" type="text" value="{{system.aether.max}}" data-dtype="Number" />
+        <input class="right-input edit-mode-input" name="system.aether.max" type="text" value="{{system.aether.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
   </div>
   <div class="content">
     <div class="header">
-      <input class="character-name" name="name" type="text" value="{{actor.name}}" />
+      <input class="character-name" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
       <div class="character-undername">
-        {{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}} {{system.role}}
-      </div>
-      <div class="character-undername">
-        Background 1; Background 2
+        <div class="character-info">
+          <div>
+            {{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}} {{system.role}}
+          </div>
+          <div>
+            {{#if system.background1}}
+              {{system.background1}}; {{system.background2}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="edit-mode-text edit-mode-only">
+          {{localize "WYRDWOOD_WAND.Misc.editMode"}}
+        </div>
+        <a class="edit-button">
+          <i class="fas fa-edit"></i>
+        </a>
       </div>
     </div>
     <nav class="sheet-tabs tabs" data-group="primary">

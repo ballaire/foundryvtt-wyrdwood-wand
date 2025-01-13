@@ -48,21 +48,17 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     context.config = CONFIG.WYRDWOOD_WAND;
 
-    this._prepareItems(context);
+    if (actorData.type === 'character') {
+      this._prepareItems(context);
+    }
     this._prepareCharacterData(context);
 
-    // Enrich biography info for display
-    // Enrichment turns text like `[[/r 1d20]]` into buttons
     context.enrichedBiography = await TextEditor.enrichHTML(
-      this.actor.system.biography,
+      this.actor.system.description,
       {
-        // Whether to show secret blocks in the finished html
         secrets: this.document.isOwner,
-        // Necessary in v11, can be removed in v12
         async: true,
-        // Data to fill in for inline rolls
         rollData: this.actor.getRollData(),
-        // Relative UUID resolution
         relativeTo: this.actor,
       }
     );
@@ -74,7 +70,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       this.actor.allApplicableEffects()
     );
 
-    console.log(context);
     return context;
   }
 
@@ -94,45 +89,27 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
    * @param {object} context The context object to mutate
    */
   _prepareItems(context) {
-    // Initialize containers.
-    const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
+    const skills = [];
+    const paths = [];
+    const talents = [];
 
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || Item.DEFAULT_ICON;
-      // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
+    for (let item of context.items) {
+      item.img = item.img || Item.DEFAULT_ICON;
+      if (item.type === 'skill') {
+        skills.push(item);
       }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
+      else if (item.type === 'path') {
+        paths.push(item);
       }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
-        }
+      else if (item.type === 'talent') {
+        talents.push(item)
       }
     }
 
     // Assign and return
-    context.gear = gear;
-    context.features = features;
-    context.spells = spells;
+    context.skills = skills;
+    context.paths = paths;
+    context.talents = talents;
   }
 
   /* -------------------------------------------- */
@@ -141,36 +118,32 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Render the item sheet for viewing/editing prior to the editable check.
-    html.on('click', '.item-edit', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
+    // Render the item sheet for viewing/editing.
+    html.on('click', '.item-edit', (event) => {
+      const li = $(event.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
       item.sheet.render(true);
     });
-
-    // -------------------------------------------------------------
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
 
     // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
+    html.on('click', '.item-delete', (event) => {
+      const li = $(event.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
       item.delete();
       li.slideUp(200, () => this.render(false));
     });
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) => {
-      const row = ev.currentTarget.closest('li');
+    html.on('click', '.effect-control', (event) => {
+      const row = event.currentTarget.closest('li');
       const document =
         row.dataset.parentId === this.actor.id
           ? this.actor
           : this.actor.items.get(row.dataset.parentId);
-      onManageActiveEffect(ev, document);
+      onManageActiveEffect(event, document);
     });
 
     // Rollable abilities.
@@ -178,13 +151,37 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     // Drag events for macros.
     if (this.actor.isOwner) {
-      let handler = (ev) => this._onDragStart(ev);
+      let handler = (event) => this._onDragStart(event);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains('inventory-header')) return;
         li.setAttribute('draggable', true);
         li.addEventListener('dragstart', handler, false);
       });
     }
+
+    function setEditMode(sheet) {
+      const inputs = sheet.querySelectorAll('input.edit-mode-input');
+      var editMode = sheet.classList.contains('edit-mode');
+      
+      inputs.forEach(input => {
+        input.disabled = !editMode;
+      });
+    };
+
+    html.on('click', '.edit-button', (event) => {
+      const sheet = event.delegateTarget.parentNode;
+      var editMode = sheet.classList.toggle('edit-mode');
+      setEditMode(sheet);
+
+      if (editMode && !this.editors['system.description'].active) {
+        this.activateEditor('system.description');
+      }
+      else if (this.editors['system.description'].active) {
+        this.saveEditor('system.description');
+      }
+    });
+
+    setEditMode(html[0].parentNode);
   }
 
   /**

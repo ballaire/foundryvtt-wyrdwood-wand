@@ -48,9 +48,10 @@ Hooks.once('init', function () {
   CONFIG.Item.documentClass = WyrdwoodWandItem;
   CONFIG.Item.dataModels = {
     item: models.WyrdwoodWandItem,
-    feature: models.WyrdwoodWandFeature,
-    spell: models.WyrdwoodWandSpell,
-    weapon: models.WyrdwoodWandWeapon
+    weapon: models.WyrdwoodWandWeapon,
+    skill: models.WyrdwoodWandSkill,
+    path: models.WyrdwoodWandPath,
+    talent: models.WyrdwoodWandTalent
   }
 
   // Active Effects are never copied to the Actor,

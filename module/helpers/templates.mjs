@@ -11,6 +11,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wyrdwood-wand/templates/actor/parts/actor-equipment.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-effects.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-biography.hbs',
+    'systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs',
     // Item partials
     'systems/wyrdwood-wand/templates/item/parts/item-effects.hbs',
   ]);

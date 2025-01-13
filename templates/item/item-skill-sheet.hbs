@@ -1,0 +1,8 @@
+<form class="skill-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <input class="name" name="name" type="text" value="{{item.name}}" placeholder="Name" />
+  </header>
+  <div class="sheet-body">
+    {{editor enrichedDescription target="system.description" engine="prosemirror" button=true editable=editable}}
+  </div>
+</form>

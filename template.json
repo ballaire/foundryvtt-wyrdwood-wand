@@ -40,7 +40,9 @@
       "templates": [
         "common"
       ],
-      "role": ""
+      "role": "",
+      "background1": "",
+      "background2": ""
     },
     "npc": {
       "templates": [
@@ -55,12 +57,13 @@
   "Item": {
     "types": [
       "weapon",
-      "spell",
-      "feature"
+      "skill",
+      "path",
+      "talent"
     ],
     "weapon": {
       "name": null,
-      "weaponType": null,
+      "type": null,
       "magical": false,
       "rarity": "common",
       "flavorDescription": null,
@@ -107,6 +110,15 @@
         "d12": 0,
         "d20": 0
       }
+    },
+    "skill": {
+      "name": null
+    },
+    "path": {
+      "name": null
+    },
+    "talent": {
+      "name": null
     }
   }
 }

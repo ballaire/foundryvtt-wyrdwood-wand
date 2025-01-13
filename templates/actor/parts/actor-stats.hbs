@@ -1,4 +1,4 @@
-<div class="actor-tab-stats">
+<div class="stats-tab-body">
   <div class="stats-column stats-column-1">
     <div class="stats-area">
       <div class="title-line">
@@ -7,27 +7,33 @@
       <div class="stats-area-main stats-attributes">
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.agility"}}</div>
-          <input name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" />
+          <input class="edit-mode-input" name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" disabled="disabled" />
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.focus"}}</div>
-          <input name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" />
+          <input class="edit-mode-input" name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" disabled="disabled" />
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.strength"}}</div>
-          <input name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" />
+          <input class="edit-mode-input" name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" disabled="disabled" />
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.evasion"}}</div>
-          <input name="system.evasion" disabled="disabled" type="text" value="{{system.evasion}}" data-dtype="Number" />
+          <div class="defense-stat">
+            <input name="system.evasion" type="text" value="{{system.evasion}}" data-dtype="Number" disabled="disabled" />
+          </div>
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.resolve"}}</div>
-          <input name="system.resolve" disabled="disabled" type="text" value="{{system.resolve}}" data-dtype="Number" />
+          <div class="defense-stat">
+            <input name="system.resolve" type="text" value="{{system.resolve}}" data-dtype="Number" disabled="disabled" />
+          </div>
         </div>
         <div class="attributes-item">
           <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.tenacity"}}</div>
-          <input name="system.tenacity" disabled="disabled" type="text" value="{{system.tenacity}}" data-dtype="Number" />
+          <div class="defense-stat">
+            <input name="system.tenacity" type="text" value="{{system.tenacity}}" data-dtype="Number" disabled="disabled" />
+          </div>
         </div>
       </div>
     </div>
@@ -35,8 +41,12 @@
       <div class="title-line">
         {{localize "WYRDWOOD_WAND.Actor.Stats.skills"}}
       </div>
-      <div class="stats-area-main stats-list">
-        
+      <div class="stats-area-main feature-list">
+        {{#each skills as |skill id|}}
+        <div class="feature-list-item">
+          <input class="edit-mode-input" type="text" value="{{skill.name}}" disabled="disabled" />
+        </div>
+        {{/each}}
       </div>
     </div>
   </div>
@@ -45,16 +55,20 @@
       <div class="title-line">
         {{localize "WYRDWOOD_WAND.Actor.Stats.paths"}}
       </div>
-      <div class="stats-area-main stats-list">
-        
+      <div class="stats-area-main feature-list">
+        {{#each paths as |path id|}}
+        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs" path}}
+        {{/each}}
       </div>
     </div>
     <div class="stats-area">
       <div class="title-line">
         {{localize "WYRDWOOD_WAND.Actor.Stats.talents"}}
       </div>
-      <div class="stats-area-main stats-list">
-        
+      <div class="stats-area-main feature-list">
+        {{#each talents as |talent id|}}
+        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs" talent}}
+        {{/each}}
       </div>
     </div>
   </div>

@@ -44,6 +44,9 @@
         "resolve": "Resolve",
         "tenacity": "Tenacity"
       }
+    },
+    "Misc": {
+      "editMode": "Edit Mode"
     }
   },
 
@@ -54,9 +57,9 @@
     },
     "Item": {
       "weapon": "Weapon",
-      "item": "Item",
-      "feature": "Feature",
-      "spell": "Spell"
+      "skill": "Skill",
+      "path": "Path",
+      "talent": "Talent"
     }
   }
 }
