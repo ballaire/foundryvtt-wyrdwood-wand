@@ -1,0 +1,88 @@
+<form class="ability-sheet {{system.actionType}}" autocomplete="off">
+  <div class="header">
+    <div class="input-sizer" data-default-value="Name">
+      <input class="name input-sizer-input edit-mode-input" name="name" type="text" value="{{item.name}}" placeholder="Name" />
+    </div>
+    <div class="edit-mode-only">
+      <select name="system.actionType">
+        {{selectOptions config.actionTypes selected=system.actionType localize=true}}
+      </select>
+    </div>
+    <div class="action-type-normal normal-mode-only">
+      {{localize (concat "WYRDWOOD_WAND.Item.Ability.ActionType." system.actionType ".long")}}
+    </div>
+  </div>
+  <div class="flavor ability-section tertiary">
+    <div class="textarea-box edit-mode-only">
+      <div class="input-sizer full-width">
+        <textarea class="input-sizer-input" name="system.flavorDescription" type="text" rows="1" placeholder="{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.flavor"}}">{{system.flavorDescription}}</textarea>
+      </div>
+    </div>
+    {{#if system.flavorDescription}}
+      <div class="rawtext-box normal-mode-only">
+        {{system.flavorDescription}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="ability-section primary">
+    <div class="input-box edit-mode-only">
+      <b>{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.target"}}:</b>
+      <div class="input-sizer">
+        <input class="input-sizer-input" name="system.target" type="text" value="{{system.target}}" />
+      </div>
+    </div>
+    {{#if system.target}}
+      <div class="rawtext-box normal-mode-only">
+        <b class="rawtext-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.target"}}:</b>
+        {{system.target}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="ability-section primary">
+    <div class="input-box edit-mode-only">
+      <b>{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
+      <div class="input-sizer" data-default-value="0">
+        <input class="input-sizer-input" name="system.range" type="text" value="{{system.range}}" placeholder="0" size="1" data-dtype="number"/>
+      </div>
+      <span>{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
+    </div>
+    {{#if system.range}}
+      <div class="rawtext-box normal-mode-only">
+        <b class="rawtext-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
+        {{system.range}}
+        <span class="rawtext-postfix">{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
+      </div>
+    {{/if}}
+  </div>
+  <div class="ability-section primary">
+    <div class="input-box edit-mode-only">
+      <b>{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.attack"}}</b>
+      <select name="system.attackVs">
+        {{selectOptions config.attackVersus selected=system.attackVs localize=true}}
+      </select>
+    </div>
+    {{#if (notEqual system.attackVs 'none')}}
+      <div class="rawtext-box normal-mode-only">
+        <b class="rawtext-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.attack"}}</b>
+        {{localize (concat "WYRDWOOD_WAND.Actor.AttackVS." system.attackVs)}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="extra-sections">
+    {{#each system.sections as |section|}}
+      <div class="ability-section {{section.background}}" data-index="{{@index}}">
+        <div class="input-box edit-mode-only">
+          <b>{{section.title}}:</b>
+          <div class="input-sizer">
+            <input class="input-sizer-input ability-section-update" data-field="description" type="text" value="{{section.description}}" />
+          </div>
+        </div>
+        <div class="rawtext-box normal-mode-only">
+          <b class="rawtext-prefix">{{section.title}}:</b>
+          {{section.description}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <button class="add-section-button edit-mode-only">{{localize "WYRDWOOD_WAND.Item.Ability.addSection"}}</button>
+</form>

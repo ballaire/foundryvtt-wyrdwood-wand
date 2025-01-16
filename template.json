@@ -32,7 +32,6 @@
         "resolveBonus": 0,
         "tenacityBonus": 0,
         "level": 1,
-        "prowess": 0,
         "speed": 6
       }
     },
@@ -48,6 +47,7 @@
       "templates": [
         "common"
       ],
+      "prowess": 0,
       "rank": "minion",
       "type": "human",
       "movementType": "standard",
@@ -59,7 +59,8 @@
       "weapon",
       "skill",
       "path",
-      "talent"
+      "talent",
+      "ability"
     ],
     "weapon": {
       "name": null,
@@ -119,6 +120,23 @@
     },
     "talent": {
       "name": null
+    },
+    "ability": {
+      "name": null,
+      "sections": [],
+      "flavorDescription": null,
+      "abilityType": "basic",
+      "actionType": "quick",
+      "limit": {
+        "value": 0,
+        "max": 0
+      },
+      "target": null,
+      "range": 0,
+      "attackVs": null,
+      "strike": false,
+      "skirmish": false,
+      "power": false
     }
   }
 }

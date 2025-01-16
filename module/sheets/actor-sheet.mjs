@@ -18,7 +18,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
         {
           navSelector: '.sheet-tabs',
           contentSelector: '.sheet-body',
-          initial: 'features',
+          initial: 'stats',
         },
       ],
     });
@@ -63,7 +63,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       }
     );
 
-    // Prepare active effects
     context.effects = prepareActiveEffectCategories(
       // A generator that returns all effects stored on the actor
       // as well as any items
@@ -92,6 +91,9 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     const skills = [];
     const paths = [];
     const talents = [];
+    const basicActions = [];
+    const techniques = [];
+    const rites = [];
 
     for (let item of context.items) {
       item.img = item.img || Item.DEFAULT_ICON;
@@ -104,12 +106,25 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       else if (item.type === 'talent') {
         talents.push(item)
       }
+      else if (item.type === 'ability') {
+        if (item.system.abilityType === 'basic') {
+          basicActions.push(item)
+        }
+        else if (item.system.abilityType === 'technique') {
+          techniques.push(item)
+        }
+        else if (item.system.abilityType === 'rite') {
+          rites.push(item)
+        }
+      }
     }
 
-    // Assign and return
     context.skills = skills;
     context.paths = paths;
     context.talents = talents;
+    context.basicActions = basicActions;
+    context.techniques = techniques;
+    context.rites = rites;
   }
 
   /* -------------------------------------------- */
@@ -118,7 +133,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Render the item sheet for viewing/editing.
     html.on('click', '.item-edit', (event) => {
       const li = $(event.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
@@ -159,31 +173,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       });
     }
 
-    function setEditMode(sheet) {
-      const inputs = sheet.querySelectorAll('input.edit-mode-input');
-      let editMode = sheet.classList.contains('edit-mode');
-      
-      inputs.forEach(input => {
-        input.disabled = !editMode;
-      });
-    };
-
-    html.on('click', '.edit-button', (event) => {
-      event.preventDefault();
-
-      const sheet = event.delegateTarget.parentNode;
-      let editMode = sheet.classList.toggle('edit-mode');
-      setEditMode(sheet);
-
-      if (editMode && !this.editors['system.description'].active) {
-        this.activateEditor('system.description');
-      }
-      else if (this.editors['system.description'].active) {
-        this.saveEditor('system.description');
-      }
-    });
-
-    setEditMode(html[0].parentNode);
+    this._updateEditMode(html[0].parentNode);
 
     html.on('click', '.add-item', (event) => {
       event.preventDefault();
@@ -218,18 +208,19 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     });
 
     function updateInputSize(parent, input) {
-      console.log(input);
-      console.log(parent);
       if (input.value) {
         parent.dataset.value = input.value;
       }
-      else {
+      else if (parent.dataset.defaultValue) {
         parent.dataset.value = parent.dataset.defaultValue;
+      }
+      else {
+        parent.dataset.value = 'Empty';
       }
     }
 
     html.on('input', '.input-sizer-input', (event) => {
-      console.log(event);
+      event.preventDefault();
       let input = event.currentTarget;
       let parent = input.parentNode;
 
@@ -241,6 +232,27 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
       updateInputSize(parent, input);
     });
+
+    html.on('click', '.ability-filter', (event) => {
+      event.preventDefault();
+      event.currentTarget.classList.toggle('inactive');
+    });
+
+    html.on('click', '.ability-section-title', (event) => {
+      event.preventDefault();
+
+      let element = event.currentTarget;
+      let parent = element.parentNode;
+      let arrow = element.querySelector('.expand-arrow');
+      let collapsible = parent.querySelector('.ability-collapsible-wrapper');
+
+      collapsible.style.setProperty('--collapse-height', '-' + parent.scrollHeight + 'px');
+
+      arrow.classList.toggle('expanded');
+      collapsible.classList.toggle('expanded');
+    });
+
+    console.log(this.actor.system);
   }
 
   /**
@@ -254,7 +266,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.
@@ -299,5 +311,47 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       });
       return roll;
     }
+  }
+
+  _updateEditMode(sheet) {
+    const inputs = sheet.querySelectorAll('input.edit-mode-input');
+    let editMode = sheet.classList.contains('edit-mode');
+    
+    inputs.forEach(input => {
+      input.disabled = !editMode;
+    });
+
+    if (editMode && !this.editors['system.description'].active) {
+      this.activateEditor('system.description');
+    }
+    else if (!editMode && this.editors['system.description'].active) {
+      this.saveEditor('system.description');
+    }
+  }
+
+  _onToggleEditMode(event) {
+    event.preventDefault();
+
+    const editButton = event.currentTarget;
+    editButton.classList.toggle('editing-glow');
+
+    const sheet = editButton.closest('.app').querySelector('.window-content');
+    sheet.classList.toggle('edit-mode');
+    this._updateEditMode(sheet);
+  }
+
+  /** @override */
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    let editButton = {
+      label: 'MISC.edit',
+      class: 'edit-button',
+      icon: 'fas fa-edit',
+
+      onclick: this._onToggleEditMode.bind(this)
+    };
+
+    return [editButton, ...buttons];
   }
 }

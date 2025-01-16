@@ -10,3 +10,4 @@ export {default as WyrdwoodWandWeapon} from "./item-weapon.mjs";
 export {default as WyrdwoodWandSkill} from "./item-skill.mjs";
 export {default as WyrdwoodWandPath} from "./item-path.mjs";
 export {default as WyrdwoodWandTalent} from "./item-talent.mjs";
+export {default as WyrdwoodWandAbility} from "./item-ability.mjs";

@@ -1,28 +1,37 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .item-form {
   font-family: $font-primary;
 }
 
 .editor {
   height: 100%;
-  padding: 0 0.5rem;
   background-color: $section-background;
   border-radius: 0.25rem;
 }
 
-input {
+.editor-content, .tox-edit-area {
+  padding: 0 0.5rem;
+}
+
+input, textarea {
   background-color: #00000000;
   border-color: #00000000;
-  box-shadow: none;
-}
+  transition: border-color 0.2s ease;
 
-input:hover, input:focus {
-  border-color: $input-border;
-}
-
-input:disabled {
-  border: 1px solid;
-  border-color: #00000000;
-  color: #000;
+  &:hover, &:focus {
+    border-color: $input-border;
+  }
+  
+  &:disabled {
+    border: 1px solid;
+    border-color: #00000000;
+    color: #000;
+  }
 }
 
 .input-sizer {
@@ -31,11 +40,16 @@ input:disabled {
   align-items: center;
   position: relative;
 
+  &.full-width {
+    width: 100%;
+  }
+
   &::after,
-  input {
+  input,
+  textarea {
     width: auto;
     min-width: 1rem;
-    grid-area: 1 / 2;
+    grid-area: 1 / 1;
     font: inherit;
     padding: 0 0.125em 0 0.125em;
     margin: 0;
@@ -44,12 +58,27 @@ input:disabled {
     appearance: none;
   }
 
+  textarea {
+    height: 100%;
+    overflow: hidden;
+  }
+
   &::after {
     border: none;
+    padding: 1px;
     content: attr(data-value) ' ';
     visibility: hidden;
     white-space: pre-wrap;
   }
+}
+
+&:has(.actor-sheet) {
+  min-width: 600px;
+  min-height: 130px;
+}
+
+.window-content:has(.actor-sheet) {
+  overflow: hidden;
 }
 
 .actor-sheet {
@@ -168,13 +197,15 @@ input:disabled {
         flex-direction: column;
 
         .line-1 {
-          padding-left: 0.375rem;
           display: flex;
+          padding-left: 0.375rem;
+          margin-bottom: -0.25rem;
         }
 
         .line-2 {
-          padding-left: 0.125rem;
           display: flex;
+          padding-left: 0.125rem;
+          margin-bottom: -0.25rem;
         }
 
         span {
@@ -182,27 +213,6 @@ input:disabled {
         }
       }
       
-      .edit-button-area {
-        align-self: flex-end;
-        display: flex;
-
-        .edit-mode-text {
-          font-weight: bold;
-          font-size: 0.75rem;
-          align-items: center;
-          padding-right: 0.25rem;
-        }
-
-        .edit-button {
-          font-size: 1rem;
-          background-color: $edit-button-background;
-          border: 1px solid;
-          border-radius: 0.25rem;
-          height: 1.5rem;
-          width: 1.5rem;
-          padding: 0.125rem 0.25rem;
-        }
-      }
     }
 
 
@@ -319,6 +329,91 @@ input:disabled {
         }
       }
     }
+
+    .ability-tab-body {
+      margin-top: 0.25rem;
+      margin-left: 0.5rem;
+
+      .filter-line {
+        display: flex;
+        justify-content: space-between;
+        min-width: 25rem;
+
+        .search-bar {
+          border-color: #000;
+        }
+
+        .ability-filter {
+          font-weight: bold;
+          align-self: center;
+          text-decoration: underline;
+        }
+
+        .inactive {
+          color: #666;
+        }
+      }
+
+      .ability-section {
+        font-size: 0.75rem;
+
+        .ability-section-row {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          padding: 0.25rem;
+          border-radius: 0.25rem;
+        }
+
+        .ability-section-title {
+          background-color: #000;
+          color: #fff;
+          margin-top: 0.25rem;
+          cursor: pointer;
+          transition: height 100ms;
+
+          .expand-arrow {
+            align-self: center;
+            transition: transform 0.15s;
+
+            &.expanded {
+              transform: rotate(90deg);
+            }
+          }
+        }
+        
+        .ability-collapsible {
+          overflow: hidden;
+
+          .ability-collapsible-wrapper {
+            margin-top: var(--collapse-height, 0);
+            transition: margin-top 0.15s ease;
+
+            &.expanded {
+              margin-top: 0;
+            }
+          }
+        }
+
+        .ability-section-item {
+          background-color: $section-background;
+          margin-left: 0.75rem;
+          margin-top: 0.25rem;
+        }
+
+        .ability-line-primary {
+          display: flex;
+          justify-content: flex-start;
+          padding-left: 0.25rem;
+          flex: 1;
+        }
+
+        .ability-line-item {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
     
     .biography-tab-body {
       height: 100%;
@@ -326,6 +421,10 @@ input:disabled {
       padding-left: 0.5rem;
 
       a.editor-edit {
+        display: none;
+      }
+
+      button[title="Save"] {
         display: none;
       }
     }
@@ -350,6 +449,204 @@ input:disabled {
 
 }
 
+.ability-sheet {
+
+  margin: -8px;
+  background-color: #fff;
+  color: #000;
+
+  select {
+    background-color: #00000000;
+    border: none;
+    outline: 1px solid #00000000;
+    transition: outline 0.2s ease;
+
+    &:hover {
+      outline: 1px solid $input-border;
+    }
+  }
+  
+  .header {
+    padding: 0 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    font-weight: bold;
+
+    input {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    select {
+      color: #fff;
+      font-weight: bold;
+      height: 100%;
+    }
+
+    .action-type-normal {
+      align-self: center;
+    }
+  }
+
+  .flavor {
+    font-style: italic;
+  }
+
+  .ability-section {
+    input, textarea {
+      color: #000
+    }
+
+    textarea {
+      min-height: 0;
+    }
+
+    .textarea-box {
+      padding: 4px 4px;
+    }
+
+    .input-box {
+      align-items: center;
+      padding: 1px 6.75px 0;
+    }
+
+    .rawtext-box {
+      padding: 5px 6.75px;
+
+      .rawtext-prefix {
+        margin-right: 2.75px;
+      }
+
+      .rawtext-postfix {
+        margin-left: 2.75px;
+      }
+    }
+
+  }
+
+  &.quick {
+    .header {
+      background-color: $quick-action-header;
+
+      select {
+        background-color: $quick-action-header;
+        
+        option {
+          background-color: $quick-action-header;
+        }
+      }
+    }
+
+    .primary {
+      background-color: $quick-action-primary;
+    }
+
+    .secondary {
+      background-color: $quick-action-secondary;
+    }
+
+    .tertiary {
+      background-color: $quick-action-tertiary;
+    }
+
+    .footer {
+      background-color: $quick-action-footer;
+    }
+  }
+
+  &.slow {
+    .header {
+      background-color: $slow-action-header;
+
+      select {
+        background-color: $slow-action-header;
+        
+        option {
+          background-color: $slow-action-header;
+        }
+      }
+    }
+
+    .primary {
+      background-color: $slow-action-primary;
+    }
+
+    .secondary {
+      background-color: $slow-action-secondary;
+    }
+
+    .tertiary {
+      background-color: $slow-action-tertiary;
+    }
+
+    .footer {
+      background-color: $slow-action-footer;
+    }
+  }
+
+  &.free {
+    .header {
+      background-color: $free-action-header;
+
+      select {
+        background-color: $free-action-header;
+        
+        option {
+          background-color: $free-action-header;
+        }
+      }
+    }
+
+    .primary {
+      background-color: $free-action-primary;
+    }
+
+    .secondary {
+      background-color: $free-action-secondary;
+    }
+
+    .tertiary {
+      background-color: $free-action-tertiary;
+    }
+
+    .footer {
+      background-color: $free-action-footer;
+    }
+  }
+
+  &.ritual {
+    .header {
+      background-color: $ritual-header;
+
+      select {
+        background-color: $ritual-header;
+        
+        option {
+          background-color: $ritual-header;
+        }
+      }
+    }
+
+    .primary {
+      background-color: $ritual-primary;
+    }
+
+    .secondary {
+      background-color: $ritual-secondary;
+    }
+
+    .tertiary {
+      background-color: $ritual-tertiary;
+    }
+
+    .footer {
+      background-color: $ritual-footer;
+    }
+  }
+
+}
+
 .edit-mode-only {
   display: none;
 }
@@ -359,10 +656,6 @@ input:disabled {
 }
 
 .edit-mode {
-  background-color: $edit-background;
-  background-blend-mode: multiply;
-
-
   .edit-mode-only {
     display: flex;
   }
@@ -370,4 +663,8 @@ input:disabled {
   .normal-mode-only {
     display: none;
   }
+}
+
+.edit-button.editing-glow {
+  text-shadow: 0 0 8px red, 0 0 12px red, 0 0 12px red;
 }

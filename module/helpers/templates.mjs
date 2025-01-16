@@ -7,11 +7,12 @@ export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
     'systems/wyrdwood-wand/templates/actor/parts/actor-stats.hbs',
-    'systems/wyrdwood-wand/templates/actor/parts/actor-actions.hbs',
+    'systems/wyrdwood-wand/templates/actor/parts/actor-abilities.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-equipment.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-effects.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-biography.hbs',
     'systems/wyrdwood-wand/templates/actor/parts/actor-feature.hbs',
+    'systems/wyrdwood-wand/templates/actor/parts/actor-abilities-section.hbs',
     // Item partials
     'systems/wyrdwood-wand/templates/item/parts/item-effects.hbs',
   ]);

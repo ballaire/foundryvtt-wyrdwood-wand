@@ -15,12 +15,14 @@ export default class WyrdwoodWandCharacter extends WyrdwoodWandActorBase {
   }
 
   prepareDerivedData() {
-    super.prepareDerivedData()
+    super.prepareDerivedData();
+
+    this.prowess = Math.floor(this.level / 2);
   }
 
   getRollData() {
     const data = {};
 
-    return data
+    return data;
   }
 }

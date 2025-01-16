@@ -16,6 +16,44 @@
           "rangedLarge": "Large Ranged Weapon"
         },
         "weaponType": "Weapon Type"
+      },
+      "Ability": {
+        "Attribute": {
+          "limit": "Limit",
+          "target": "Target",
+          "range": "Range",
+          "attack": "Attack",
+          "actionType": "Type",
+          "flavor": "Flavor Description"
+        },
+        "ActionType": {
+          "quick": {
+            "long": "Quick Action",
+            "short": "Quick"
+          },
+          "slow": {
+            "long": "Slow Action",
+            "short": "Slow"
+          },
+          "freeAction": {
+            "long": "Free Action",
+            "short": "Free"
+          },
+          "freeInterrupt": {
+            "long": "Free Interrupt",
+            "short": "Free"
+          },
+          "ritual": {
+            "long": "Ritual",
+            "short": "Ritual"
+          }
+        },
+        "Flag": {
+          "strike": "Strike",
+          "skirmish": "Skirmish",
+          "power": "Power"
+        },
+        "addSection": "Add Section"
       }
     },
     "Effect": {
@@ -29,6 +67,7 @@
       "level": "Level",
       "stats": "Stats",
       "actions": "Actions",
+      "abilities": "Abilities",
       "equipment": "Equipment",
       "effects": "Effects",
       "biography": "Biography",
@@ -43,13 +82,15 @@
         "evasion": "Evasion",
         "resolve": "Resolve",
         "tenacity": "Tenacity"
+      },
+      "AttackVS": {
+        "evasion": "vs Evasion",
+        "resolve": "vs Resolve",
+        "tenacity": "vs Tenacity"
       }
     },
     "Terms": {
       "risk": "Risk"
-    },
-    "Misc": {
-      "editMode": "Edit Mode"
     }
   },
 
@@ -63,6 +104,7 @@
       "skill": "Skill",
       "path": "Path",
       "talent": "Talent",
+      "ability": "Ability",
       "newWeapon": "New Weapon",
       "newSkill": "New Skill",
       "newPath": "New Path",
@@ -70,7 +112,20 @@
       "addWeapon": "Add Weapon",
       "addSkill": "Add Skill",
       "addPath": "Add Path",
-      "addTalent": "Add Talent"
+      "addTalent": "Add Talent",
+      "basicAction": "Basic Action",
+      "technique": "Technique",
+      "rite": "Rite",
+      "basicActions": "Basic Actions",
+      "techniques": "Techniques",
+      "rites": "Rites"
     }
+  },
+  
+  "MISC": {
+    "edit": "Edit",
+    "search": "Search",
+    "meter": "meter",
+    "meters": "meters"
   }
 }

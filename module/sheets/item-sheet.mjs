@@ -80,14 +80,123 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
-
-    // Roll handlers, click handlers, etc. would go here.
-
     // Active Effect management
     html.on('click', '.effect-control', (ev) =>
       onManageActiveEffect(ev, this.item)
     );
+
+    function updateInputSize(parent, input) {
+      if (input.value) {
+        parent.dataset.value = input.value;
+      }
+      else if (parent.dataset.defaultValue) {
+        parent.dataset.value = parent.dataset.defaultValue;
+      }
+      else {
+        parent.dataset.value = 'Empty';
+      }
+    }
+
+    html.on('input', '.input-sizer-input', (event) => {
+      event.preventDefault();
+      let input = event.currentTarget;
+      let parent = input.parentNode;
+
+      updateInputSize(parent, input);
+    });
+
+    html[0].querySelectorAll('.input-sizer-input').forEach((input) => {
+      let parent = input.parentNode;
+
+      updateInputSize(parent, input);
+    });
+    
+    this._updateEditMode(html[0].parentNode);
+
+    html.on('click', '.add-section-button', this._onAddAbilitySection.bind(this));
+
+    html.on('change', '.ability-section-update', this._onAbilitySectionUpdate.bind(this));
+
+    console.log(this.item.system);
+  }
+  
+  _onAddAbilitySection(event) {
+    event.preventDefault();
+
+    let newSection = {
+      title: 'New',
+      description: '',
+      bullet: false,
+      indent: 0,
+      background: 'blank',
+    }
+
+    let sections = [...this.item.system.sections, newSection];
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _onAbilitySectionUpdate(event) {
+    event.preventDefault();
+
+    let input = event.currentTarget;
+    let section = input.closest('.ability-section');
+    let index = section.dataset.index;
+    let field = input.dataset.field;
+
+    let sections = structuredClone(this.item.system.sections);
+    sections[index][field] = input.value;
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _updateEditMode(sheet) {
+    const inputs = sheet.querySelectorAll('input.edit-mode-input');
+    let editMode = sheet.classList.contains('edit-mode');
+    
+    inputs.forEach(input => {
+      input.disabled = !editMode;
+    });
+  }
+
+  _onToggleEditMode(event) {
+    event.preventDefault();
+
+    const editButton = event.currentTarget;
+    editButton.classList.toggle('editing-glow');
+
+    const sheet = editButton.closest('.app').querySelector('.window-content');
+    sheet.classList.toggle('edit-mode');
+    this._updateEditMode(sheet);
+  }
+
+  /** @override */
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    let editButton = {
+      label: 'MISC.edit',
+      class: 'edit-button',
+      icon: 'fas fa-edit',
+
+      onclick: this._onToggleEditMode.bind(this)
+    };
+
+    return [editButton, ...buttons];
+  }
+
+  /** @override 
+   * 
+   * Prevent triggers for events handled elsewhere.
+  */
+  async _onChangeInput(event) {
+  
+    for (const ignoreClass of ['.ability-section-update']) {
+      if (event.currentTarget.matches(ignoreClass)) {
+        return;
+      }
+    }
+
+    return super._onChangeInput(event);
   }
 }

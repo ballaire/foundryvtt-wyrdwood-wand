@@ -47,19 +47,11 @@
             </label>
           </div>
         </div>
-        <div class="edit-button-area">
-          <div class="edit-mode-text edit-mode-only">
-            {{localize "WYRDWOOD_WAND.Misc.editMode"}}
-          </div>
-          <a class="edit-button">
-            <i class="fas fa-edit"></i>
-          </a>
-        </div>
       </div>
     </div>
     <nav class="sheet-tabs tabs" data-group="primary">
       <a class="item" data-tab="stats">{{localize "WYRDWOOD_WAND.Actor.stats"}}</a>
-      <a class="item" data-tab="actions">{{localize "WYRDWOOD_WAND.Actor.actions"}}</a>
+      <a class="item" data-tab="abilities">{{localize "WYRDWOOD_WAND.Actor.abilities"}}</a>
       <a class="item" data-tab="equipment">{{localize "WYRDWOOD_WAND.Actor.equipment"}}</a>
       <a class="item" data-tab="effects">{{localize "WYRDWOOD_WAND.Actor.effects"}}</a>
       <a class="item" data-tab="biography">{{localize "WYRDWOOD_WAND.Actor.biography"}}</a>
@@ -70,8 +62,8 @@
         {{> "systems/wyrdwood-wand/templates/actor/parts/actor-stats.hbs"}}
       </div>
 
-      <div class="tab actions" data-group="primary" data-tab="actions">
-        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-actions.hbs"}}
+      <div class="tab abilities" data-group="primary" data-tab="abilities">
+        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-abilities.hbs"}}
       </div>
 
       <div class="tab equipment" data-group="primary" data-tab="equipment">

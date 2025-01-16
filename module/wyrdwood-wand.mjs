@@ -51,7 +51,8 @@ Hooks.once('init', function () {
     weapon: models.WyrdwoodWandWeapon,
     skill: models.WyrdwoodWandSkill,
     path: models.WyrdwoodWandPath,
-    talent: models.WyrdwoodWandTalent
+    talent: models.WyrdwoodWandTalent,
+    ability: models.WyrdwoodWandAbility
   }
 
   // Active Effects are never copied to the Actor,
@@ -82,6 +83,14 @@ Hooks.once('init', function () {
 // If you need to add Handlebars helpers, here is a useful example:
 Handlebars.registerHelper('toLowerCase', function (str) {
   return str.toLowerCase();
+});
+
+Handlebars.registerHelper('notEqual', function(a, b) {
+  return (a !== b);
+});
+
+Handlebars.registerHelper('equal', function(a, b) {
+  return (a == b);
 });
 
 /* -------------------------------------------- */
