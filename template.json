@@ -125,6 +125,8 @@
       "name": null,
       "sections": [],
       "flavorDescription": null,
+      "footerLeftText": null,
+      "footerRightText": null,
       "abilityType": "basic",
       "actionType": "quick",
       "limit": {

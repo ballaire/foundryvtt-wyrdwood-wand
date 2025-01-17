@@ -110,24 +110,29 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
       updateInputSize(parent, input);
     });
-    
-    this._updateEditMode(html[0].parentNode);
 
     html.on('click', '.add-section-button', this._onAddAbilitySection.bind(this));
 
     html.on('change', '.ability-section-update', this._onAbilitySectionUpdate.bind(this));
 
-    console.log(this.item.system);
+    html.on('click', '.aether-check', this._onToggleAetherCost.bind(this));
+    html.on('click', '.dropdown-button', this._onToggleDropdown.bind(this));
+    html.on('click', '.sheet-wrapper', this._onCloseDropdowns.bind(this));
+    html.on('click', '.color-select a', this._onColorSelect.bind(this));
+    html.on('click', '.ability-section-up', this._onAbilitySectionMoveUp.bind(this));
+    html.on('click', '.ability-section-down', this._onAbilitySectionMoveDown.bind(this));
+    html.on('click', '.delete-section', this._onAbilitySectionDelete.bind(this));
+
+    this._disableAbilitySectionArrows(html[0]);
+    this._updateEditMode(html[0].closest('.window-content'));
   }
   
   _onAddAbilitySection(event) {
     event.preventDefault();
 
     let newSection = {
-      title: 'New',
-      description: '',
-      bullet: false,
-      indent: 0,
+      editContent: '',
+      displayContent: '<p></p>',
       background: 'blank',
     }
 
@@ -142,12 +147,101 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     let input = event.currentTarget;
     let section = input.closest('.ability-section');
     let index = section.dataset.index;
-    let field = input.dataset.field;
 
-    let sections = structuredClone(this.item.system.sections);
-    sections[index][field] = input.value;
+    // Convert separate lines to <p>s for non-edit mode only
+    let displayValue = '<p>' + input.value.replace(/\n/g, '</p><p>') + '</p>';
+
+    let sections = this.item.system.sections;
+    sections[index].editContent = input.value;
+    sections[index].displayContent = displayValue;
 
     this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _onToggleAetherCost(event) {
+    event.preventDefault();
+
+    this.submit({updateData: {"system.aetherCost": !this.item.system.aetherCost}});
+  }
+
+  _onToggleDropdown(event) {
+    event.preventDefault();
+
+    let content = event.currentTarget.parentNode.querySelector('.dropdown-content');
+
+    content.classList.toggle('hidden');
+  }
+
+  _onCloseDropdowns(event) {
+    event.preventDefault();
+
+    event.currentTarget.querySelectorAll('.dropdown-content').forEach((element) => {
+      if (event.target.parentNode == element.parentNode) {
+        return; // Clicked on dropdown, don't double trigger
+      }
+
+      element.classList.add('hidden');
+    });
+  }
+
+  _onColorSelect(event) {
+    event.preventDefault();
+
+    let color = event.currentTarget.className;
+    let index = event.currentTarget.closest('.ability-section').dataset.index;
+
+    let sections = this.item.system.sections;
+    sections[index].background = color;
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _onAbilitySectionMoveUp(event) {
+    event.preventDefault();
+
+    let index = event.currentTarget.closest('.ability-section').dataset.index;
+    let sections = this.item.system.sections;
+
+    index = parseInt(index);
+    if (index <= 0) return;
+
+    sections = [...sections.slice(0, index - 1), sections[index], sections[index - 1], ...sections.slice(index + 1, sections.length)];
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _onAbilitySectionMoveDown(event) {
+    event.preventDefault();
+
+    let index = event.currentTarget.closest('.ability-section').dataset.index;
+    let sections = this.item.system.sections;
+
+    index = parseInt(index);
+    if (index >= sections.length - 1) return;
+
+    sections = [...sections.slice(0, index), sections[index + 1], sections[index], ...sections.slice(index + 2, sections.length)];
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _onAbilitySectionDelete(event) {
+    event.preventDefault();
+
+    let index = event.currentTarget.closest('.ability-section').dataset.index;
+    let sections = this.item.system.sections;
+
+    index = parseInt(index);
+    sections.splice(index, 1);
+
+    this.submit({updateData: {"system.sections": sections}});
+  }
+
+  _disableAbilitySectionArrows(sheet) {
+    let sections = sheet.querySelector('.extra-sections').children;
+    if (sections.length == 0) return;
+
+    sections[0].querySelector('.ability-section-up').classList.add('gray-out');
+    sections[sections.length - 1].querySelector('.ability-section-down').classList.add('gray-out');
   }
 
   _updateEditMode(sheet) {

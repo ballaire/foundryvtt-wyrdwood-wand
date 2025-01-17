@@ -173,8 +173,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       });
     }
 
-    this._updateEditMode(html[0].parentNode);
-
     html.on('click', '.add-item', (event) => {
       event.preventDefault();
       
@@ -252,7 +250,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       collapsible.classList.toggle('expanded');
     });
 
-    console.log(this.actor.system);
+    this._updateEditMode(html[0].closest('.window-content'));
   }
 
   /**

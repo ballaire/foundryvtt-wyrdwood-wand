@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /* Global styles */
 .window-app {
@@ -249,15 +250,19 @@
   min-width: 1rem;
   grid-area: 1/1;
   font: inherit;
-  padding: 0 0.125em 0 0.125em;
   margin: 0;
   resize: none;
   background: none;
   appearance: none;
 }
+.wyrdwood-wand .input-sizer::after,
+.wyrdwood-wand .input-sizer input {
+  padding: 0 0.25em 0 0.125em;
+}
 .wyrdwood-wand .input-sizer textarea {
   height: 100%;
   overflow: hidden;
+  padding: 0;
 }
 .wyrdwood-wand .input-sizer::after {
   border: none;
@@ -268,6 +273,10 @@
 }
 .wyrdwood-wand:has(.actor-sheet) {
   min-width: 600px;
+  min-height: 130px;
+}
+.wyrdwood-wand:has(.ability-sheet) {
+  min-width: 400px;
   min-height: 130px;
 }
 .wyrdwood-wand .window-content:has(.actor-sheet) {
@@ -582,49 +591,142 @@
 .wyrdwood-wand .ability-sheet select:hover {
   outline: 1px solid #b11501;
 }
-.wyrdwood-wand .ability-sheet .header {
+.wyrdwood-wand .ability-sheet .header-bar {
+  height: 1.625rem;
   padding: 0 0.25rem;
   display: flex;
   justify-content: space-between;
+  font-weight: bold;
+}
+.wyrdwood-wand .ability-sheet .header-bar input {
   color: #fff;
   font-weight: bold;
 }
-.wyrdwood-wand .ability-sheet .header input {
+.wyrdwood-wand .ability-sheet .header-bar .aether-check {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+.wyrdwood-wand .ability-sheet .header-bar .aether-check input {
+  width: 16px;
+  height: 16px;
+}
+.wyrdwood-wand .ability-sheet .header-bar select {
   color: #fff;
   font-weight: bold;
+  height: 1.625rem;
 }
-.wyrdwood-wand .ability-sheet .header select {
-  color: #fff;
-  font-weight: bold;
-  height: 100%;
-}
-.wyrdwood-wand .ability-sheet .header .action-type-normal {
+.wyrdwood-wand .ability-sheet .header-bar .action-type-normal {
   align-self: center;
 }
 .wyrdwood-wand .ability-sheet .flavor {
   font-style: italic;
 }
-.wyrdwood-wand .ability-sheet .ability-section input, .wyrdwood-wand .ability-sheet .ability-section textarea {
-  color: #000;
+.wyrdwood-wand .ability-sheet .main-stats-edit {
+  flex-direction: column;
+}
+.wyrdwood-wand .ability-sheet .main-stats-edit select {
+  height: 1.625rem;
+}
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff {
+  overflow: hidden;
+  margin: 0 6px;
+}
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff span {
+  display: inline-block;
+  height: 1.625rem;
+}
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span {
+  position: relative;
+  padding: 5px 12px 5px 0;
+}
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span::before {
+  content: "–";
+  position: absolute;
+  left: -12px;
+}
+.wyrdwood-wand .ability-sheet .ability-section.set-height {
+  height: 1.625rem;
 }
 .wyrdwood-wand .ability-sheet .ability-section textarea {
   min-height: 0;
 }
 .wyrdwood-wand .ability-sheet .ability-section .textarea-box {
-  padding: 4px 4px;
+  padding: 4px 5.75px;
 }
 .wyrdwood-wand .ability-sheet .ability-section .input-box {
+  display: flex;
   align-items: center;
   padding: 1px 6.75px 0;
 }
-.wyrdwood-wand .ability-sheet .ability-section .rawtext-box {
+.wyrdwood-wand .ability-sheet .ability-section .edit-prefix {
+  margin-right: 3.25px;
+}
+.wyrdwood-wand .ability-sheet .ability-section .view-box {
   padding: 5px 6.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .rawtext-box .rawtext-prefix {
+.wyrdwood-wand .ability-sheet .ability-section .view-box .view-prefix {
   margin-right: 2.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .rawtext-box .rawtext-postfix {
+.wyrdwood-wand .ability-sheet .ability-section .view-box .view-postfix {
   margin-left: 2.75px;
+}
+.wyrdwood-wand .ability-sheet .ability-section .view-box p {
+  margin: 0;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select {
+  position: relative;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-button {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid;
+  border-radius: 0;
+  color: inherit;
+  vertical-align: middle;
+  height: 1rem;
+  width: 1rem;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content {
+  position: absolute;
+  border: solid 1px #000;
+  top: 0;
+  right: 1.15rem;
+  z-index: 2;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content a {
+  display: block;
+  width: 100%;
+}
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .gray-out {
+  color: gray;
+  text-shadow: none;
+  cursor: default;
+}
+.wyrdwood-wand .ability-sheet .add-section-button {
+  margin: 0.25rem;
+  width: calc(100% - 0.5rem);
+}
+.wyrdwood-wand .ability-sheet .footer-bar {
+  display: flex;
+  justify-content: space-between;
+  font-style: italic;
+  padding: 0 0.25rem;
+}
+.wyrdwood-wand .ability-sheet .footer-bar .right-justify {
+  text-align: right;
+}
+.wyrdwood-wand .ability-sheet .footer-bar :disabled::placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+.wyrdwood-wand .ability-sheet .footer-bar :disabled::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0);
 }
 .wyrdwood-wand .ability-sheet.quick .header {
   background-color: #69122c;
@@ -668,25 +770,25 @@
 .wyrdwood-wand .ability-sheet.slow .footer {
   background-color: #acb0cf;
 }
-.wyrdwood-wand .ability-sheet.free .header {
+.wyrdwood-wand .ability-sheet.freeAction .header, .wyrdwood-wand .ability-sheet.freeInterrupt .header {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.free .header select {
+.wyrdwood-wand .ability-sheet.freeAction .header select, .wyrdwood-wand .ability-sheet.freeInterrupt .header select {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.free .header select option {
+.wyrdwood-wand .ability-sheet.freeAction .header select option, .wyrdwood-wand .ability-sheet.freeInterrupt .header select option {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.free .primary {
+.wyrdwood-wand .ability-sheet.freeAction .primary, .wyrdwood-wand .ability-sheet.freeInterrupt .primary {
   background-color: #d0d9c6;
 }
-.wyrdwood-wand .ability-sheet.free .secondary {
+.wyrdwood-wand .ability-sheet.freeAction .secondary, .wyrdwood-wand .ability-sheet.freeInterrupt .secondary {
   background-color: #e4e9de;
 }
-.wyrdwood-wand .ability-sheet.free .tertiary {
+.wyrdwood-wand .ability-sheet.freeAction .tertiary, .wyrdwood-wand .ability-sheet.freeInterrupt .tertiary {
   background-color: #dae0d2;
 }
-.wyrdwood-wand .ability-sheet.free .footer {
+.wyrdwood-wand .ability-sheet.freeAction .footer, .wyrdwood-wand .ability-sheet.freeInterrupt .footer {
   background-color: #bdcbb0;
 }
 .wyrdwood-wand .ability-sheet.ritual .header {
@@ -710,14 +812,38 @@
 .wyrdwood-wand .ability-sheet.ritual .footer {
   background-color: #e8c5ac;
 }
+.wyrdwood-wand .ability-sheet .blank {
+  background-color: #fff;
+}
+.wyrdwood-wand .ability-sheet .blank, .wyrdwood-wand .ability-sheet .primary, .wyrdwood-wand .ability-sheet .secondary, .wyrdwood-wand .ability-sheet .tertiary, .wyrdwood-wand .ability-sheet .footer {
+  color: #000;
+}
+.wyrdwood-wand .ability-sheet .header {
+  color: #fff;
+}
+.wyrdwood-wand .ability-sheet .header input, .wyrdwood-wand .ability-sheet .header textarea {
+  color: #fff;
+}
 .wyrdwood-wand .edit-mode-only {
   display: none;
 }
 .wyrdwood-wand .normal-mode-only {
   display: flex;
 }
+.wyrdwood-wand .normal-mode-only.block-display {
+  display: block;
+}
+.wyrdwood-wand .normal-mode-only.inline-block-display {
+  display: inline-block;
+}
 .wyrdwood-wand .edit-mode .edit-mode-only {
   display: flex;
+}
+.wyrdwood-wand .edit-mode .edit-mode-only.block-display {
+  display: block;
+}
+.wyrdwood-wand .edit-mode .edit-mode-only.inline-block-display {
+  display: inline-block;
 }
 .wyrdwood-wand .edit-mode .normal-mode-only {
   display: none;

@@ -8,6 +8,7 @@ export default class WyrdwoodWandAbility extends WyrdwoodWandItemBase {
     return {
       ...super.defineSchema(),
 
+      aetherCost: new fields.BooleanField({required: true, initial: false}),
       flavorDescription: new fields.StringField(),
       abilityType: new fields.StringField({required: true, initial: 'basic'}),
       actionType: new fields.StringField({required: true, initial: 'quick'}),
@@ -18,14 +19,14 @@ export default class WyrdwoodWandAbility extends WyrdwoodWandItemBase {
 
       sections: new fields.ArrayField(
         new fields.SchemaField({
-          title: new fields.StringField({required: true, nullable: true, initial: null}),
-          description: new fields.StringField({required: true, nullable: true, initial: null}),
-          bullet: new fields.BooleanField({required: true, initial: false}),
-          indent: new fields.NumberField({required: true, initial: 0, min: 0}),
+          editContent: new fields.StringField({required: true, nullable: true, initial: null}),
+          displayContent: new fields.StringField({required: true, nullable: true, initial: null}),
           background: new fields.StringField({required: true, initial: 'blank'}),
         })
       ),
 
+      footerLeftText: new fields.StringField({required: true}),
+      footerRightText: new fields.StringField({required: true}),
     };
   }
 }
