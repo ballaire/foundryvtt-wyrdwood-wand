@@ -632,11 +632,9 @@
   overflow: hidden;
   margin: 0 6px;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff span {
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span {
   display: inline-block;
   height: 1.625rem;
-}
-.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span {
   position: relative;
   padding: 5px 12px 5px 0;
 }

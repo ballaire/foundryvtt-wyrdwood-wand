@@ -61,15 +61,12 @@
     </div>
     <div class="main-stats-view normal-mode-only block-display primary">
       <div class="overflow-cutoff">
-        <span>
           {{#if system.target}}
             <span class="view-box">
               <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.target"}}:</b>
               {{system.target}}
             </span>
           {{/if}}
-        </span>
-        <span>
           {{#if system.range}}
             <span class="view-box">
               <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
@@ -77,15 +74,12 @@
               <span class="view-postfix">{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
             </span>
           {{/if}}
-        </span>
-        <span>
           {{#if (notEqual system.attackVs 'none')}}
             <span class="view-box">
               <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.attack"}}</b>
               {{localize (concat "WYRDWOOD_WAND.Actor.AttackVS." system.attackVs)}}
             </span>
           {{/if}}
-        </span>
       </div>
     </div>
     <div class="extra-sections">

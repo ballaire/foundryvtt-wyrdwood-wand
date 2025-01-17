@@ -529,12 +529,9 @@ input, textarea {
       overflow: hidden;
       margin: 0 6px;
 
-      span {
+      > span {
         display: inline-block;
         height: 1.625rem;
-      }
-
-      > span {
         position: relative;
         padding: 5px 12px 5px 0;
       }
