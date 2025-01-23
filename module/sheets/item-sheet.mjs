@@ -124,9 +124,22 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     html.on('click', '.delete-section', this._onAbilitySectionDelete.bind(this));
 
     this._disableAbilitySectionArrows(html[0]);
-    this._updateEditMode(html[0].closest('.window-content'));
+    if (this.fromActorSheet)
+      this._toggleEditMode(html[0].closest('.app'));
+    else
+      this._updateEditMode(html[0].closest('.app'));
   }
   
+  /** @override */
+  async _render(force=false, options={}) {
+    if(options.fromActorSheet)
+      this.fromActorSheet = true;
+    else
+      this.fromActorSheet = false;
+
+    super._render(force, options);
+  }
+
   _onAddAbilitySection(event) {
     event.preventDefault();
 
@@ -205,7 +218,9 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     index = parseInt(index);
     if (index <= 0) return;
 
-    sections = [...sections.slice(0, index - 1), sections[index], sections[index - 1], ...sections.slice(index + 1, sections.length)];
+    let section = sections[index];
+    sections[index] = sections[index - 1];
+    sections[index - 1] = section
 
     this.submit({updateData: {"system.sections": sections}});
   }
@@ -219,7 +234,9 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     index = parseInt(index);
     if (index >= sections.length - 1) return;
 
-    sections = [...sections.slice(0, index), sections[index + 1], sections[index], ...sections.slice(index + 2, sections.length)];
+    let section = sections[index];
+    sections[index] = sections[index + 1];
+    sections[index + 1] = section
 
     this.submit({updateData: {"system.sections": sections}});
   }
@@ -244,7 +261,8 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     sections[sections.length - 1].querySelector('.ability-section-down').classList.add('gray-out');
   }
 
-  _updateEditMode(sheet) {
+  _updateEditMode(app) {
+    const sheet = app.querySelector('.window-content');
     const inputs = sheet.querySelectorAll('input.edit-mode-input');
     let editMode = sheet.classList.contains('edit-mode');
     
@@ -253,15 +271,21 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     });
   }
 
+  _toggleEditMode(app) {
+    const editButton = app.querySelector('.edit-button');
+    const sheet = app.querySelector('.window-content');
+
+    editButton.classList.toggle('editing-glow');
+    sheet.classList.toggle('edit-mode');
+
+    this._updateEditMode(app);
+  }
+
   _onToggleEditMode(event) {
     event.preventDefault();
 
-    const editButton = event.currentTarget;
-    editButton.classList.toggle('editing-glow');
-
-    const sheet = editButton.closest('.app').querySelector('.window-content');
-    sheet.classList.toggle('edit-mode');
-    this._updateEditMode(sheet);
+    const app = event.currentTarget.closest('.app');
+    this._toggleEditMode(app);
   }
 
   /** @override */

@@ -59,7 +59,7 @@ input, textarea {
 
   &::after,
   input {
-    padding: 0 0.25em 0 0.125em;
+    padding: 0 0.125em 0 0.125em;
   }
 
   textarea {
@@ -78,14 +78,20 @@ input, textarea {
 }
 
 // MINIMUM WINDOW DIMENSIONS
-&:has(.actor-sheet) {
+&:has(.window-content > .actor-sheet) {
   min-width: 600px;
   min-height: 130px;
 }
 
-&:has(.ability-sheet) {
+&:has(.window-content > .ability-sheet) {
   min-width: 400px;
   min-height: 130px;
+}
+
+.gray-out {
+  color: gray;
+  text-shadow: none;
+  cursor: default;
 }
 
 .window-content:has(.actor-sheet) {
@@ -93,6 +99,7 @@ input, textarea {
 }
 
 .actor-sheet {
+  height: 100%;
   display: flex;
 
   .sidebar {
@@ -185,7 +192,7 @@ input, textarea {
     padding-left: 0.125rem;
   }
 
-  .header {
+  .header-area {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -234,7 +241,9 @@ input, textarea {
   }
   
   .sheet-body {
-    height: 100%;
+    height: auto;
+    overflow-y: hidden;
+    margin-right: -8px;
 
     .tab {
       height: 100%;
@@ -244,6 +253,7 @@ input, textarea {
       display: flex;
       flex-direction: row;
       margin-top: 0.25rem;
+      margin-right: 0.5rem;
   
       .stats-column {
         margin-left: 0.5rem;
@@ -342,13 +352,17 @@ input, textarea {
     }
 
     .ability-tab-body {
+      display: flex;
+      flex-direction: column;
       margin-top: 0.25rem;
       margin-left: 0.5rem;
+      height: 100%;
 
       .filter-line {
         display: flex;
         justify-content: space-between;
         min-width: 25rem;
+        margin-right: 0.5rem;
 
         .search-bar {
           border-color: #000;
@@ -365,10 +379,17 @@ input, textarea {
         }
       }
 
-      .ability-section {
+      .scroll-box {
+        height: 100%;
+        overflow-y: scroll;
+        padding-right: 4px;
+        padding-bottom: 10px;
+      }
+
+      .ability-list {
         font-size: 0.75rem;
 
-        .ability-section-row {
+        .ability-list-row {
           display: flex;
           justify-content: space-between;
           width: 100%;
@@ -376,21 +397,23 @@ input, textarea {
           border-radius: 0.25rem;
         }
 
-        .ability-section-title {
+        .ability-list-title {
           background-color: #000;
           color: #fff;
           margin-top: 0.25rem;
-          cursor: pointer;
-          transition: height 100ms;
 
           .expand-arrow {
             align-self: center;
-            transition: transform 0.15s;
+            transition: transform 0.1s;
 
             &.expanded {
               transform: rotate(90deg);
             }
           }
+        }
+
+        .collapsible-title, .hidden-content-title {
+          cursor: pointer;
         }
         
         .ability-collapsible {
@@ -406,8 +429,7 @@ input, textarea {
           }
         }
 
-        .ability-section-item {
-          background-color: $section-background;
+        .ability-list-item {
           margin-left: 0.75rem;
           margin-top: 0.25rem;
         }
@@ -430,6 +452,7 @@ input, textarea {
       height: 100%;
       padding-top: 0.5rem;
       padding-left: 0.5rem;
+      margin-right: 0.5rem;
 
       a.editor-edit {
         display: none;
@@ -462,7 +485,6 @@ input, textarea {
 
 .ability-sheet {
 
-  margin: -8px;
   background-color: #fff;
   color: #000;
 
@@ -481,7 +503,9 @@ input, textarea {
     height: 1.625rem;
     padding: 0 0.25rem;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     font-weight: bold;
 
     input {
@@ -508,6 +532,19 @@ input, textarea {
 
     .action-type-normal {
       align-self: center;
+    }
+
+    .actor-ability-right-side {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .actor-ability-edit-buttons {
+      margin-left: 0.25em;
+      
+      a {
+        padding: 0.25em;
+      }
     }
   }
 
@@ -616,12 +653,6 @@ input, textarea {
             width: 100%;
           }
         }
-      }
-
-      .gray-out {
-        color: gray;
-        text-shadow: none;
-        cursor: default;
       }
     }
 
@@ -824,4 +855,8 @@ input, textarea {
 
 .edit-button.editing-glow {
   text-shadow: 0 0 8px red, 0 0 12px red, 0 0 12px red;
+}
+
+.extend-to-edges{
+  margin: -8px;
 }

@@ -119,6 +119,9 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       }
     }
 
+    // Group items to allow easier re-arranging within each group
+    // context.items = [...skills, ...paths, ...talents, ...basicActions, ...techniques, ...rites];
+
     context.skills = skills;
     context.paths = paths;
     context.talents = talents;
@@ -236,7 +239,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       event.currentTarget.classList.toggle('inactive');
     });
 
-    html.on('click', '.ability-section-title', (event) => {
+    html.on('click', '.collapsible-title', (event) => {
       event.preventDefault();
 
       let element = event.currentTarget;
@@ -244,13 +247,34 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       let arrow = element.querySelector('.expand-arrow');
       let collapsible = parent.querySelector('.ability-collapsible-wrapper');
 
-      collapsible.style.setProperty('--collapse-height', '-' + parent.scrollHeight + 'px');
-
-      arrow.classList.toggle('expanded');
-      collapsible.classList.toggle('expanded');
+      if (arrow)
+        arrow.classList.toggle('expanded');
+      if (collapsible) {
+        collapsible.style.setProperty('--collapse-height', '-' + parent.scrollHeight + 'px');
+        collapsible.classList.toggle('expanded');
+      }
     });
 
-    this._updateEditMode(html[0].closest('.window-content'));
+    html.on('click', '.hidden-content-title', (event) => {
+      event.preventDefault();
+
+      let element = event.currentTarget;
+      let parent = element.parentNode;
+      let hiddenContent = parent.querySelector('.ability-hidden-toggle');
+
+      if (hiddenContent) {
+        hiddenContent.hidden = !hiddenContent.hidden;
+      }
+    });
+
+    html.on('click', '.ability-up', this._onAbilityMoveUp.bind(this));
+    html.on('click', '.ability-down', this._onAbilityMoveDown.bind(this));
+    html.on('click', '.ability-edit', this._onAbilityEdit.bind(this));
+    html.on('click', '.ability-delete', this._onAbilityDelete.bind(this));
+
+    let sheet = html[0].closest('.window-content');
+    this._updateEditMode(sheet);
+    this._disableAbilityArrows(sheet);
   }
 
   /**
@@ -336,6 +360,99 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     const sheet = editButton.closest('.app').querySelector('.window-content');
     sheet.classList.toggle('edit-mode');
     this._updateEditMode(sheet);
+  }
+
+  _onAbilityMoveUp(event) {
+    event.preventDefault();
+
+    const sourceSheet = event.currentTarget.closest('.ability-sheet');
+    let sourceIndex = parseInt(sourceSheet.dataset.abilityIndex);
+    if (sourceIndex <= 0) {
+      event.stopPropagation();
+      return;
+    }
+
+    const targetSheet = sourceSheet.parentNode.querySelector(`[data-ability-index='${sourceIndex - 1}']`);
+
+    const updateData = [
+      {
+        sort: sourceIndex,
+        _id: targetSheet.dataset.itemId,
+      },
+      {
+        sort: sourceIndex - 1,
+        _id: sourceSheet.dataset.itemId,
+      },
+    ];
+
+    this.actor.updateEmbeddedDocuments('Item', updateData);
+
+    event.stopPropagation();
+  }
+
+  _onAbilityMoveDown(event) {
+    event.preventDefault();
+
+    const sourceSheet = event.currentTarget.closest('.ability-sheet');
+    let sourceIndex = parseInt(sourceSheet.dataset.abilityIndex);
+
+    const targetSheet = sourceSheet.parentNode.querySelector(`[data-ability-index='${sourceIndex + 1}']`);
+    if (!targetSheet) {
+      event.stopPropagation();
+      return;
+    }
+
+    const updateData = [
+      {
+        sort: sourceIndex,
+        _id: targetSheet.dataset.itemId,
+      },
+      {
+        sort: sourceIndex + 1,
+        _id: sourceSheet.dataset.itemId,
+      },
+    ];
+
+    this.actor.updateEmbeddedDocuments('Item', updateData);
+
+    event.stopPropagation();
+  }
+
+  _onAbilityEdit(event) {
+    event.preventDefault();
+    
+    const abilitySheet = event.currentTarget.closest('.ability-sheet');
+    const item = this.actor.items.get(abilitySheet.dataset.itemId);
+    item.sheet.render(true, {fromActorSheet: true});
+
+    event.stopPropagation();
+  }
+
+  _onAbilityDelete(event) {
+    event.preventDefault();
+
+    const abilitySheet = event.currentTarget.closest('.ability-sheet');
+    const item = this.actor.items.get(abilitySheet.dataset.itemId);
+    Dialog.confirm({
+      title: `Delete ${item.name}`,
+      content: `<h4>Are you sure?</h4>`,
+      yes: () => {
+        this.actor.deleteEmbeddedDocuments('Item', [item._id]);
+      },
+      options: {}
+    });
+
+    event.stopPropagation();
+  }
+
+  _disableAbilityArrows(sheet) {
+    sheet.querySelectorAll('.ability-list').forEach(list => {
+      const abilities = list.querySelector('.ability-collapsible-wrapper').children;
+      if (abilities.length == 0) return;
+      abilities[0].querySelector('.ability-up').classList.add('gray-out');
+      abilities[abilities.length - 1].querySelector('.ability-down').classList.add('gray-out');
+    });
+
   }
 
   /** @override */

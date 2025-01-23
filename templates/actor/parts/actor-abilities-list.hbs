@@ -1,0 +1,13 @@
+<div class="ability-list collapsible-parent">
+  <div class="ability-list-title ability-list-row collapsible-title">
+    <i class="fas fa-angle-right expand-arrow expanded"></i>
+    <div class="ability-line-primary">{{title}}</div>
+  </div>
+  <div class="ability-collapsible">
+    <div class="ability-collapsible-wrapper expanded" data-id="{{id}}">
+      {{#each abilities as |ability|}}
+        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-ability.hbs" ability}}
+      {{/each}}
+    </div>
+  </div>
+</div>

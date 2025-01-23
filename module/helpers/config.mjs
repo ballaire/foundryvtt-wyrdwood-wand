@@ -19,6 +19,12 @@ WYRDWOOD_WAND.actionTypes = {
   ritual: 'WYRDWOOD_WAND.Item.Ability.ActionType.ritual.long',
 }
 
+WYRDWOOD_WAND.abilityTypes = {
+  basic: 'TYPES.Item.basicAction',
+  technique: 'TYPES.Item.technique',
+  rite: 'TYPES.Item.rite',
+}
+
 WYRDWOOD_WAND.attackVersus = {
   none: '',
   evasion: 'WYRDWOOD_WAND.Actor.AttackVS.evasion',

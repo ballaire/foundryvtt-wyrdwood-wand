@@ -1,0 +1,69 @@
+
+<div class="ability-list-item ability-sheet collapsible-parent {{system.actionType}}" data-item-id="{{_id}}" data-ability-index="{{@index}}">
+  <div class="header-bar header hidden-content-title">
+    {{name}}
+    <div class="actor-ability-right-side">
+      <div class="action-type-normal">
+        {{#if system.aetherCost}}
+          1 Aether •
+        {{/if}}
+        {{localize (concat "WYRDWOOD_WAND.Item.Ability.ActionType." system.actionType ".long")}}
+      </div>
+      <div class="actor-ability-edit-buttons edit-mode-only">
+        <a class="fas fa-arrow-up ability-up" title="Move Up"></a>
+        <a class="fas fa-arrow-down ability-down" title="Move Down"></a>
+        <a class="fas fa-edit ability-edit" title="Edit"></a>
+        <a class="fas fa-trash ability-delete" title="Delete"></a>
+      </div>
+    </div>
+  </div>
+  <div class="ability-hidden-toggle" data-id="{{id}}" hidden="hidden">
+    <div class="flavor ability-section tertiary">
+      {{#if system.flavorDescription}}
+        <div class="view-box">
+          {{system.flavorDescription}}
+        </div>
+      {{/if}}
+    </div>
+    <div class="main-stats-view block-display primary">
+      <div class="overflow-cutoff">
+          {{#if system.target}}
+            <span class="view-box">
+              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.target"}}:</b>
+              {{system.target}}
+            </span>
+          {{/if}}
+          {{#if system.range}}
+            <span class="view-box">
+              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
+              {{system.range}}
+              <span class="view-postfix">{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
+            </span>
+          {{/if}}
+          {{#if (notEqual system.attackVs 'none')}}
+            <span class="view-box">
+              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.attack"}}</b>
+              {{localize (concat "WYRDWOOD_WAND.Actor.AttackVS." system.attackVs)}}
+            </span>
+          {{/if}}
+      </div>
+    </div>
+    <div class="extra-sections">
+      {{#each system.sections as |section|}}
+        <div class="ability-section {{section.background}}" data-index="{{@index}}">
+          <div class="view-box block-display">
+            {{{section.displayContent}}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <div class="footer-bar footer">
+      <div class="input-sizer">
+        <input class="input-sizer-input" name="system.footerLeftText" type="text" value="{{system.footerLeftText}}" placeholder="Footer Text" disabled="disabled" />
+      </div>
+      <div class="input-sizer right-justify">
+        <input class="input-sizer-input" name="system.footerRightText" type="text" value="{{system.footerRightText}}" placeholder="Footer Text" disabled="disabled" />
+      </div>
+    </div>
+  </div>
+</div>

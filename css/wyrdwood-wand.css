@@ -257,7 +257,7 @@
 }
 .wyrdwood-wand .input-sizer::after,
 .wyrdwood-wand .input-sizer input {
-  padding: 0 0.25em 0 0.125em;
+  padding: 0 0.125em 0 0.125em;
 }
 .wyrdwood-wand .input-sizer textarea {
   height: 100%;
@@ -271,18 +271,24 @@
   visibility: hidden;
   white-space: pre-wrap;
 }
-.wyrdwood-wand:has(.actor-sheet) {
+.wyrdwood-wand:has(.window-content > .actor-sheet) {
   min-width: 600px;
   min-height: 130px;
 }
-.wyrdwood-wand:has(.ability-sheet) {
+.wyrdwood-wand:has(.window-content > .ability-sheet) {
   min-width: 400px;
   min-height: 130px;
+}
+.wyrdwood-wand .gray-out {
+  color: gray;
+  text-shadow: none;
+  cursor: default;
 }
 .wyrdwood-wand .window-content:has(.actor-sheet) {
   overflow: hidden;
 }
 .wyrdwood-wand .actor-sheet {
+  height: 100%;
   display: flex;
 }
 .wyrdwood-wand .actor-sheet .sidebar {
@@ -357,45 +363,47 @@
   flex-direction: column;
   padding-left: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .header {
+.wyrdwood-wand .actor-sheet .header-area {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .header .character-name {
+.wyrdwood-wand .actor-sheet .header-area .character-name {
   font-size: 2rem;
   width: 100%;
   height: 1.25em;
 }
-.wyrdwood-wand .actor-sheet .header .character-undername {
+.wyrdwood-wand .actor-sheet .header-area .character-undername {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .header .character-undername .character-info {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info {
   display: flex;
   flex-direction: column;
 }
-.wyrdwood-wand .actor-sheet .header .character-undername .character-info .line-1 {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-1 {
   display: flex;
   padding-left: 0.375rem;
   margin-bottom: -0.25rem;
 }
-.wyrdwood-wand .actor-sheet .header .character-undername .character-info .line-2 {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-2 {
   display: flex;
   padding-left: 0.125rem;
   margin-bottom: -0.25rem;
 }
-.wyrdwood-wand .actor-sheet .header .character-undername .character-info span {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info span {
   align-self: center;
 }
 .wyrdwood-wand .actor-sheet .sheet-tabs {
   margin-left: 0.5rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body {
-  height: 100%;
+  height: auto;
+  overflow-y: hidden;
+  margin-right: -8px;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .tab {
   height: 100%;
@@ -404,6 +412,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 0.25rem;
+  margin-right: 0.5rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column {
   margin-left: 0.5rem;
@@ -485,13 +494,17 @@
   margin-right: 0.25rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body {
+  display: flex;
+  flex-direction: column;
   margin-top: 0.25rem;
   margin-left: 0.5rem;
+  height: 100%;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line {
   display: flex;
   justify-content: space-between;
   min-width: 25rem;
+  margin-right: 0.5rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .search-bar {
   border-color: #000;
@@ -504,52 +517,58 @@
 .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .inactive {
   color: #666;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .scroll-box {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 4px;
+  padding-bottom: 10px;
+}
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list {
   font-size: 0.75rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-section-row {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-row {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 0.25rem;
   border-radius: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-section-title {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title {
   background-color: #000;
   color: #fff;
   margin-top: 0.25rem;
-  cursor: pointer;
-  transition: height 100ms;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-section-title .expand-arrow {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow {
   align-self: center;
-  transition: transform 0.15s;
+  transition: transform 0.1s;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-section-title .expand-arrow.expanded {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow.expanded {
   transform: rotate(90deg);
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-collapsible {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .collapsible-title, .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .hidden-content-title {
+  cursor: pointer;
+}
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible {
   overflow: hidden;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-collapsible .ability-collapsible-wrapper {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper {
   margin-top: var(--collapse-height, 0);
   transition: margin-top 0.15s ease;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-collapsible .ability-collapsible-wrapper.expanded {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper.expanded {
   margin-top: 0;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-section-item {
-  background-color: rgba(167, 167, 170, 0.3764705882);
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-item {
   margin-left: 0.75rem;
   margin-top: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-line-primary {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-primary {
   display: flex;
   justify-content: flex-start;
   padding-left: 0.25rem;
   flex: 1;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-section .ability-line-item {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-item {
   display: flex;
   justify-content: center;
 }
@@ -557,6 +576,7 @@
   height: 100%;
   padding-top: 0.5rem;
   padding-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body a.editor-edit {
   display: none;
@@ -578,7 +598,6 @@
   padding-top: 0.5rem;
 }
 .wyrdwood-wand .ability-sheet {
-  margin: -8px;
   background-color: #fff;
   color: #000;
 }
@@ -595,7 +614,9 @@
   height: 1.625rem;
   padding: 0 0.25rem;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   font-weight: bold;
 }
 .wyrdwood-wand .ability-sheet .header-bar input {
@@ -618,6 +639,16 @@
 }
 .wyrdwood-wand .ability-sheet .header-bar .action-type-normal {
   align-self: center;
+}
+.wyrdwood-wand .ability-sheet .header-bar .actor-ability-right-side {
+  display: flex;
+  flex-direction: row;
+}
+.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons {
+  margin-left: 0.25em;
+}
+.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons a {
+  padding: 0.25em;
 }
 .wyrdwood-wand .ability-sheet .flavor {
   font-style: italic;
@@ -701,11 +732,6 @@
 .wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content a {
   display: block;
   width: 100%;
-}
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .gray-out {
-  color: gray;
-  text-shadow: none;
-  cursor: default;
 }
 .wyrdwood-wand .ability-sheet .add-section-button {
   margin: 0.25rem;
@@ -848,6 +874,9 @@
 }
 .wyrdwood-wand .edit-button.editing-glow {
   text-shadow: 0 0 8px red, 0 0 12px red, 0 0 12px red;
+}
+.wyrdwood-wand .extend-to-edges {
+  margin: -8px;
 }
 .wyrdwood-wand .resource-label {
   font-weight: bold;

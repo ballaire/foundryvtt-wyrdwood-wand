@@ -48,6 +48,11 @@
             "short": "Ritual"
           }
         },
+        "AbilityType": {
+          "basic": "Basic Action",
+          "technique": "Technique",
+          "rite": "Rite"
+        },
         "Flag": {
           "strike": "Strike",
           "skirmish": "Skirmish",
