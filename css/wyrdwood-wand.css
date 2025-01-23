@@ -659,14 +659,17 @@
 .wyrdwood-wand .ability-sheet .main-stats-edit select {
   height: 1.625rem;
 }
+.wyrdwood-wand .ability-sheet .main-stats-view {
+  padding-bottom: 5px;
+}
 .wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff {
   overflow: hidden;
-  margin: 0 6px;
+  margin: 0 0 0 6px;
 }
 .wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span {
   display: inline-block;
   position: relative;
-  padding: 5px 0;
+  padding: 5px 12px 0 0;
 }
 .wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span::before {
   content: "–";

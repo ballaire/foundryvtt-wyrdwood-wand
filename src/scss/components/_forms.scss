@@ -561,15 +561,16 @@ input, textarea {
   }
 
   .main-stats-view {
+    padding-bottom: 5px;
     
     .overflow-cutoff {
       overflow: hidden;
-      margin: 0 6px;
+      margin: 0 0 0 6px;
 
       > span {
         display: inline-block;
         position: relative;
-        padding: 5px 0;
+        padding: 5px 12px 0 0;
       }
 
       > span::before {
