@@ -221,6 +221,9 @@
 .wyrdwood-wand .editor-content, .wyrdwood-wand .tox-edit-area {
   padding: 0 0.5rem;
 }
+.wyrdwood-wand ul {
+  margin: 0;
+}
 .wyrdwood-wand input, .wyrdwood-wand textarea {
   background-color: rgba(0, 0, 0, 0);
   border-color: rgba(0, 0, 0, 0);
@@ -660,7 +663,7 @@
 .wyrdwood-wand .ability-sheet .main-stats-edit select {
   height: 1.625rem;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view {
+.wyrdwood-wand .ability-sheet .main-stats-view:has(span) {
   padding-bottom: 5px;
 }
 .wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff {

@@ -48,9 +48,8 @@
         <div class="input-box">
           <b class="edit-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
           <div class="input-sizer" data-default-value="0">
-            <input class="input-sizer-input" name="system.range" type="text" value="{{#if system.range}}{{system.range}}{{/if}}" placeholder="--" size="1" data-dtype="number"/>
+            <input class="input-sizer-input" name="system.range" type="text" value="{{system.range}}" data-dtype="number"/>
           </div>
-          <span>{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
         </div>
       </div>
       <div class="ability-section primary">
@@ -74,7 +73,6 @@
             <span class="view-box">
               <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
               {{system.range}}
-              <span class="view-postfix">{{#if (equal system.range 1)}}{{localize "MISC.meter"}}{{else}}{{localize "MISC.meters"}}{{/if}}</span>
             </span>
           {{/if}}
           {{#if (notEqual system.attackVs 'none')}}

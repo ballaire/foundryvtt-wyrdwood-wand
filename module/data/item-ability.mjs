@@ -14,7 +14,7 @@ export default class WyrdwoodWandAbility extends WyrdwoodWandItemBase {
       actionType: new fields.StringField({required: true, initial: 'quick'}),
 
       target: new fields.StringField(),
-      range: new fields.NumberField({initial: 0, min: 0}),
+      range: new fields.StringField(),
       attackVs: new fields.StringField({required: true, initial: 'none'}),
 
       sections: new fields.ArrayField(

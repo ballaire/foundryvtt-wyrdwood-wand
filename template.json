@@ -134,7 +134,7 @@
         "max": 0
       },
       "target": null,
-      "range": 0,
+      "range": null,
       "attackVs": null,
       "strike": false,
       "skirmish": false,

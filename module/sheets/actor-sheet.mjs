@@ -119,9 +119,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       }
     }
 
-    // Group items to allow easier re-arranging within each group
-    // context.items = [...skills, ...paths, ...talents, ...basicActions, ...techniques, ...rites];
-
     context.skills = skills;
     context.paths = paths;
     context.talents = talents;
@@ -129,8 +126,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     context.techniques = techniques;
     context.rites = rites;
   }
-
-  /* -------------------------------------------- */
 
   /** @override */
   activateListeners(html) {
@@ -375,30 +370,33 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     this._updateEditMode(sheet);
   }
 
+  _swapAbilities(sheet, first, second) {
+
+    first.parentNode.insertBefore(second, first);
+    let firstIndex = first.dataset.abilityIndex;
+    first.dataset.abilityIndex = second.dataset.abilityIndex;
+    second.dataset.abilityIndex = firstIndex;
+    this._disableAbilityArrows(sheet);
+
+    const updateData = Array.from(first.parentNode.children).map((child) => ({sort: child.dataset.abilityIndex, _id: child.dataset.itemId}));
+
+    this.skipRender = true;
+    this.actor.updateEmbeddedDocuments('Item', updateData);
+  }
+
   _onAbilityMoveUp(event) {
     event.preventDefault();
 
-    const sourceSheet = event.currentTarget.closest('.ability-sheet');
-    let sourceIndex = parseInt(sourceSheet.dataset.abilityIndex);
-    if (sourceIndex <= 0) {
+    const source = event.currentTarget.closest('.ability-sheet');
+    const sourceIndex = parseInt(source.dataset.abilityIndex);
+    const target = source.parentNode.querySelector(`[data-ability-index='${sourceIndex - 1}']`);
+    if (!target) {
       event.stopPropagation();
       return;
     }
 
-    const targetSheet = sourceSheet.parentNode.querySelector(`[data-ability-index='${sourceIndex - 1}']`);
-
-    const updateData = [
-      {
-        sort: sourceIndex,
-        _id: targetSheet.dataset.itemId,
-      },
-      {
-        sort: sourceIndex - 1,
-        _id: sourceSheet.dataset.itemId,
-      },
-    ];
-
-    this.actor.updateEmbeddedDocuments('Item', updateData);
+    const sheet = event.currentTarget.closest('.window-content')
+    this._swapAbilities(sheet, target, source);
 
     event.stopPropagation();
   }
@@ -406,27 +404,16 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   _onAbilityMoveDown(event) {
     event.preventDefault();
 
-    const sourceSheet = event.currentTarget.closest('.ability-sheet');
-    let sourceIndex = parseInt(sourceSheet.dataset.abilityIndex);
-
-    const targetSheet = sourceSheet.parentNode.querySelector(`[data-ability-index='${sourceIndex + 1}']`);
-    if (!targetSheet) {
+    const source = event.currentTarget.closest('.ability-sheet');
+    const sourceIndex = parseInt(source.dataset.abilityIndex);
+    const target = source.parentNode.querySelector(`[data-ability-index='${sourceIndex + 1}']`);
+    if (!target) {
       event.stopPropagation();
       return;
     }
 
-    const updateData = [
-      {
-        sort: sourceIndex,
-        _id: targetSheet.dataset.itemId,
-      },
-      {
-        sort: sourceIndex + 1,
-        _id: sourceSheet.dataset.itemId,
-      },
-    ];
-
-    this.actor.updateEmbeddedDocuments('Item', updateData);
+    const sheet = event.currentTarget.closest('.window-content')
+    this._swapAbilities(sheet, source, target);
 
     event.stopPropagation();
   }
@@ -478,9 +465,15 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   }
 
   _disableAbilityArrows(sheet) {
-    sheet.querySelectorAll('.ability-list').forEach(list => {
+    sheet.querySelectorAll('.ability-list').forEach((list) => {
       const abilities = list.querySelector('.ability-collapsible-wrapper').children;
       if (abilities.length == 0) return;
+
+      // Remove all gray arrows before adding the ones we need
+      list.querySelectorAll('.gray-out').forEach((arrow) => {
+        arrow.classList.remove('gray-out');
+      });
+
       abilities[0].querySelector('.ability-up').classList.add('gray-out');
       abilities[abilities.length - 1].querySelector('.ability-down').classList.add('gray-out');
     });
@@ -501,7 +494,10 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     sheet.querySelectorAll('.ability-sheet').forEach((abilitySheet) => {
       const ability = this.actor.items.get(abilitySheet.dataset.itemId);
-      abilitySheet.dataset.filterHidden = (this.abilityFilters.indexOf(ability.system.actionType) == -1) && (this.abilityFilters.length > 0);
+      let actionType = ability.system.actionType;
+      if (actionType.startsWith('free'))
+        actionType = 'free';
+      abilitySheet.dataset.filterHidden = (this.abilityFilters.indexOf(actionType) == -1) && (this.abilityFilters.length > 0);
       abilitySheet.hidden =  (abilitySheet.dataset.filterHidden == 'true' || abilitySheet.dataset.searchHidden == 'true');
     });
   }
@@ -523,6 +519,15 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       abilitySheet.dataset.searchHidden = !ability.name.toLowerCase().includes(this.abilitySearchString.toLowerCase());
       abilitySheet.hidden =  (abilitySheet.dataset.filterHidden == 'true' || abilitySheet.dataset.searchHidden == 'true');
     });
+  }
+
+  /** @override */
+  async _render(force=false, options={}) {
+    if (this.skipRender) {
+      this.skipRender = false;
+      return;
+    }
+    await super._render(force, options);
   }
 
   /** @override */

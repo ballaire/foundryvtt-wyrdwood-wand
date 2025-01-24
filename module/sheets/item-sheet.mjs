@@ -151,30 +151,39 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
     let sections = [...this.item.system.sections, newSection];
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _onAbilitySectionUpdate(event) {
     event.preventDefault();
 
-    let input = event.currentTarget;
-    let section = input.closest('.ability-section');
-    let index = section.dataset.index;
+    const input = event.currentTarget;
+    const section = input.closest('.ability-section');
+    const index = section.dataset.index;
 
     // Convert separate lines to <p>s for non-edit mode only
-    let displayValue = '<p>' + input.value.replace(/\n/g, '</p><p>') + '</p>';
+    const pattern = /^\s*\<(\/|li|h|div|ul|ol|table|tr|th|td).*\>\s*$/;
+    let processedLines = [];
+    input.value.split('\n').forEach((line) => {
+      if (pattern.test(line)) {
+        processedLines.push(line);
+      }
+      else {
+        processedLines.push(`<p>${line}</p>`);
+      }
+    });
 
     let sections = this.item.system.sections;
     sections[index].editContent = input.value;
-    sections[index].displayContent = displayValue;
+    sections[index].displayContent = processedLines.join('\n');
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _onToggleAetherCost(event) {
     event.preventDefault();
 
-    this.submit({updateData: {"system.aetherCost": !this.item.system.aetherCost}});
+    this.submit({updateData: {'system.aetherCost': !this.item.system.aetherCost}});
   }
 
   _onToggleDropdown(event) {
@@ -206,7 +215,7 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     let sections = this.item.system.sections;
     sections[index].background = color;
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _onAbilitySectionMoveUp(event) {
@@ -222,7 +231,7 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     sections[index] = sections[index - 1];
     sections[index - 1] = section
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _onAbilitySectionMoveDown(event) {
@@ -238,7 +247,7 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     sections[index] = sections[index + 1];
     sections[index + 1] = section
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _onAbilitySectionDelete(event) {
@@ -250,7 +259,7 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     index = parseInt(index);
     sections.splice(index, 1);
 
-    this.submit({updateData: {"system.sections": sections}});
+    this.submit({updateData: {'system.sections': sections}});
   }
 
   _disableAbilitySectionArrows(sheet) {
