@@ -241,7 +241,7 @@ input, textarea {
   }
   
   .sheet-body {
-    height: auto;
+    flex-grow: 1;
     overflow-y: hidden;
     margin-right: -8px;
 
@@ -369,6 +369,7 @@ input, textarea {
         }
 
         .ability-filter {
+          margin-right: 0.5em;
           font-weight: bold;
           align-self: center;
           text-decoration: underline;
@@ -463,7 +464,6 @@ input, textarea {
       }
     }
   }
-
 }
 
 .skill-sheet {

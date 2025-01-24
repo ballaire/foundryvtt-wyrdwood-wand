@@ -4,14 +4,13 @@ export default class WyrdwoodWandCharacter extends WyrdwoodWandActorBase {
 
   static defineSchema() {
     const fields = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
-    const schema = super.defineSchema();
 
-    schema.role = new fields.StringField({ required: true });
-    schema.background1 = new fields.StringField({ required: true });
-    schema.background2 = new fields.StringField({ required: true });
-
-    return schema;
+    return {
+      ...super.defineSchema(),
+      role: new fields.StringField({ required: true }),
+      background1: new fields.StringField({ required: true }),
+      background2: new fields.StringField({ required: true }),
+    }
   }
 
   prepareDerivedData() {

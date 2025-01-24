@@ -1,12 +1,12 @@
 <div class="ability-tab-body">
   <div class="filter-line">
     <input class="search-bar" placeholder="{{localize "MISC.search"}}" />
-    <a class="ability-filter inactive" data-filter="quick">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.quick.short"}}</a>
-    <a class="ability-filter inactive" data-filter="slow">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.slow.short"}}</a>
-    <a class="ability-filter inactive" data-filter="free">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.freeAction.short"}}</a>
-    <a class="ability-filter inactive" data-filter="ritual">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.ritual.short"}}</a>
-    <a class="ability-filter inactive" data-filter="strike">{{localize "WYRDWOOD_WAND.Item.Ability.Flag.strike"}}</a>
-    <a class="ability-filter inactive" data-filter="skirmish">{{localize "WYRDWOOD_WAND.Item.Ability.Flag.skirmish"}}</a>
+    <div>
+      <a class="ability-filter inactive" data-filter="quick">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.quick.short"}}</a>
+      <a class="ability-filter inactive" data-filter="slow">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.slow.short"}}</a>
+      <a class="ability-filter inactive" data-filter="free">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.freeAction.short"}}</a>
+      <a class="ability-filter inactive" data-filter="ritual">{{localize "WYRDWOOD_WAND.Item.Ability.ActionType.ritual.short"}}</a>
+    </div>
   </div>
   <div class="scroll-box">
     {{> "systems/wyrdwood-wand/templates/actor/parts/actor-abilities-list.hbs" abilities=basicActions title=(localize "TYPES.Item.basicActions") id="basic"}}

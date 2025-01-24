@@ -401,7 +401,7 @@
   margin-left: 0.5rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body {
-  height: auto;
+  flex-grow: 1;
   overflow-y: hidden;
   margin-right: -8px;
 }
@@ -510,6 +510,7 @@
   border-color: #000;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .ability-filter {
+  margin-right: 0.5em;
   font-weight: bold;
   align-self: center;
   text-decoration: underline;

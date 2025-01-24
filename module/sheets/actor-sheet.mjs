@@ -234,47 +234,21 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       updateInputSize(parent, input);
     });
 
-    html.on('click', '.ability-filter', (event) => {
-      event.preventDefault();
-      event.currentTarget.classList.toggle('inactive');
-    });
-
-    html.on('click', '.collapsible-title', (event) => {
-      event.preventDefault();
-
-      let element = event.currentTarget;
-      let parent = element.parentNode;
-      let arrow = element.querySelector('.expand-arrow');
-      let collapsible = parent.querySelector('.ability-collapsible-wrapper');
-
-      if (arrow)
-        arrow.classList.toggle('expanded');
-      if (collapsible) {
-        collapsible.style.setProperty('--collapse-height', '-' + parent.scrollHeight + 'px');
-        collapsible.classList.toggle('expanded');
-      }
-    });
-
-    html.on('click', '.hidden-content-title', (event) => {
-      event.preventDefault();
-
-      let element = event.currentTarget;
-      let parent = element.parentNode;
-      let hiddenContent = parent.querySelector('.ability-hidden-toggle');
-
-      if (hiddenContent) {
-        hiddenContent.hidden = !hiddenContent.hidden;
-      }
-    });
-
+    html.on('click', '.ability-filter', this._onToggleAbilityFilter.bind(this));
+    html.on('click', '.collapsible-title', this._onToggleCollapsed.bind(this));
+    html.on('click', '.hidden-content-title', this._onToggleAbilityExpand.bind(this));
     html.on('click', '.ability-up', this._onAbilityMoveUp.bind(this));
     html.on('click', '.ability-down', this._onAbilityMoveDown.bind(this));
     html.on('click', '.ability-edit', this._onAbilityEdit.bind(this));
     html.on('click', '.ability-delete', this._onAbilityDelete.bind(this));
+    html.on('input', '.ability-tab-body .search-bar', this._onUpdateAbilitySearch.bind(this));
 
-    let sheet = html[0].closest('.window-content');
+    const sheet = html[0].closest('.window-content');
     this._updateEditMode(sheet);
     this._disableAbilityArrows(sheet);
+    this._applyAbilityFilters(sheet);
+    this._applyAbilityExpand(sheet);
+    this._updateAbilitySearch(sheet);
   }
 
   /**
@@ -335,22 +309,61 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     }
   }
 
-  _updateEditMode(sheet) {
-    const inputs = sheet.querySelectorAll('input.edit-mode-input');
-    let editMode = sheet.classList.contains('edit-mode');
-    
-    inputs.forEach(input => {
-      input.disabled = !editMode;
-    });
+  _onUpdateAbilitySearch(event) {
+    event.preventDefault();
 
-    if (editMode && !this.editors['system.description'].active) {
-      this.activateEditor('system.description');
-    }
-    else if (!editMode && this.editors['system.description'].active) {
-      this.saveEditor('system.description');
+    this.abilitySearchString = event.currentTarget.value;
+    this._updateAbilitySearch(event.currentTarget.closest('.window-content'));
+  }
+
+  _onToggleAbilityFilter(event) {
+    event.preventDefault();
+    event.currentTarget.classList.toggle('inactive');
+    
+    const filter = event.currentTarget.dataset.filter;
+    const index = this.abilityFilters.indexOf(filter);
+    if (index == -1)
+      this.abilityFilters.push(filter);
+    else
+      this.abilityFilters.splice(index, 1);
+
+    this._applyAbilityFilters(event.currentTarget.closest('.window-content'));
+  }
+
+  _onToggleCollapsed(event) {
+    event.preventDefault();
+
+    let element = event.currentTarget;
+    let parent = element.parentNode;
+    let arrow = element.querySelector('.expand-arrow');
+    let collapsible = parent.querySelector('.ability-collapsible-wrapper');
+
+    if (arrow)
+      arrow.classList.toggle('expanded');
+    if (collapsible) {
+      collapsible.style.setProperty('--collapse-height', '-' + parent.scrollHeight + 'px');
+      collapsible.classList.toggle('expanded');
     }
   }
 
+  _onToggleAbilityExpand(event) {
+    event.preventDefault();
+
+    const parent = event.currentTarget.parentNode;
+    const abilityId = parent.dataset.itemId;
+    const index = this.expandedAbilities.indexOf(abilityId);
+    if (index == -1)
+      this.expandedAbilities.push(abilityId);
+    else
+      this.expandedAbilities.splice(index, 1);
+
+    const hiddenContent = parent.querySelector('.ability-hidden-toggle');
+
+    if (hiddenContent) {
+      hiddenContent.hidden = !hiddenContent.hidden;
+    }
+  }
+  
   _onToggleEditMode(event) {
     event.preventDefault();
 
@@ -445,6 +458,25 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     event.stopPropagation();
   }
 
+  _updateEditMode(sheet) {
+    if (!this.editors['system.description'])
+      return;
+
+    const inputs = sheet.querySelectorAll('input.edit-mode-input');
+    let editMode = sheet.classList.contains('edit-mode');
+    
+    inputs.forEach(input => {
+      input.disabled = !editMode;
+    });
+
+    if (editMode && !this.editors['system.description'].active) {
+      this.activateEditor('system.description');
+    }
+    else if (!editMode && this.editors['system.description'].active) {
+      this.saveEditor('system.description');
+    }
+  }
+
   _disableAbilityArrows(sheet) {
     sheet.querySelectorAll('.ability-list').forEach(list => {
       const abilities = list.querySelector('.ability-collapsible-wrapper').children;
@@ -453,6 +485,44 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       abilities[abilities.length - 1].querySelector('.ability-down').classList.add('gray-out');
     });
 
+  }
+
+  _applyAbilityFilters(sheet) {
+    if (!this.abilityFilters) this.abilityFilters = [];
+
+    sheet.querySelectorAll('.ability-filter').forEach((filter) => {
+      if (this.abilityFilters.indexOf(filter.dataset.filter) > -1) {
+        filter.classList.remove('inactive');
+      }
+      else {
+        filter.classList.add('inactive');
+      }
+    });
+
+    sheet.querySelectorAll('.ability-sheet').forEach((abilitySheet) => {
+      const ability = this.actor.items.get(abilitySheet.dataset.itemId);
+      abilitySheet.dataset.filterHidden = (this.abilityFilters.indexOf(ability.system.actionType) == -1) && (this.abilityFilters.length > 0);
+      abilitySheet.hidden =  (abilitySheet.dataset.filterHidden == 'true' || abilitySheet.dataset.searchHidden == 'true');
+    });
+  }
+
+  _applyAbilityExpand(sheet) {
+    if (!this.expandedAbilities) this.expandedAbilities = [];
+
+    sheet.querySelectorAll('.ability-sheet').forEach((abilitySheet) => {
+      const abilityBody = abilitySheet.querySelector('.ability-hidden-toggle');
+      abilityBody.hidden = (this.expandedAbilities.indexOf(abilitySheet.dataset.itemId) == -1);
+    });
+  }
+
+  _updateAbilitySearch(sheet) {
+    if (!this.abilitySearchString) this.abilitySearchString = '';
+
+    sheet.querySelectorAll('.ability-sheet').forEach((abilitySheet) => {
+      const ability = this.actor.items.get(abilitySheet.dataset.itemId);
+      abilitySheet.dataset.searchHidden = !ability.name.toLowerCase().includes(this.abilitySearchString.toLowerCase());
+      abilitySheet.hidden =  (abilitySheet.dataset.filterHidden == 'true' || abilitySheet.dataset.searchHidden == 'true');
+    });
   }
 
   /** @override */
