@@ -274,6 +274,9 @@
   visibility: hidden;
   white-space: pre-wrap;
 }
+.wyrdwood-wand input {
+  height: 1.875em;
+}
 .wyrdwood-wand input[disabled] {
   pointer-events: none;
 }
@@ -642,17 +645,15 @@
 .wyrdwood-wand .ability-sheet .header-bar select {
   color: #fff;
   font-weight: bold;
-  height: 1.625rem;
+  height: 1.875em;
 }
 .wyrdwood-wand .ability-sheet .header-bar .action-type-normal {
+  margin-right: 0.25em;
   align-self: center;
 }
 .wyrdwood-wand .ability-sheet .header-bar .actor-ability-right-side {
   display: flex;
   flex-direction: row;
-}
-.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons {
-  margin-left: 0.25em;
 }
 .wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons a {
   padding: 0.25em;

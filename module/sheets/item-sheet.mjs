@@ -314,7 +314,6 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
   /** @override */
   async _onChangeInput(event) {
-    console.log('oof');
     if (event.currentTarget.matches('.ability-section-update')) {
       this._onAbilitySectionUpdate(event);
     }

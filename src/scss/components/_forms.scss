@@ -81,6 +81,10 @@ input, textarea {
   }
 }
 
+input {
+  height: 1.875em;
+}
+
 input[disabled] {
   pointer-events: none;
 }
@@ -535,10 +539,11 @@ input[disabled] {
     select {
       color: #fff;
       font-weight: bold;
-      height: 1.625rem;
+      height: 1.875em;
     }
 
     .action-type-normal {
+      margin-right: 0.25em;
       align-self: center;
     }
 
@@ -547,12 +552,8 @@ input[disabled] {
       flex-direction: row;
     }
 
-    .actor-ability-edit-buttons {
-      margin-left: 0.25em;
-
-      a {
-        padding: 0.25em;
-      }
+    .actor-ability-edit-buttons a {
+      padding: 0.25em;
     }
   }
 

@@ -60,7 +60,6 @@ Hooks.once('init', function () {
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
 
-  // Register sheet application classes
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('wyrdwood-wand', WyrdwoodWandActorSheet, {
     makeDefault: true,
@@ -72,7 +71,6 @@ Hooks.once('init', function () {
     label: 'WYRDWOOD_WAND.SheetLabels.item',
   });
 
-  // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
 

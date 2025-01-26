@@ -539,4 +539,14 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     return [editButton, ...buttons];
   }
+
+  /** @override */
+  async _onChangeInput(event) {
+    console.log(this.actor);
+    if (event.target.classList.contains('search-bar')) {
+      return;
+    }
+
+    return super._onChangeInput(event);
+  }
 }

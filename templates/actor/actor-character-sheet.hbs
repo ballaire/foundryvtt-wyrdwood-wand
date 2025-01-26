@@ -1,7 +1,7 @@
 <form class="actor-sheet" autocomplete="off">
   <div class="sidebar">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-    <div class="bar health-empty">
+    <div class="bar health-empty" title="{{localize "WYRDWOOD_WAND.Actor.health"}}">
       <div class="bar-fill health-full" style="width: calc(100% * {{system.health.value}} / {{system.health.max}})"></div>
       <span class="bar-text">
         <input class="left-input" name="system.health.value" type="text" value="{{system.health.value}}" data-dtype="Number" />
@@ -9,7 +9,7 @@
         <input class="right-input edit-mode-input" name="system.health.max" type="text" value="{{system.health.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
-    <div class="bar destiny-empty">
+    <div class="bar destiny-empty" title="{{localize "WYRDWOOD_WAND.Actor.destiny"}}">
       <div class="bar-fill destiny-full" style="width: calc(100% * {{system.destiny.value}} / {{system.destiny.max}}"></div>
       <span class="bar-text">
         <input class="left-input" name="system.destiny.value" type="text" value="{{system.destiny.value}}" data-dtype="Number" />
@@ -17,7 +17,7 @@
         <input class="right-input edit-mode-input" name="system.destiny.max" type="text" value="{{system.destiny.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
-    <div class="bar aether-empty">
+    <div class="bar aether-empty" title="{{localize "WYRDWOOD_WAND.Actor.aether"}}">
       <div class="bar-fill aether-full" style="width: calc(100% * {{system.aether.value}} / {{system.aether.max}}"></div>
       <span class="bar-text">
         <input class="left-input" name="system.aether.value" type="text" value="{{system.aether.value}}" data-dtype="Number" />
