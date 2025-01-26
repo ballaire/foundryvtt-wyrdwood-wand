@@ -4,7 +4,7 @@ import {
 } from '../helpers/effects.mjs';
 
 /**
- * Extend the basic ItemSheet with some very simple modifications
+ * Extend the basic ItemSheet
  * @extends {ItemSheet}
  */
 export class WyrdwoodWandItemSheet extends ItemSheet {
@@ -81,40 +81,12 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     super.activateListeners(html);
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) =>
-      onManageActiveEffect(ev, this.item)
+    html.on('click', '.effect-control', (event) =>
+      onManageActiveEffect(event, this.item)
     );
 
-    function updateInputSize(parent, input) {
-      if (input.value) {
-        parent.dataset.value = input.value;
-      }
-      else if (parent.dataset.defaultValue) {
-        parent.dataset.value = parent.dataset.defaultValue;
-      }
-      else {
-        parent.dataset.value = 'Empty';
-      }
-    }
-
-    html.on('input', '.input-sizer-input', (event) => {
-      event.preventDefault();
-      let input = event.currentTarget;
-      let parent = input.parentNode;
-
-      updateInputSize(parent, input);
-    });
-
-    html[0].querySelectorAll('.input-sizer-input').forEach((input) => {
-      let parent = input.parentNode;
-
-      updateInputSize(parent, input);
-    });
-
+    html.on('input', '.input-sizer-input', this._onUpdateInputSize.bind(this));
     html.on('click', '.add-section-button', this._onAddAbilitySection.bind(this));
-
-    html.on('change', '.ability-section-update', this._onAbilitySectionUpdate.bind(this));
-
     html.on('click', '.aether-check', this._onToggleAetherCost.bind(this));
     html.on('click', '.dropdown-button', this._onToggleDropdown.bind(this));
     html.on('click', '.sheet-wrapper', this._onCloseDropdowns.bind(this));
@@ -123,21 +95,34 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     html.on('click', '.ability-section-down', this._onAbilitySectionMoveDown.bind(this));
     html.on('click', '.delete-section', this._onAbilitySectionDelete.bind(this));
 
-    this._disableAbilitySectionArrows(html[0]);
+    const sheet = html[0].closest('.window-content');
+    sheet.querySelectorAll('.input-sizer-input').forEach((input) => this._updateInputSize(input));
+    this._disableAbilitySectionArrows(sheet);
     if (this.fromActorSheet)
-      this._toggleEditMode(html[0].closest('.app'));
+      this._toggleEditMode(sheet.closest('.app'));
     else
-      this._updateEditMode(html[0].closest('.app'));
+      this._updateEditMode(sheet.closest('.app'));
   }
-  
-  /** @override */
-  async _render(force=false, options={}) {
-    if(options.fromActorSheet)
-      this.fromActorSheet = true;
-    else
-      this.fromActorSheet = false;
 
-    super._render(force, options);
+  _onUpdateInputSize(event) {
+    event.preventDefault();
+    const input = event.currentTarget;
+
+    this._updateInputSize(input);
+  }
+
+  _updateInputSize(input) {
+    const parent = input.parentNode;
+
+    if (input.value) {
+      parent.dataset.value = input.value;
+    }
+    else if (parent.dataset.defaultValue) {
+      parent.dataset.value = parent.dataset.defaultValue;
+    }
+    else {
+      parent.dataset.value = 'Empty';
+    }
   }
 
   _onAddAbilitySection(event) {
@@ -155,14 +140,12 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
   }
 
   _onAbilitySectionUpdate(event) {
-    event.preventDefault();
-
     const input = event.currentTarget;
     const section = input.closest('.ability-section');
     const index = section.dataset.index;
 
     // Convert separate lines to <p>s for non-edit mode only
-    const pattern = /^\s*\<(\/|li|h|div|ul|ol|table|tr|th|td).*\>\s*$/;
+    const pattern = /^\s*\<(\/|p|li|h|div|ul|ol|table|tr|th|td).*\>\s*$/;
     let processedLines = [];
     input.value.split('\n').forEach((line) => {
       if (pattern.test(line)) {
@@ -296,6 +279,23 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     const app = event.currentTarget.closest('.app');
     this._toggleEditMode(app);
   }
+  
+  /** @override */
+  async _render(force=false, options={}) {
+    if (options.fromActorSheet) {
+      this.fromActorSheet = true;
+    }
+    else {
+      this.fromActorSheet = false;
+    }
+    
+    if (this.skipRender) {
+      this.skipRender = false;
+      return;
+    }
+
+    super._render(force, options);
+  }
 
   /** @override */
   _getHeaderButtons() {
@@ -312,16 +312,11 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     return [editButton, ...buttons];
   }
 
-  /** @override 
-   * 
-   * Prevent triggers for events handled elsewhere.
-  */
+  /** @override */
   async _onChangeInput(event) {
-  
-    for (const ignoreClass of ['.ability-section-update']) {
-      if (event.currentTarget.matches(ignoreClass)) {
-        return;
-      }
+    console.log('oof');
+    if (event.currentTarget.matches('.ability-section-update')) {
+      this._onAbilitySectionUpdate(event);
     }
 
     return super._onChangeInput(event);

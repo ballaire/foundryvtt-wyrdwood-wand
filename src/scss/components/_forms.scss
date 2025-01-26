@@ -81,6 +81,10 @@ input, textarea {
   }
 }
 
+input[disabled] {
+  pointer-events: none;
+}
+
 // MINIMUM WINDOW DIMENSIONS
 &:has(.window-content > .actor-sheet) {
   min-width: 600px;
@@ -630,6 +634,7 @@ input, textarea {
 
     .ability-section-options {
       display: grid;
+      height: fit-content;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: repeat(2, minmax(0, 1fr));
       justify-items: center;
@@ -674,7 +679,7 @@ input, textarea {
     display: flex;
     justify-content: space-between;
     font-style: italic;
-    padding: 0 0.25rem;
+    padding: 0 0 0 0.25rem;
 
     .right-justify {
       text-align: right;

@@ -28,22 +28,22 @@
   </div>
   <div class="content">
     <div class="header-area">
-      <input class="character-name edit-mode-input" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+      <input class="character-name edit-mode-input" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "MISC.name"}}" />
       <div class="character-undername">
         <div class="character-info">
           <div class="line-1">
             <span>{{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}}</span>
-            <label class="input-sizer" data-default-value="Role">
-              <input class="edit-mode-input input-sizer-input" name="system.role" type="text" value="{{system.role}}" placeholder="Role" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.role"}}">
+              <input class="edit-mode-input input-sizer-input" name="system.role" type="text" value="{{system.role}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.role"}}" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
           </div>
           <div class="line-2">
-            <label class="input-sizer" data-default-value="Background 1">
-              <input class="edit-mode-input input-sizer-input" name="system.background1" type="text" value="{{system.background1}}" placeholder="Background 1" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.background"}} 1">
+              <input class="edit-mode-input input-sizer-input" name="system.background1" type="text" value="{{system.background1}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.background"}} 1" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
             <span>|</span>
-            <label class="input-sizer" data-default-value="Background 2">
-              <input class="edit-mode-input input-sizer-input" name="system.background2" type="text" value="{{system.background2}}" placeholder="Background 2" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.background"}} 2">
+              <input class="edit-mode-input input-sizer-input" name="system.background2" type="text" value="{{system.background2}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.background"}} 2" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
           </div>
         </div>

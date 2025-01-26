@@ -76,6 +76,10 @@
       "equipment": "Equipment",
       "effects": "Effects",
       "biography": "Biography",
+      "aether": "Aether",
+      "health": "Health",
+      "destiny": "Destiny",
+      "background": "Background",
       "Stats": {
         "attributes": "Attributes",
         "skills": "Skills",
@@ -128,9 +132,22 @@
   },
   
   "MISC": {
+    "name": "Name",
+    "moveUp": "Move Up",
+    "moveDown": "Move Down",
     "edit": "Edit",
+    "delete": "Delete",
     "search": "Search",
     "meter": "meter",
-    "meters": "meters"
+    "meters": "meters",
+    "AbilitySection": {
+      "blank": "Blank",
+      "header": "Header",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "tertiary": "Tertiary",
+      "footer": "Footer",
+      "footerText": "Footer Text"
+    }
   }
 }

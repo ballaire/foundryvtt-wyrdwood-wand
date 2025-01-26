@@ -1,19 +1,20 @@
-
 <div class="ability-list-item ability-sheet collapsible-parent {{system.actionType}}" data-item-id="{{_id}}" data-ability-index="{{@index}}">
   <div class="header-bar header hidden-content-title">
-    {{name}}
+    <div class="input-sizer" data-default-value="{{localize "MISC.name"}}">
+      <input class="name input-sizer-input" name="name" type="text" value="{{name}}" placeholder="{{localize "MISC.name"}}" disabled="disabled" />
+    </div>
     <div class="actor-ability-right-side">
       <div class="action-type-normal">
         {{#if system.aetherCost}}
-          1 Aether •
+          1 {{localize "WYRDWOOD_WAND.Actor.aether"}} •
         {{/if}}
         {{localize (concat "WYRDWOOD_WAND.Item.Ability.ActionType." system.actionType ".long")}}
       </div>
       <div class="actor-ability-edit-buttons edit-mode-only">
-        <a class="fas fa-arrow-up ability-up" title="Move Up"></a>
-        <a class="fas fa-arrow-down ability-down" title="Move Down"></a>
-        <a class="fas fa-edit ability-edit" title="Edit"></a>
-        <a class="fas fa-trash ability-delete" title="Delete"></a>
+        <a class="fas fa-arrow-up ability-up" title="{{localize "MISC.moveUp"}}"></a>
+        <a class="fas fa-arrow-down ability-down" title="{{localize "MISC.moveDown"}}"></a>
+        <a class="fas fa-edit ability-edit" title="{{localize "MISC.edit"}}"></a>
+        <a class="fas fa-trash ability-delete" title="{{localize "MISC.delete"}}"></a>
       </div>
     </div>
   </div>
@@ -58,10 +59,10 @@
     </div>
     <div class="footer-bar footer">
       <div class="input-sizer">
-        <input class="input-sizer-input" name="system.footerLeftText" type="text" value="{{system.footerLeftText}}" placeholder="Footer Text" disabled="disabled" />
+        <input class="input-sizer-input" name="system.footerLeftText" type="text" value="{{system.footerLeftText}}" disabled="disabled" />
       </div>
       <div class="input-sizer right-justify">
-        <input class="input-sizer-input" name="system.footerRightText" type="text" value="{{system.footerRightText}}" placeholder="Footer Text" disabled="disabled" />
+        <input class="input-sizer-input" name="system.footerRightText" type="text" value="{{system.footerRightText}} " disabled="disabled" />
       </div>
     </div>
   </div>

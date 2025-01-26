@@ -4,7 +4,7 @@ import {
 } from '../helpers/effects.mjs';
 
 /**
- * Extend the basic ActorSheet with some very simple modifications
+ * Extend the basic ActorSheet
  * @extends {ActorSheet}
  */
 export class WyrdwoodWandActorSheet extends ActorSheet {
@@ -28,8 +28,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   get template() {
     return `systems/wyrdwood-wand/templates/actor/actor-${this.actor.type}-sheet.hbs`;
   }
-
-  /* -------------------------------------------- */
 
   /** @override */
   async getData() {
@@ -203,32 +201,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       this.actor.deleteEmbeddedDocuments('Item', [itemId]);
     });
 
-    function updateInputSize(parent, input) {
-      if (input.value) {
-        parent.dataset.value = input.value;
-      }
-      else if (parent.dataset.defaultValue) {
-        parent.dataset.value = parent.dataset.defaultValue;
-      }
-      else {
-        parent.dataset.value = 'Empty';
-      }
-    }
-
-    html.on('input', '.input-sizer-input', (event) => {
-      event.preventDefault();
-      let input = event.currentTarget;
-      let parent = input.parentNode;
-
-      updateInputSize(parent, input);
-    });
-
-    html[0].querySelectorAll('.input-sizer-input').forEach((input) => {
-      let parent = input.parentNode;
-
-      updateInputSize(parent, input);
-    });
-
+    html.on('input', '.input-sizer-input', this._onUpdateInputSize.bind(this));
     html.on('click', '.ability-filter', this._onToggleAbilityFilter.bind(this));
     html.on('click', '.collapsible-title', this._onToggleCollapsed.bind(this));
     html.on('click', '.hidden-content-title', this._onToggleAbilityExpand.bind(this));
@@ -238,12 +211,35 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     html.on('click', '.ability-delete', this._onAbilityDelete.bind(this));
     html.on('input', '.ability-tab-body .search-bar', this._onUpdateAbilitySearch.bind(this));
 
+
     const sheet = html[0].closest('.window-content');
+    sheet.querySelectorAll('.input-sizer-input').forEach((input) => this._updateInputSize(input));
     this._updateEditMode(sheet);
     this._disableAbilityArrows(sheet);
     this._applyAbilityFilters(sheet);
     this._applyAbilityExpand(sheet);
     this._updateAbilitySearch(sheet);
+  }
+
+  _onUpdateInputSize(event) {
+    event.preventDefault();
+    const input = event.currentTarget;
+
+    this._updateInputSize(input);
+  }
+
+  _updateInputSize(input) {
+    const parent = input.parentNode;
+
+    if (input.value) {
+      parent.dataset.value = input.value;
+    }
+    else if (parent.dataset.defaultValue) {
+      parent.dataset.value = parent.dataset.defaultValue;
+    }
+    else {
+      parent.dataset.value = 'Empty';
+    }
   }
 
   /**
@@ -477,7 +473,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       abilities[0].querySelector('.ability-up').classList.add('gray-out');
       abilities[abilities.length - 1].querySelector('.ability-down').classList.add('gray-out');
     });
-
   }
 
   _applyAbilityFilters(sheet) {
