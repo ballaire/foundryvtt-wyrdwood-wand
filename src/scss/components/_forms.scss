@@ -4,28 +4,31 @@
   box-sizing: border-box;
 }
 
-.item-form {
-  font-family: $font-primary;
-}
-
-.editor {
-  height: 100%;
-  background-color: $section-background;
-  border-radius: 0.25rem;
-}
-
-.editor-content, .tox-edit-area {
-  padding: 0 0.5rem;
-}
-
-ul {
+ul, ol, p {
   margin: 0;
+}
+
+.hover-reveal-parent {
+  .hover-reveal-content {
+    display: none;
+  }
+
+  &:hover .hover-reveal-content {
+    display: inherit;
+  }
+}
+
+.message-content {
+  margin: 0 -5px -5px -5px;
+  font-size: 0.75rem;
 }
 
 input, textarea {
   background-color: #00000000;
   border-color: #00000000;
   transition: border-color 0.2s ease;
+  font: inherit;
+  resize: none;
 
   &:hover, &:focus {
     border-color: $input-border;
@@ -34,7 +37,7 @@ input, textarea {
   &:disabled {
     border: 1px solid;
     border-color: #00000000;
-    color: #000;
+    color: inherit;
   }
 }
 
@@ -106,7 +109,7 @@ input[disabled] {
   cursor: default;
 }
 
-.window-content:has(.actor-sheet) {
+.window-content {
   overflow: hidden;
 }
 
@@ -380,11 +383,16 @@ input[disabled] {
           border-color: #000;
         }
 
-        .ability-filter {
-          margin-right: 0.5em;
-          font-weight: bold;
-          align-self: center;
-          text-decoration: underline;
+        .filter-line-right {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .ability-filter {
+            font-weight: bold;
+            text-decoration: underline;
+            margin-right: 0.5em;
+          }
         }
 
         .inactive {
@@ -442,9 +450,9 @@ input[disabled] {
           }
         }
 
-        .ability-list-item {
+        .item-card {
           margin-left: 0.75rem;
-          margin-top: 0.25rem;
+          margin-top: 0.125rem;
         }
 
         .ability-line-primary {
@@ -467,13 +475,28 @@ input[disabled] {
       padding-left: 0.5rem;
       margin-right: 0.5rem;
 
-      a.editor-edit {
-        display: none;
+      .biography-content {
+        height: 100%;
+        background-color: $section-background;
+        border-radius: 0.25rem;
+
+        div {
+          height: calc(100% - 2px);
+        }
       }
 
-      button[title="Save"] {
-        display: none;
+      textarea {
+        height: 100%;
+        width: 100%;
+        padding: 6px 7px;
       }
+      
+      .view-box {
+        height: 100%;
+        width: 100%;
+        padding: 8px;
+      }
+      
     }
   }
 }
@@ -500,6 +523,19 @@ input[disabled] {
   background-color: #fff;
   color: #000;
 
+  &.item-card {
+    .header-bar, .footer-bar {
+      padding: 5px 6.75px;
+    }
+  }
+
+  &.item-main {
+    .header-bar {
+      height: 1.625rem;
+      padding: 0 0.25rem;
+    }
+  }
+
   select {
     background-color: #00000000;
     border: none;
@@ -512,13 +548,26 @@ input[disabled] {
   }
   
   .header-bar {
-    height: 1.625rem;
-    padding: 0 0.25rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
+
+    .ability-header-left-side {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .rollable {
+        margin-left: 0.25rem;
+      }
+    }
+
+    .actor-ability-right-side {
+      display: flex;
+      flex-direction: row;
+    }
 
     input {
       color: #fff;
@@ -547,13 +596,8 @@ input[disabled] {
       align-self: center;
     }
 
-    .actor-ability-right-side {
-      display: flex;
-      flex-direction: row;
-    }
-
     .actor-ability-edit-buttons a {
-      padding: 0.25em;
+      padding: 0 0.25em;
     }
   }
 
@@ -626,10 +670,6 @@ input[disabled] {
 
       .view-postfix {
         margin-left: 2.75px;
-      }
-
-      p {
-        margin: 0;
       }
     }
 

@@ -42,5 +42,7 @@ export default class WyrdwoodWandActorBase extends WyrdwoodWandDataModel {
     this.evasion = 10 + this.agility + this.evasionBonus;
     this.resolve = 10 + this.focus + this.resolveBonus;
     this.tenacity = 10 + this.strength + this.tenacityBonus;
+
+    this.displayDescription = this._processTextareaHtml(this.description);
   }
 }

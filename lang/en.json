@@ -140,6 +140,8 @@
     "search": "Search",
     "meter": "meter",
     "meters": "meters",
+    "roll": "Roll",
+    "sendToChat": "Send to Chat",
     "AbilitySection": {
       "blank": "Blank",
       "header": "Header",

@@ -6,7 +6,7 @@
   <div class="ability-collapsible">
     <div class="ability-collapsible-wrapper expanded" data-id="{{id}}">
       {{#each abilities as |ability|}}
-        {{> "systems/wyrdwood-wand/templates/actor/parts/actor-ability.hbs" ability}}
+{{> "systems/wyrdwood-wand/templates/item/parts/ability-card.hbs" ability inSheet=true}}
       {{/each}}
     </div>
   </div>

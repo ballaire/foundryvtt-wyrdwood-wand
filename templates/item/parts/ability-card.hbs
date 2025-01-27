@@ -1,7 +1,10 @@
-<div class="ability-list-item ability-sheet collapsible-parent {{system.actionType}}" data-item-id="{{_id}}" data-ability-index="{{@index}}">
-  <div class="header-bar header hidden-content-title">
-    <div class="input-sizer" data-default-value="{{localize "MISC.name"}}">
-      <input class="name input-sizer-input" type="text" value="{{name}}" placeholder="{{localize "MISC.name"}}" disabled="disabled" />
+<div class="item item-card ability-sheet collapsible-parent {{system.actionType}}" data-item-id="{{_id}}" data-ability-index="{{@index}}">
+  <div class="header-bar header hidden-content-title hover-reveal-parent">
+    <div class="ability-header-left-side">
+      <div>
+        {{name}}
+      </div>
+      {{#if inSheet}}<a class="fas fa-comment rollable hover-reveal-content" title="{{localize "MISC.sendToChat"}}" data-roll-type="item"></a>{{/if}}
     </div>
     <div class="actor-ability-right-side">
       <div class="action-type-normal">
@@ -18,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="ability-hidden-toggle" data-id="{{id}}" hidden="hidden">
+  <div class="ability-hidden-toggle" data-id="{{id}}">
     <div class="flavor ability-section tertiary">
       {{#if system.flavorDescription}}
         <div class="view-box">
@@ -57,12 +60,12 @@
         </div>
       {{/each}}
     </div>
-    <div class="footer-bar footer">
-      <div class="input-sizer">
-        <input class="input-sizer-input" name="system.footerLeftText" type="text" value="{{system.footerLeftText}}" disabled="disabled" />
+    <div class="footer-bar footer item-card-footer">
+      <div>
+        {{system.footerLeftText}}
       </div>
-      <div class="input-sizer right-justify">
-        <input class="input-sizer-input" name="system.footerRightText" type="text" value="{{system.footerRightText}} " disabled="disabled" />
+      <div>
+        {{system.footerRightText}} 
       </div>
     </div>
   </div>

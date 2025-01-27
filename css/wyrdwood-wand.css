@@ -1,14 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-/* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
-}
-
-.rollable:hover, .rollable:focus {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
 }
 
 .grid,
@@ -204,51 +197,58 @@
   text-align: center;
 }
 
-/* Styles limited to wyrdwood-wand sheets */
-.wyrdwood-wand *,
-.wyrdwood-wand *::before,
-.wyrdwood-wand *::after {
-  box-sizing: border-box;
-}
-.wyrdwood-wand .item-form {
+.wyrdwood-wand, .chat-message {
   font-family: "Roboto", sans-serif;
 }
-.wyrdwood-wand .editor {
-  height: 100%;
-  background-color: rgba(167, 167, 170, 0.3764705882);
-  border-radius: 0.25rem;
+.wyrdwood-wand *,
+.wyrdwood-wand *::before,
+.wyrdwood-wand *::after, .chat-message *,
+.chat-message *::before,
+.chat-message *::after {
+  box-sizing: border-box;
 }
-.wyrdwood-wand .editor-content, .wyrdwood-wand .tox-edit-area {
-  padding: 0 0.5rem;
-}
-.wyrdwood-wand ul {
+.wyrdwood-wand ul, .wyrdwood-wand ol, .wyrdwood-wand p, .chat-message ul, .chat-message ol, .chat-message p {
   margin: 0;
 }
-.wyrdwood-wand input, .wyrdwood-wand textarea {
+.wyrdwood-wand .hover-reveal-parent .hover-reveal-content, .chat-message .hover-reveal-parent .hover-reveal-content {
+  display: none;
+}
+.wyrdwood-wand .hover-reveal-parent:hover .hover-reveal-content, .chat-message .hover-reveal-parent:hover .hover-reveal-content {
+  display: inherit;
+}
+.wyrdwood-wand .message-content, .chat-message .message-content {
+  margin: 0 -5px -5px -5px;
+  font-size: 0.75rem;
+}
+.wyrdwood-wand input, .wyrdwood-wand textarea, .chat-message input, .chat-message textarea {
   background-color: rgba(0, 0, 0, 0);
   border-color: rgba(0, 0, 0, 0);
   transition: border-color 0.2s ease;
+  font: inherit;
+  resize: none;
 }
-.wyrdwood-wand input:hover, .wyrdwood-wand input:focus, .wyrdwood-wand textarea:hover, .wyrdwood-wand textarea:focus {
+.wyrdwood-wand input:hover, .wyrdwood-wand input:focus, .wyrdwood-wand textarea:hover, .wyrdwood-wand textarea:focus, .chat-message input:hover, .chat-message input:focus, .chat-message textarea:hover, .chat-message textarea:focus {
   border-color: #b11501;
 }
-.wyrdwood-wand input:disabled, .wyrdwood-wand textarea:disabled {
+.wyrdwood-wand input:disabled, .wyrdwood-wand textarea:disabled, .chat-message input:disabled, .chat-message textarea:disabled {
   border: 1px solid;
   border-color: rgba(0, 0, 0, 0);
-  color: #000;
+  color: inherit;
 }
-.wyrdwood-wand .input-sizer {
+.wyrdwood-wand .input-sizer, .chat-message .input-sizer {
   display: inline-grid;
   vertical-align: top;
   align-items: center;
   position: relative;
 }
-.wyrdwood-wand .input-sizer.full-width {
+.wyrdwood-wand .input-sizer.full-width, .chat-message .input-sizer.full-width {
   width: 100%;
 }
 .wyrdwood-wand .input-sizer::after,
 .wyrdwood-wand .input-sizer input,
-.wyrdwood-wand .input-sizer textarea {
+.wyrdwood-wand .input-sizer textarea, .chat-message .input-sizer::after,
+.chat-message .input-sizer input,
+.chat-message .input-sizer textarea {
   width: auto;
   min-width: 1rem;
   grid-area: 1/1;
@@ -259,48 +259,49 @@
   appearance: none;
 }
 .wyrdwood-wand .input-sizer::after,
-.wyrdwood-wand .input-sizer input {
+.wyrdwood-wand .input-sizer input, .chat-message .input-sizer::after,
+.chat-message .input-sizer input {
   padding: 0 0.125em 0 0.125em;
 }
-.wyrdwood-wand .input-sizer textarea {
+.wyrdwood-wand .input-sizer textarea, .chat-message .input-sizer textarea {
   height: 100%;
   overflow: hidden;
   padding: 0;
 }
-.wyrdwood-wand .input-sizer::after {
+.wyrdwood-wand .input-sizer::after, .chat-message .input-sizer::after {
   border: none;
   padding: 1px;
   content: attr(data-value) " ";
   visibility: hidden;
   white-space: pre-wrap;
 }
-.wyrdwood-wand input {
+.wyrdwood-wand input, .chat-message input {
   height: 1.875em;
 }
-.wyrdwood-wand input[disabled] {
+.wyrdwood-wand input[disabled], .chat-message input[disabled] {
   pointer-events: none;
 }
-.wyrdwood-wand:has(.window-content > .actor-sheet) {
+.wyrdwood-wand:has(.window-content > .actor-sheet), .chat-message:has(.window-content > .actor-sheet) {
   min-width: 600px;
   min-height: 130px;
 }
-.wyrdwood-wand:has(.window-content > .ability-sheet) {
+.wyrdwood-wand:has(.window-content > .ability-sheet), .chat-message:has(.window-content > .ability-sheet) {
   min-width: 400px;
   min-height: 130px;
 }
-.wyrdwood-wand .gray-out {
+.wyrdwood-wand .gray-out, .chat-message .gray-out {
   color: gray;
   text-shadow: none;
   cursor: default;
 }
-.wyrdwood-wand .window-content:has(.actor-sheet) {
+.wyrdwood-wand .window-content, .chat-message .window-content {
   overflow: hidden;
 }
-.wyrdwood-wand .actor-sheet {
+.wyrdwood-wand .actor-sheet, .chat-message .actor-sheet {
   height: 100%;
   display: flex;
 }
-.wyrdwood-wand .actor-sheet .sidebar {
+.wyrdwood-wand .actor-sheet .sidebar, .chat-message .actor-sheet .sidebar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -310,15 +311,15 @@
   width: 8rem;
   min-width: 8rem;
 }
-.wyrdwood-wand .actor-sheet .sidebar .profile-img {
+.wyrdwood-wand .actor-sheet .sidebar .profile-img, .chat-message .actor-sheet .sidebar .profile-img {
   width: 100%;
   border-radius: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sidebar .sidebar-label {
+.wyrdwood-wand .actor-sheet .sidebar .sidebar-label, .chat-message .actor-sheet .sidebar .sidebar-label {
   font-weight: bold;
   padding: 5px;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar {
+.wyrdwood-wand .actor-sheet .sidebar .bar, .chat-message .actor-sheet .sidebar .bar {
   position: relative;
   overflow: hidden;
   margin-top: 0.25rem;
@@ -326,118 +327,118 @@
   height: 1.375rem;
   border-radius: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-fill {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-fill, .chat-message .actor-sheet .sidebar .bar .bar-fill {
   position: absolute;
   height: 100%;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text, .chat-message .actor-sheet .sidebar .bar .bar-text {
   position: absolute;
   display: flex;
   flex-direction: row;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text input {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text input, .chat-message .actor-sheet .sidebar .bar .bar-text input {
   font-weight: bold;
   height: 100%;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .bar-slash {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .bar-slash, .chat-message .actor-sheet .sidebar .bar .bar-text .bar-slash {
   padding-top: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .left-input {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .left-input, .chat-message .actor-sheet .sidebar .bar .bar-text .left-input {
   text-align: right;
 }
-.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .right-input {
+.wyrdwood-wand .actor-sheet .sidebar .bar .bar-text .right-input, .chat-message .actor-sheet .sidebar .bar .bar-text .right-input {
   text-align: left;
 }
-.wyrdwood-wand .actor-sheet .sidebar .health-empty {
+.wyrdwood-wand .actor-sheet .sidebar .health-empty, .chat-message .actor-sheet .sidebar .health-empty {
   background-color: #a2f0b7;
 }
-.wyrdwood-wand .actor-sheet .sidebar .health-full {
+.wyrdwood-wand .actor-sheet .sidebar .health-full, .chat-message .actor-sheet .sidebar .health-full {
   background-color: #4caf50;
 }
-.wyrdwood-wand .actor-sheet .sidebar .destiny-empty {
+.wyrdwood-wand .actor-sheet .sidebar .destiny-empty, .chat-message .actor-sheet .sidebar .destiny-empty {
   background-color: #8eaef3;
 }
-.wyrdwood-wand .actor-sheet .sidebar .destiny-full {
+.wyrdwood-wand .actor-sheet .sidebar .destiny-full, .chat-message .actor-sheet .sidebar .destiny-full {
   background-color: #6083cf;
 }
-.wyrdwood-wand .actor-sheet .sidebar .aether-empty {
+.wyrdwood-wand .actor-sheet .sidebar .aether-empty, .chat-message .actor-sheet .sidebar .aether-empty {
   background-color: #f38eeb;
 }
-.wyrdwood-wand .actor-sheet .sidebar .aether-full {
+.wyrdwood-wand .actor-sheet .sidebar .aether-full, .chat-message .actor-sheet .sidebar .aether-full {
   background-color: #f04fe2;
 }
-.wyrdwood-wand .actor-sheet .content {
+.wyrdwood-wand .actor-sheet .content, .chat-message .actor-sheet .content {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding-left: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .header-area {
+.wyrdwood-wand .actor-sheet .header-area, .chat-message .actor-sheet .header-area {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-name {
+.wyrdwood-wand .actor-sheet .header-area .character-name, .chat-message .actor-sheet .header-area .character-name {
   font-size: 2rem;
   width: 100%;
   height: 1.25em;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-undername {
+.wyrdwood-wand .actor-sheet .header-area .character-undername, .chat-message .actor-sheet .header-area .character-undername {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info, .chat-message .actor-sheet .header-area .character-undername .character-info {
   display: flex;
   flex-direction: column;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-1 {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-1, .chat-message .actor-sheet .header-area .character-undername .character-info .line-1 {
   display: flex;
   padding-left: 0.375rem;
   margin-bottom: -0.25rem;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-2 {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info .line-2, .chat-message .actor-sheet .header-area .character-undername .character-info .line-2 {
   display: flex;
   padding-left: 0.125rem;
   margin-bottom: -0.25rem;
 }
-.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info span {
+.wyrdwood-wand .actor-sheet .header-area .character-undername .character-info span, .chat-message .actor-sheet .header-area .character-undername .character-info span {
   align-self: center;
 }
-.wyrdwood-wand .actor-sheet .sheet-tabs {
+.wyrdwood-wand .actor-sheet .sheet-tabs, .chat-message .actor-sheet .sheet-tabs {
   margin-left: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body {
+.wyrdwood-wand .actor-sheet .sheet-body, .chat-message .actor-sheet .sheet-body {
   flex-grow: 1;
   overflow-y: hidden;
   margin-right: -8px;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .tab {
+.wyrdwood-wand .actor-sheet .sheet-body .tab, .chat-message .actor-sheet .sheet-body .tab {
   height: 100%;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body, .chat-message .actor-sheet .sheet-body .stats-tab-body {
   display: flex;
   flex-direction: row;
   margin-top: 0.25rem;
   margin-right: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-column {
   margin-left: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column-1 {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column-1, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-column-1 {
   flex: 3;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column-2 {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-column-2, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-column-2 {
   flex: 2;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area {
   margin-bottom: 0.5rem;
   border-radius: 0.25rem;
   overflow: hidden;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .title-line {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .title-line, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .title-line {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -445,18 +446,18 @@
   color: #fff;
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-area-main {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-area-main, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-area-main {
   height: fit-content;
   background-color: rgba(167, 167, 170, 0.3764705882);
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-attributes {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-attributes, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .stats-attributes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -464,256 +465,282 @@
   border-width: 1px;
   padding: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item .attribute-name {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item .attribute-name, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item .attribute-name {
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item input {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item input, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item input {
   font-size: 2rem;
   text-align: center;
   height: 1.2em;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item a {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item a, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .attributes-item a {
   font-size: 2rem;
   text-align: center;
   height: 1.2em;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list {
   display: flex;
   flex-direction: column;
   align-items: start;
   padding: 0 0.25rem 0 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item {
   display: flex;
   justify-content: space-between;
   width: 100%;
   font-weight: bold;
   font-size: 1rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item .delete-item {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item .delete-item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item .delete-item {
   align-self: center;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item {
   width: fit-content;
   background-color: rgba(167, 167, 170, 0.3764705882);
   border-radius: 0 0 0.25rem 0.25rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item i {
+.wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item i, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item i {
   margin-right: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body, .chat-message .actor-sheet .sheet-body .ability-tab-body {
   display: flex;
   flex-direction: column;
   margin-top: 0.25rem;
   margin-left: 0.5rem;
   height: 100%;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line, .chat-message .actor-sheet .sheet-body .ability-tab-body .filter-line {
   display: flex;
   justify-content: space-between;
   min-width: 25rem;
   margin-right: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .search-bar {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .search-bar, .chat-message .actor-sheet .sheet-body .ability-tab-body .filter-line .search-bar {
   border-color: #000;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .ability-filter {
-  margin-right: 0.5em;
-  font-weight: bold;
-  align-self: center;
-  text-decoration: underline;
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .filter-line-right, .chat-message .actor-sheet .sheet-body .ability-tab-body .filter-line .filter-line-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .inactive {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .filter-line-right .ability-filter, .chat-message .actor-sheet .sheet-body .ability-tab-body .filter-line .filter-line-right .ability-filter {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: 0.5em;
+}
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .filter-line .inactive, .chat-message .actor-sheet .sheet-body .ability-tab-body .filter-line .inactive {
   color: #666;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .scroll-box {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .scroll-box, .chat-message .actor-sheet .sheet-body .ability-tab-body .scroll-box {
   height: 100%;
   overflow-y: scroll;
   padding-right: 4px;
   padding-bottom: 10px;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list {
   font-size: 0.75rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-row {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-row, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-row {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 0.25rem;
   border-radius: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title {
   background-color: #000;
   color: #fff;
   margin-top: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow {
   align-self: center;
   transition: transform 0.1s;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow.expanded {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow.expanded, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-title .expand-arrow.expanded {
   transform: rotate(90deg);
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .collapsible-title, .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .hidden-content-title {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .collapsible-title, .wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .hidden-content-title, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .collapsible-title, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .hidden-content-title {
   cursor: pointer;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible {
   overflow: hidden;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper {
   margin-top: var(--collapse-height, 0);
   transition: margin-top 0.15s ease;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper.expanded {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper.expanded, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-collapsible .ability-collapsible-wrapper.expanded {
   margin-top: 0;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-list-item {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .item-card, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .item-card {
   margin-left: 0.75rem;
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-primary {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-primary, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-primary {
   display: flex;
   justify-content: flex-start;
   padding-left: 0.25rem;
   flex: 1;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-item {
+.wyrdwood-wand .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-item, .chat-message .actor-sheet .sheet-body .ability-tab-body .ability-list .ability-line-item {
   display: flex;
   justify-content: center;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body {
+.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body, .chat-message .actor-sheet .sheet-body .biography-tab-body {
   height: 100%;
   padding-top: 0.5rem;
   padding-left: 0.5rem;
   margin-right: 0.5rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body a.editor-edit {
-  display: none;
+.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body .biography-content, .chat-message .actor-sheet .sheet-body .biography-tab-body .biography-content {
+  height: 100%;
+  background-color: rgba(167, 167, 170, 0.3764705882);
+  border-radius: 0.25rem;
 }
-.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body button[title=Save] {
-  display: none;
+.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body .biography-content div, .chat-message .actor-sheet .sheet-body .biography-tab-body .biography-content div {
+  height: calc(100% - 2px);
 }
-.wyrdwood-wand .skill-sheet {
+.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body textarea, .chat-message .actor-sheet .sheet-body .biography-tab-body textarea {
+  height: 100%;
+  width: 100%;
+  padding: 6px 7px;
+}
+.wyrdwood-wand .actor-sheet .sheet-body .biography-tab-body .view-box, .chat-message .actor-sheet .sheet-body .biography-tab-body .view-box {
+  height: 100%;
+  width: 100%;
+  padding: 8px;
+}
+.wyrdwood-wand .skill-sheet, .chat-message .skill-sheet {
   display: flex;
   flex-direction: column;
 }
-.wyrdwood-wand .skill-sheet .name {
+.wyrdwood-wand .skill-sheet .name, .chat-message .skill-sheet .name {
   font-size: 2rem;
   width: 100%;
   height: 1.25em;
 }
-.wyrdwood-wand .skill-sheet .sheet-body {
+.wyrdwood-wand .skill-sheet .sheet-body, .chat-message .skill-sheet .sheet-body {
   height: 100%;
   padding-top: 0.5rem;
 }
-.wyrdwood-wand .ability-sheet {
+.wyrdwood-wand .ability-sheet, .chat-message .ability-sheet {
   background-color: #fff;
   color: #000;
 }
-.wyrdwood-wand .ability-sheet select {
+.wyrdwood-wand .ability-sheet.item-card .header-bar, .wyrdwood-wand .ability-sheet.item-card .footer-bar, .chat-message .ability-sheet.item-card .header-bar, .chat-message .ability-sheet.item-card .footer-bar {
+  padding: 5px 6.75px;
+}
+.wyrdwood-wand .ability-sheet.item-main .header-bar, .chat-message .ability-sheet.item-main .header-bar {
+  height: 1.625rem;
+  padding: 0 0.25rem;
+}
+.wyrdwood-wand .ability-sheet select, .chat-message .ability-sheet select {
   background-color: rgba(0, 0, 0, 0);
   border: none;
   outline: 1px solid rgba(0, 0, 0, 0);
   transition: outline 0.2s ease;
 }
-.wyrdwood-wand .ability-sheet select:hover {
+.wyrdwood-wand .ability-sheet select:hover, .chat-message .ability-sheet select:hover {
   outline: 1px solid #b11501;
 }
-.wyrdwood-wand .ability-sheet .header-bar {
-  height: 1.625rem;
-  padding: 0 0.25rem;
+.wyrdwood-wand .ability-sheet .header-bar, .chat-message .ability-sheet .header-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
 }
-.wyrdwood-wand .ability-sheet .header-bar input {
+.wyrdwood-wand .ability-sheet .header-bar .ability-header-left-side, .chat-message .ability-sheet .header-bar .ability-header-left-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.wyrdwood-wand .ability-sheet .header-bar .ability-header-left-side .rollable, .chat-message .ability-sheet .header-bar .ability-header-left-side .rollable {
+  margin-left: 0.25rem;
+}
+.wyrdwood-wand .ability-sheet .header-bar .actor-ability-right-side, .chat-message .ability-sheet .header-bar .actor-ability-right-side {
+  display: flex;
+  flex-direction: row;
+}
+.wyrdwood-wand .ability-sheet .header-bar input, .chat-message .ability-sheet .header-bar input {
   color: #fff;
   font-weight: bold;
 }
-.wyrdwood-wand .ability-sheet .header-bar .aether-check {
+.wyrdwood-wand .ability-sheet .header-bar .aether-check, .chat-message .ability-sheet .header-bar .aether-check {
   display: flex;
   align-items: center;
   margin-right: 1rem;
 }
-.wyrdwood-wand .ability-sheet .header-bar .aether-check input {
+.wyrdwood-wand .ability-sheet .header-bar .aether-check input, .chat-message .ability-sheet .header-bar .aether-check input {
   width: 16px;
   height: 16px;
 }
-.wyrdwood-wand .ability-sheet .header-bar select {
+.wyrdwood-wand .ability-sheet .header-bar select, .chat-message .ability-sheet .header-bar select {
   color: #fff;
   font-weight: bold;
   height: 1.875em;
 }
-.wyrdwood-wand .ability-sheet .header-bar .action-type-normal {
+.wyrdwood-wand .ability-sheet .header-bar .action-type-normal, .chat-message .ability-sheet .header-bar .action-type-normal {
   margin-right: 0.25em;
   align-self: center;
 }
-.wyrdwood-wand .ability-sheet .header-bar .actor-ability-right-side {
-  display: flex;
-  flex-direction: row;
+.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons a, .chat-message .ability-sheet .header-bar .actor-ability-edit-buttons a {
+  padding: 0 0.25em;
 }
-.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons a {
-  padding: 0.25em;
-}
-.wyrdwood-wand .ability-sheet .flavor {
+.wyrdwood-wand .ability-sheet .flavor, .chat-message .ability-sheet .flavor {
   font-style: italic;
 }
-.wyrdwood-wand .ability-sheet .main-stats-edit {
+.wyrdwood-wand .ability-sheet .main-stats-edit, .chat-message .ability-sheet .main-stats-edit {
   flex-direction: column;
 }
-.wyrdwood-wand .ability-sheet .main-stats-edit select {
+.wyrdwood-wand .ability-sheet .main-stats-edit select, .chat-message .ability-sheet .main-stats-edit select {
   height: 1.625rem;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view:has(span) {
+.wyrdwood-wand .ability-sheet .main-stats-view:has(span), .chat-message .ability-sheet .main-stats-view:has(span) {
   padding-bottom: 5px;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff {
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff, .chat-message .ability-sheet .main-stats-view .overflow-cutoff {
   overflow: hidden;
   margin: 0 0 0 6px;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span {
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span, .chat-message .ability-sheet .main-stats-view .overflow-cutoff > span {
   display: inline-block;
   position: relative;
   padding: 5px 12px 0 0;
 }
-.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span::before {
+.wyrdwood-wand .ability-sheet .main-stats-view .overflow-cutoff > span::before, .chat-message .ability-sheet .main-stats-view .overflow-cutoff > span::before {
   content: "–";
   position: absolute;
   left: -12px;
 }
-.wyrdwood-wand .ability-sheet .ability-section.set-height {
+.wyrdwood-wand .ability-sheet .ability-section.set-height, .chat-message .ability-sheet .ability-section.set-height {
   height: 1.625rem;
 }
-.wyrdwood-wand .ability-sheet .ability-section textarea {
+.wyrdwood-wand .ability-sheet .ability-section textarea, .chat-message .ability-sheet .ability-section textarea {
   min-height: 0;
 }
-.wyrdwood-wand .ability-sheet .ability-section .textarea-box {
+.wyrdwood-wand .ability-sheet .ability-section .textarea-box, .chat-message .ability-sheet .ability-section .textarea-box {
   padding: 4px 5.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .input-box {
+.wyrdwood-wand .ability-sheet .ability-section .input-box, .chat-message .ability-sheet .ability-section .input-box {
   display: flex;
   align-items: center;
   padding: 1px 6.75px 0;
 }
-.wyrdwood-wand .ability-sheet .ability-section .edit-prefix {
+.wyrdwood-wand .ability-sheet .ability-section .edit-prefix, .chat-message .ability-sheet .ability-section .edit-prefix {
   margin-right: 3.25px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .view-box {
+.wyrdwood-wand .ability-sheet .ability-section .view-box, .chat-message .ability-sheet .ability-section .view-box {
   padding: 5px 6.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .view-box .view-prefix {
+.wyrdwood-wand .ability-sheet .ability-section .view-box .view-prefix, .chat-message .ability-sheet .ability-section .view-box .view-prefix {
   margin-right: 2.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .view-box .view-postfix {
+.wyrdwood-wand .ability-sheet .ability-section .view-box .view-postfix, .chat-message .ability-sheet .ability-section .view-box .view-postfix {
   margin-left: 2.75px;
 }
-.wyrdwood-wand .ability-sheet .ability-section .view-box p {
-  margin: 0;
-}
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options {
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options, .chat-message .ability-sheet .ability-section .ability-section-options {
   display: grid;
   height: fit-content;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -721,10 +748,10 @@
   justify-items: center;
   align-items: center;
 }
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select {
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select, .chat-message .ability-sheet .ability-section .ability-section-options .color-select {
   position: relative;
 }
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-button {
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-button, .chat-message .ability-sheet .ability-section .ability-section-options .color-select .dropdown-button {
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid;
   border-radius: 0;
@@ -733,166 +760,166 @@
   height: 1rem;
   width: 1rem;
 }
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content {
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content, .chat-message .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content {
   position: absolute;
   border: solid 1px #000;
   top: 0;
   right: 1.15rem;
   z-index: 2;
 }
-.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content a {
+.wyrdwood-wand .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content a, .chat-message .ability-sheet .ability-section .ability-section-options .color-select .dropdown-content a {
   display: block;
   width: 100%;
 }
-.wyrdwood-wand .ability-sheet .add-section-button {
+.wyrdwood-wand .ability-sheet .add-section-button, .chat-message .ability-sheet .add-section-button {
   margin: 0.25rem;
   width: calc(100% - 0.5rem);
 }
-.wyrdwood-wand .ability-sheet .footer-bar {
+.wyrdwood-wand .ability-sheet .footer-bar, .chat-message .ability-sheet .footer-bar {
   display: flex;
   justify-content: space-between;
   font-style: italic;
   padding: 0 0 0 0.25rem;
 }
-.wyrdwood-wand .ability-sheet .footer-bar .right-justify {
+.wyrdwood-wand .ability-sheet .footer-bar .right-justify, .chat-message .ability-sheet .footer-bar .right-justify {
   text-align: right;
 }
-.wyrdwood-wand .ability-sheet .footer-bar :disabled::placeholder {
+.wyrdwood-wand .ability-sheet .footer-bar :disabled::placeholder, .chat-message .ability-sheet .footer-bar :disabled::placeholder {
   color: rgba(0, 0, 0, 0);
 }
-.wyrdwood-wand .ability-sheet .footer-bar :disabled::-ms-input-placeholder {
+.wyrdwood-wand .ability-sheet .footer-bar :disabled::-ms-input-placeholder, .chat-message .ability-sheet .footer-bar :disabled::-ms-input-placeholder {
   color: rgba(0, 0, 0, 0);
 }
-.wyrdwood-wand .ability-sheet.quick .header {
+.wyrdwood-wand .ability-sheet.quick .header, .chat-message .ability-sheet.quick .header {
   background-color: #69122c;
 }
-.wyrdwood-wand .ability-sheet.quick .header select {
+.wyrdwood-wand .ability-sheet.quick .header select, .chat-message .ability-sheet.quick .header select {
   background-color: #69122c;
 }
-.wyrdwood-wand .ability-sheet.quick .header select option {
+.wyrdwood-wand .ability-sheet.quick .header select option, .chat-message .ability-sheet.quick .header select option {
   background-color: #69122c;
 }
-.wyrdwood-wand .ability-sheet.quick .primary {
+.wyrdwood-wand .ability-sheet.quick .primary, .chat-message .ability-sheet.quick .primary {
   background-color: #ecdbdb;
 }
-.wyrdwood-wand .ability-sheet.quick .secondary {
+.wyrdwood-wand .ability-sheet.quick .secondary, .chat-message .ability-sheet.quick .secondary {
   background-color: #f4eaea;
 }
-.wyrdwood-wand .ability-sheet.quick .tertiary {
+.wyrdwood-wand .ability-sheet.quick .tertiary, .chat-message .ability-sheet.quick .tertiary {
   background-color: #e4cdce;
 }
-.wyrdwood-wand .ability-sheet.quick .footer {
+.wyrdwood-wand .ability-sheet.quick .footer, .chat-message .ability-sheet.quick .footer {
   background-color: #cca5a9;
 }
-.wyrdwood-wand .ability-sheet.slow .header {
+.wyrdwood-wand .ability-sheet.slow .header, .chat-message .ability-sheet.slow .header {
   background-color: #2e4582;
 }
-.wyrdwood-wand .ability-sheet.slow .header select {
+.wyrdwood-wand .ability-sheet.slow .header select, .chat-message .ability-sheet.slow .header select {
   background-color: #2e4582;
 }
-.wyrdwood-wand .ability-sheet.slow .header select option {
+.wyrdwood-wand .ability-sheet.slow .header select option, .chat-message .ability-sheet.slow .header select option {
   background-color: #2e4582;
 }
-.wyrdwood-wand .ability-sheet.slow .primary {
+.wyrdwood-wand .ability-sheet.slow .primary, .chat-message .ability-sheet.slow .primary {
   background-color: #dddeeb;
 }
-.wyrdwood-wand .ability-sheet.slow .secondary {
+.wyrdwood-wand .ability-sheet.slow .secondary, .chat-message .ability-sheet.slow .secondary {
   background-color: #ebebf3;
 }
-.wyrdwood-wand .ability-sheet.slow .tertiary {
+.wyrdwood-wand .ability-sheet.slow .tertiary, .chat-message .ability-sheet.slow .tertiary {
   background-color: #cfd1e4;
 }
-.wyrdwood-wand .ability-sheet.slow .footer {
+.wyrdwood-wand .ability-sheet.slow .footer, .chat-message .ability-sheet.slow .footer {
   background-color: #acb0cf;
 }
-.wyrdwood-wand .ability-sheet.freeAction .header, .wyrdwood-wand .ability-sheet.freeInterrupt .header {
+.wyrdwood-wand .ability-sheet.freeAction .header, .wyrdwood-wand .ability-sheet.freeInterrupt .header, .chat-message .ability-sheet.freeAction .header, .chat-message .ability-sheet.freeInterrupt .header {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.freeAction .header select, .wyrdwood-wand .ability-sheet.freeInterrupt .header select {
+.wyrdwood-wand .ability-sheet.freeAction .header select, .wyrdwood-wand .ability-sheet.freeInterrupt .header select, .chat-message .ability-sheet.freeAction .header select, .chat-message .ability-sheet.freeInterrupt .header select {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.freeAction .header select option, .wyrdwood-wand .ability-sheet.freeInterrupt .header select option {
+.wyrdwood-wand .ability-sheet.freeAction .header select option, .wyrdwood-wand .ability-sheet.freeInterrupt .header select option, .chat-message .ability-sheet.freeAction .header select option, .chat-message .ability-sheet.freeInterrupt .header select option {
   background-color: #4c7e36;
 }
-.wyrdwood-wand .ability-sheet.freeAction .primary, .wyrdwood-wand .ability-sheet.freeInterrupt .primary {
+.wyrdwood-wand .ability-sheet.freeAction .primary, .wyrdwood-wand .ability-sheet.freeInterrupt .primary, .chat-message .ability-sheet.freeAction .primary, .chat-message .ability-sheet.freeInterrupt .primary {
   background-color: #d0d9c6;
 }
-.wyrdwood-wand .ability-sheet.freeAction .secondary, .wyrdwood-wand .ability-sheet.freeInterrupt .secondary {
+.wyrdwood-wand .ability-sheet.freeAction .secondary, .wyrdwood-wand .ability-sheet.freeInterrupt .secondary, .chat-message .ability-sheet.freeAction .secondary, .chat-message .ability-sheet.freeInterrupt .secondary {
   background-color: #e4e9de;
 }
-.wyrdwood-wand .ability-sheet.freeAction .tertiary, .wyrdwood-wand .ability-sheet.freeInterrupt .tertiary {
+.wyrdwood-wand .ability-sheet.freeAction .tertiary, .wyrdwood-wand .ability-sheet.freeInterrupt .tertiary, .chat-message .ability-sheet.freeAction .tertiary, .chat-message .ability-sheet.freeInterrupt .tertiary {
   background-color: #dae0d2;
 }
-.wyrdwood-wand .ability-sheet.freeAction .footer, .wyrdwood-wand .ability-sheet.freeInterrupt .footer {
+.wyrdwood-wand .ability-sheet.freeAction .footer, .wyrdwood-wand .ability-sheet.freeInterrupt .footer, .chat-message .ability-sheet.freeAction .footer, .chat-message .ability-sheet.freeInterrupt .footer {
   background-color: #bdcbb0;
 }
-.wyrdwood-wand .ability-sheet.ritual .header {
+.wyrdwood-wand .ability-sheet.ritual .header, .chat-message .ability-sheet.ritual .header {
   background-color: #b6642a;
 }
-.wyrdwood-wand .ability-sheet.ritual .header select {
+.wyrdwood-wand .ability-sheet.ritual .header select, .chat-message .ability-sheet.ritual .header select {
   background-color: #b6642a;
 }
-.wyrdwood-wand .ability-sheet.ritual .header select option {
+.wyrdwood-wand .ability-sheet.ritual .header select option, .chat-message .ability-sheet.ritual .header select option {
   background-color: #b6642a;
 }
-.wyrdwood-wand .ability-sheet.ritual .primary {
+.wyrdwood-wand .ability-sheet.ritual .primary, .chat-message .ability-sheet.ritual .primary {
   background-color: #f2decf;
 }
-.wyrdwood-wand .ability-sheet.ritual .secondary {
+.wyrdwood-wand .ability-sheet.ritual .secondary, .chat-message .ability-sheet.ritual .secondary {
   background-color: #f9f1ea;
 }
-.wyrdwood-wand .ability-sheet.ritual .tertiary {
+.wyrdwood-wand .ability-sheet.ritual .tertiary, .chat-message .ability-sheet.ritual .tertiary {
   background-color: #f2decf;
 }
-.wyrdwood-wand .ability-sheet.ritual .footer {
+.wyrdwood-wand .ability-sheet.ritual .footer, .chat-message .ability-sheet.ritual .footer {
   background-color: #e8c5ac;
 }
-.wyrdwood-wand .ability-sheet .blank {
+.wyrdwood-wand .ability-sheet .blank, .chat-message .ability-sheet .blank {
   background-color: #fff;
 }
-.wyrdwood-wand .ability-sheet .blank, .wyrdwood-wand .ability-sheet .primary, .wyrdwood-wand .ability-sheet .secondary, .wyrdwood-wand .ability-sheet .tertiary, .wyrdwood-wand .ability-sheet .footer {
+.wyrdwood-wand .ability-sheet .blank, .wyrdwood-wand .ability-sheet .primary, .wyrdwood-wand .ability-sheet .secondary, .wyrdwood-wand .ability-sheet .tertiary, .wyrdwood-wand .ability-sheet .footer, .chat-message .ability-sheet .blank, .chat-message .ability-sheet .primary, .chat-message .ability-sheet .secondary, .chat-message .ability-sheet .tertiary, .chat-message .ability-sheet .footer {
   color: #000;
 }
-.wyrdwood-wand .ability-sheet .header {
+.wyrdwood-wand .ability-sheet .header, .chat-message .ability-sheet .header {
   color: #fff;
 }
-.wyrdwood-wand .ability-sheet .header input, .wyrdwood-wand .ability-sheet .header textarea {
+.wyrdwood-wand .ability-sheet .header input, .wyrdwood-wand .ability-sheet .header textarea, .chat-message .ability-sheet .header input, .chat-message .ability-sheet .header textarea {
   color: #fff;
 }
-.wyrdwood-wand .edit-mode-only {
+.wyrdwood-wand .edit-mode-only, .chat-message .edit-mode-only {
   display: none;
 }
-.wyrdwood-wand .normal-mode-only {
+.wyrdwood-wand .normal-mode-only, .chat-message .normal-mode-only {
   display: flex;
 }
-.wyrdwood-wand .normal-mode-only.block-display {
+.wyrdwood-wand .normal-mode-only.block-display, .chat-message .normal-mode-only.block-display {
   display: block;
 }
-.wyrdwood-wand .normal-mode-only.inline-block-display {
+.wyrdwood-wand .normal-mode-only.inline-block-display, .chat-message .normal-mode-only.inline-block-display {
   display: inline-block;
 }
-.wyrdwood-wand .edit-mode .edit-mode-only {
+.wyrdwood-wand .edit-mode .edit-mode-only, .chat-message .edit-mode .edit-mode-only {
   display: flex;
 }
-.wyrdwood-wand .edit-mode .edit-mode-only.block-display {
+.wyrdwood-wand .edit-mode .edit-mode-only.block-display, .chat-message .edit-mode .edit-mode-only.block-display {
   display: block;
 }
-.wyrdwood-wand .edit-mode .edit-mode-only.inline-block-display {
+.wyrdwood-wand .edit-mode .edit-mode-only.inline-block-display, .chat-message .edit-mode .edit-mode-only.inline-block-display {
   display: inline-block;
 }
-.wyrdwood-wand .edit-mode .normal-mode-only {
+.wyrdwood-wand .edit-mode .normal-mode-only, .chat-message .edit-mode .normal-mode-only {
   display: none;
 }
-.wyrdwood-wand .edit-button.editing-glow {
+.wyrdwood-wand .edit-button.editing-glow, .chat-message .edit-button.editing-glow {
   text-shadow: 0 0 8px red, 0 0 12px red, 0 0 12px red;
 }
-.wyrdwood-wand .extend-to-edges {
+.wyrdwood-wand .extend-to-edges, .chat-message .extend-to-edges {
   margin: -8px;
 }
-.wyrdwood-wand .resource-label {
+.wyrdwood-wand .resource-label, .chat-message .resource-label {
   font-weight: bold;
 }
-.wyrdwood-wand .items-header {
+.wyrdwood-wand .items-header, .chat-message .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -901,17 +928,17 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
-.wyrdwood-wand .items-header > * {
+.wyrdwood-wand .items-header > *, .chat-message .items-header > * {
   font-size: 14px;
   text-align: center;
 }
-.wyrdwood-wand .items-header .item-name {
+.wyrdwood-wand .items-header .item-name, .chat-message .items-header .item-name {
   font-weight: bold;
   padding-left: 5px;
   text-align: left;
   display: flex;
 }
-.wyrdwood-wand .items-list {
+.wyrdwood-wand .items-list, .chat-message .items-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -919,12 +946,12 @@
   scrollbar-width: thin;
   color: #444;
 }
-.wyrdwood-wand .items-list .item-list {
+.wyrdwood-wand .items-list .item-list, .chat-message .items-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.wyrdwood-wand .items-list .item-name {
+.wyrdwood-wand .items-list .item-name, .chat-message .items-list .item-name {
   flex: 2;
   margin: 0;
   overflow: hidden;
@@ -933,46 +960,46 @@
   align-items: center;
   display: flex;
 }
-.wyrdwood-wand .items-list .item-name h3, .wyrdwood-wand .items-list .item-name h4 {
+.wyrdwood-wand .items-list .item-name h3, .wyrdwood-wand .items-list .item-name h4, .chat-message .items-list .item-name h3, .chat-message .items-list .item-name h4 {
   margin: 0;
   white-space: nowrap;
   overflow-x: hidden;
 }
-.wyrdwood-wand .items-list .item-controls {
+.wyrdwood-wand .items-list .item-controls, .chat-message .items-list .item-controls {
   display: flex;
   flex: 0 0 100px;
   justify-content: flex-end;
 }
-.wyrdwood-wand .items-list .item-controls a {
+.wyrdwood-wand .items-list .item-controls a, .chat-message .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
-.wyrdwood-wand .items-list .item {
+.wyrdwood-wand .items-list .item, .chat-message .items-list .item {
   align-items: center;
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
 }
-.wyrdwood-wand .items-list .item:last-child {
+.wyrdwood-wand .items-list .item:last-child, .chat-message .items-list .item:last-child {
   border-bottom: none;
 }
-.wyrdwood-wand .items-list .item .item-name {
+.wyrdwood-wand .items-list .item .item-name, .chat-message .items-list .item .item-name {
   color: #191813;
 }
-.wyrdwood-wand .items-list .item .item-name .item-image {
+.wyrdwood-wand .items-list .item .item-name .item-image, .chat-message .items-list .item .item-name .item-image {
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
 }
-.wyrdwood-wand .items-list .item-prop {
+.wyrdwood-wand .items-list .item-prop, .chat-message .items-list .item-prop {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
-.wyrdwood-wand .items-list .items-header {
+.wyrdwood-wand .items-list .items-header, .chat-message .items-list .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -981,23 +1008,25 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
-.wyrdwood-wand .items-list .items-header > * {
+.wyrdwood-wand .items-list .items-header > *, .chat-message .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
 }
-.wyrdwood-wand .items-list .items-header .item-name {
+.wyrdwood-wand .items-list .items-header .item-name, .chat-message .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
 .wyrdwood-wand .effects .item .effect-source,
 .wyrdwood-wand .effects .item .effect-duration,
-.wyrdwood-wand .effects .item .effect-controls {
+.wyrdwood-wand .effects .item .effect-controls, .chat-message .effects .item .effect-source,
+.chat-message .effects .item .effect-duration,
+.chat-message .effects .item .effect-controls {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
-.wyrdwood-wand .effects .item .effect-controls {
+.wyrdwood-wand .effects .item .effect-controls, .chat-message .effects .item .effect-controls {
   border: none;
 }
 

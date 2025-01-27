@@ -132,35 +132,9 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
       editContent: '',
       displayContent: '<p></p>',
       background: 'blank',
-    }
+    };
 
-    let sections = [...this.item.system.sections, newSection];
-
-    this.submit({updateData: {'system.sections': sections}});
-  }
-
-  _onAbilitySectionUpdate(event) {
-    const input = event.currentTarget;
-    const section = input.closest('.ability-section');
-    const index = section.dataset.index;
-
-    // Convert separate lines to <p>s for non-edit mode only
-    const pattern = /^\s*\<(\/|p|li|h|div|ul|ol|table|tr|th|td).*\>\s*$/;
-    let processedLines = [];
-    input.value.split('\n').forEach((line) => {
-      if (pattern.test(line)) {
-        processedLines.push(line);
-      }
-      else {
-        processedLines.push(`<p>${line}</p>`);
-      }
-    });
-
-    let sections = this.item.system.sections;
-    sections[index].editContent = input.value;
-    sections[index].displayContent = processedLines.join('\n');
-
-    this.submit({updateData: {'system.sections': sections}});
+    this.submit({updateData: {'system.sections': [...this.item.system.sections, newSection]}});
   }
 
   _onToggleAetherCost(event) {
@@ -310,14 +284,5 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     };
 
     return [editButton, ...buttons];
-  }
-
-  /** @override */
-  async _onChangeInput(event) {
-    if (event.currentTarget.matches('.ability-section-update')) {
-      this._onAbilitySectionUpdate(event);
-    }
-
-    return super._onChangeInput(event);
   }
 }

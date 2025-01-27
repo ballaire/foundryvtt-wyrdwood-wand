@@ -11,4 +11,20 @@ export default class WyrdwoodWandDataModel extends foundry.abstract.TypeDataMode
   toPlainObject() {
     return {...this};
   }
+
+  // Converts separate lines to <p>s
+  _processTextareaHtml(text) {
+    const pattern = /^\s*\<(\/|p|li|h|div|ul|ol|table|tr|th|td).*\>\s*$/;
+    let processedLines = [];
+    text.split('\n').forEach((line) => {
+      if (pattern.test(line)) {
+        processedLines.push(line);
+      }
+      else {
+        processedLines.push(`<p>${line}</p>`);
+      }
+    });
+
+    return processedLines.join('\n');
+  }
 }

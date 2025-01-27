@@ -1,4 +1,4 @@
-<form class="ability-sheet extend-to-edges {{system.actionType}}" autocomplete="off">
+<form class="item-main ability-sheet extend-to-edges {{system.actionType}}" autocomplete="off">
   <div class="sheet-wrapper">
     <div class="header-bar header">
       <div class="input-sizer" data-default-value="Name">
@@ -88,7 +88,7 @@
         <div class="ability-section {{section.background}}" data-index="{{@index}}">
           <div class="textarea-box edit-mode-only">
             <div class="input-sizer full-width">
-              <textarea class="input-sizer-input ability-section-update" type="text" rows="2">{{section.editContent}}</textarea>
+              <textarea class="input-sizer-input ability-section-update" name="system.sections.{{@index}}.editContent" type="text" rows="2">{{section.editContent}}</textarea>
             </div>
             <div class="ability-section-options">
               <a class="fas fa-arrow-up ability-section-up" title="Move Up"></a>
@@ -110,6 +110,7 @@
           <div class="view-box normal-mode-only block-display">
             {{{section.displayContent}}}
           </div>
+          <input class="hidden-color-selection" name="system.sections.{{@index}}.background" value="{{section.background}}" hidden="hidden"/>
         </div>
       {{/each}}
     </div>

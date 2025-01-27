@@ -29,4 +29,12 @@ export default class WyrdwoodWandAbility extends WyrdwoodWandItemBase {
       footerRightText: new fields.StringField({required: true}),
     };
   }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    for (let section of this.sections) {
+      section.displayContent = this._processTextareaHtml(section.editContent);
+    }
+  }
 }

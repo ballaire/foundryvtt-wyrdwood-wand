@@ -31,16 +31,10 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
   /** @override */
   async getData() {
-    // Retrieve the data structure from the base sheet. You can inspect or log
-    // the context variable to see the structure, but some key properties for
-    // sheets are the actor object, the data object, whether or not it's
-    // editable, the items array, and the effects array.
     const context = super.getData();
 
-    // Use a safe clone of the actor data for further operations.
     const actorData = this.document.toPlainObject();
 
-    // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
 
@@ -51,19 +45,17 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     }
     this._prepareCharacterData(context);
 
-    context.enrichedBiography = await TextEditor.enrichHTML(
-      this.actor.system.description,
-      {
-        secrets: this.document.isOwner,
-        async: true,
-        rollData: this.actor.getRollData(),
-        relativeTo: this.actor,
-      }
-    );
+    // context.enrichedBiography = await TextEditor.enrichHTML(
+    //   this.actor.system.description,
+    //   {
+    //     secrets: this.document.isOwner,
+    //     async: true,
+    //     rollData: this.actor.getRollData(),
+    //     relativeTo: this.actor,
+    //   }
+    // );
 
     context.effects = prepareActiveEffectCategories(
-      // A generator that returns all effects stored on the actor
-      // as well as any items
       this.actor.allApplicableEffects()
     );
 
@@ -276,6 +268,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
    */
   _onRoll(event) {
     event.preventDefault();
+    event.stopPropagation();
     const element = event.currentTarget;
     const dataset = element.dataset;
 
@@ -358,12 +351,23 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
   _onToggleEditMode(event) {
     event.preventDefault();
 
+    this.submit();
+
     const editButton = event.currentTarget;
     editButton.classList.toggle('editing-glow');
 
     const sheet = editButton.closest('.app').querySelector('.window-content');
     sheet.classList.toggle('edit-mode');
     this._updateEditMode(sheet);
+  }
+
+  _updateEditMode(sheet) {
+    const inputs = sheet.querySelectorAll('input.edit-mode-input');
+    let editMode = sheet.classList.contains('edit-mode');
+    
+    inputs.forEach(input => {
+      input.disabled = !editMode;
+    });
   }
 
   _swapAbilities(sheet, first, second) {
@@ -439,25 +443,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     });
 
     event.stopPropagation();
-  }
-
-  _updateEditMode(sheet) {
-    if (!this.editors['system.description'])
-      return;
-
-    const inputs = sheet.querySelectorAll('input.edit-mode-input');
-    let editMode = sheet.classList.contains('edit-mode');
-    
-    inputs.forEach(input => {
-      input.disabled = !editMode;
-    });
-
-    if (editMode && !this.editors['system.description'].active) {
-      this.activateEditor('system.description');
-    }
-    else if (!editMode && this.editors['system.description'].active) {
-      this.saveEditor('system.description');
-    }
   }
 
   _disableAbilityArrows(sheet) {
@@ -542,8 +527,7 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
   /** @override */
   async _onChangeInput(event) {
-    console.log(this.actor);
-    if (event.target.classList.contains('search-bar')) {
+    if (event.currentTarget.matches('.search-bar')) {
       return;
     }
 

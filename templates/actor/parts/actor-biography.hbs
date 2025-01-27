@@ -1,3 +1,11 @@
 <div class="biography-tab-body">
-  {{editor enrichedBiography target="system.description" button=true}}
+  {{!-- {{editor enrichedBiography target="system.description" button=true}} --}}
+  <div class="biography-content">
+    <div class="edit-mode-only">
+      <textarea class="update-html" name="system.description" type="text">{{system.description}}</textarea>
+    </div>
+    <div class="view-box normal-mode-only block-display">
+      {{{system.displayDescription}}}
+    </div>
+  </div>
 </div>
