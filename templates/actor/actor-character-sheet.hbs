@@ -1,7 +1,7 @@
 <form class="actor-sheet" autocomplete="off">
   <div class="sidebar">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-    <div class="bar health-empty" title="{{localize "WYRDWOOD_WAND.Actor.health"}}">
+    <div class="bar health-empty" title="{{localize "WW.Actor.health"}}">
       <div class="bar-fill health-full" style="width: calc(100% * {{system.health.value}} / {{system.health.max}})"></div>
       <span class="bar-text">
         <input class="left-input" name="system.health.value" type="text" value="{{system.health.value}}" data-dtype="Number" />
@@ -9,7 +9,7 @@
         <input class="right-input edit-mode-input" name="system.health.max" type="text" value="{{system.health.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
-    <div class="bar destiny-empty" title="{{localize "WYRDWOOD_WAND.Actor.destiny"}}">
+    <div class="bar destiny-empty" title="{{localize "WW.Actor.destiny"}}">
       <div class="bar-fill destiny-full" style="width: calc(100% * {{system.destiny.value}} / {{system.destiny.max}}"></div>
       <span class="bar-text">
         <input class="left-input" name="system.destiny.value" type="text" value="{{system.destiny.value}}" data-dtype="Number" />
@@ -17,7 +17,7 @@
         <input class="right-input edit-mode-input" name="system.destiny.max" type="text" value="{{system.destiny.max}}" data-dtype="Number" disabled="disabled" />
       </span>
     </div>
-    <div class="bar aether-empty" title="{{localize "WYRDWOOD_WAND.Actor.aether"}}">
+    <div class="bar aether-empty" title="{{localize "WW.Actor.aether"}}">
       <div class="bar-fill aether-full" style="width: calc(100% * {{system.aether.value}} / {{system.aether.max}}"></div>
       <span class="bar-text">
         <input class="left-input" name="system.aether.value" type="text" value="{{system.aether.value}}" data-dtype="Number" />
@@ -32,29 +32,29 @@
       <div class="character-undername">
         <div class="character-info">
           <div class="line-1">
-            <span>{{localize "WYRDWOOD_WAND.Actor.level"}} {{system.level}}</span>
-            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.role"}}">
-              <input class="edit-mode-input input-sizer-input" name="system.role" type="text" value="{{system.role}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.role"}}" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <span>{{localize "WW.Actor.level"}} {{system.level}}</span>
+            <label class="input-sizer" data-default-value="{{localize "WW.Actor.role"}}">
+              <input class="edit-mode-input input-sizer-input" name="system.role" type="text" value="{{system.role}}" placeholder="{{localize "WW.Actor.role"}}" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
           </div>
           <div class="line-2">
-            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.background"}} 1">
-              <input class="edit-mode-input input-sizer-input" name="system.background1" type="text" value="{{system.background1}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.background"}} 1" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <label class="input-sizer" data-default-value="{{localize "WW.Actor.background"}} 1">
+              <input class="edit-mode-input input-sizer-input" name="system.background1" type="text" value="{{system.background1}}" placeholder="{{localize "WW.Actor.background"}} 1" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
             <span>|</span>
-            <label class="input-sizer" data-default-value="{{localize "WYRDWOOD_WAND.Actor.background"}} 2">
-              <input class="edit-mode-input input-sizer-input" name="system.background2" type="text" value="{{system.background2}}" placeholder="{{localize "WYRDWOOD_WAND.Actor.background"}} 2" size="2" onInput="this.parentNode.dataset.value = this.value" />
+            <label class="input-sizer" data-default-value="{{localize "WW.Actor.background"}} 2">
+              <input class="edit-mode-input input-sizer-input" name="system.background2" type="text" value="{{system.background2}}" placeholder="{{localize "WW.Actor.background"}} 2" size="2" onInput="this.parentNode.dataset.value = this.value" />
             </label>
           </div>
         </div>
       </div>
     </div>
     <nav class="sheet-tabs tabs" data-group="primary">
-      <a class="item" data-tab="stats">{{localize "WYRDWOOD_WAND.Actor.stats"}}</a>
-      <a class="item" data-tab="abilities">{{localize "WYRDWOOD_WAND.Actor.abilities"}}</a>
-      <a class="item" data-tab="equipment">{{localize "WYRDWOOD_WAND.Actor.equipment"}}</a>
-      <a class="item" data-tab="effects">{{localize "WYRDWOOD_WAND.Actor.effects"}}</a>
-      <a class="item" data-tab="biography">{{localize "WYRDWOOD_WAND.Actor.biography"}}</a>
+      <a class="item" data-tab="stats">{{localize "WW.Actor.stats"}}</a>
+      <a class="item" data-tab="abilities">{{localize "WW.Actor.abilities"}}</a>
+      <a class="item" data-tab="equipment">{{localize "WW.Actor.equipment"}}</a>
+      <a class="item" data-tab="effects">{{localize "WW.Actor.effects"}}</a>
+      <a class="item" data-tab="biography">{{localize "WW.Actor.biography"}}</a>
     </nav>
     <section class="sheet-body">
 

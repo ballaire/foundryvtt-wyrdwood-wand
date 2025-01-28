@@ -4,6 +4,7 @@ import { WyrdwoodWandItem } from './documents/item.mjs';
 // Import sheet classes.
 import { WyrdwoodWandActorSheet } from './sheets/actor-sheet.mjs';
 import { WyrdwoodWandItemSheet } from './sheets/item-sheet.mjs';
+import { WyrdwoodWandSkillSheet } from './sheets/skill-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { WYRDWOOD_WAND } from './helpers/config.mjs';
@@ -63,12 +64,18 @@ Hooks.once('init', function () {
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('wyrdwood-wand', WyrdwoodWandActorSheet, {
     makeDefault: true,
-    label: 'WYRDWOOD_WAND.SheetLabels.actor',
+    label: 'WW.SheetLabels.actor',
   });
   Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('wyrdwood-wand', WyrdwoodWandItemSheet, {
+    types: ['ability', 'weapon'],
     makeDefault: true,
-    label: 'WYRDWOOD_WAND.SheetLabels.item',
+    label: 'WW.SheetLabels.item',
+  });
+  Items.registerSheet('wyrdwood-wand', WyrdwoodWandSkillSheet, {
+    types: ['skill'],
+    makeDefault: true,
+    label: 'WW.SheetLabels.item',
   });
 
   return preloadHandlebarsTemplates();

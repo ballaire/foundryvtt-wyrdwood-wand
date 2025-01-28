@@ -1,8 +1,17 @@
 <form class="skill-sheet" autocomplete="off">
   <header class="sheet-header">
-    <input class="name" name="name" type="text" value="{{item.name}}" placeholder="Name" />
+    <input class="name" name="name" type="text" value="{{item.name}}" placeholder="{{localize "MISC.name"}}" />
   </header>
-  <div class="sheet-body">
-    {{editor enrichedDescription target="system.description" engine="prosemirror" button=true editable=editable}}
+  <div class="radio-menu">
+    <div class="radio-row">
+      <input name="system.useCustom" value="false" id="radio-formula-default" type="radio">
+      <label for="radio-formula-default" class="label-default">{{localize "MISC.defaultBonus"}} (1d6)</label>
+    </div>
+    <div class="radio-row">
+      <input name="system.useCustom" value="true" id="radio-formula-custom" type="radio">
+      <label for="radio-formula-custom" class="label-custom input-sizer">
+        <input name="system.customFormula" id="custom-formula" class="input-sizer-input" type="text" value="{{system.customFormula}}" placeholder="{{localize "MISC.customBonus"}}" />
+      </label>
+    </div>
   </div>
 </form>

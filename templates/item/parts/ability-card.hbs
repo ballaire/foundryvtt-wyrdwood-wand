@@ -6,14 +6,14 @@
       </div>
       {{#if inSheet}}<a class="fas fa-comment rollable hover-reveal-content" title="{{localize "MISC.sendToChat"}}" data-roll-type="item"></a>{{/if}}
     </div>
-    <div class="actor-ability-right-side">
+    <div class="ability-header-right-side">
       <div class="action-type-normal">
         {{#if system.aetherCost}}
-          1 {{localize "WYRDWOOD_WAND.Actor.aether"}} •
+          1 {{localize "WW.Actor.aether"}} •
         {{/if}}
-        {{localize (concat "WYRDWOOD_WAND.Item.Ability.ActionType." system.actionType ".long")}}
+        {{localize (concat "WW.Item.Ability.ActionType." system.actionType ".long")}}
       </div>
-      <div class="actor-ability-edit-buttons edit-mode-only">
+      <div class="actor-edit-buttons edit-mode-only">
         <a class="fas fa-arrow-up ability-up" title="{{localize "MISC.moveUp"}}"></a>
         <a class="fas fa-arrow-down ability-down" title="{{localize "MISC.moveDown"}}"></a>
         <a class="fas fa-edit ability-edit" title="{{localize "MISC.edit"}}"></a>
@@ -33,20 +33,20 @@
       <div class="overflow-cutoff">
           {{#if system.target}}
             <span class="view-box">
-              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.target"}}:</b>
+              <b class="view-prefix">{{localize "WW.Item.Ability.Attribute.target"}}:</b>
               {{system.target}}
             </span>
           {{/if}}
           {{#if system.range}}
             <span class="view-box">
-              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.range"}}:</b>
+              <b class="view-prefix">{{localize "WW.Item.Ability.Attribute.range"}}:</b>
               {{system.range}}
             </span>
           {{/if}}
           {{#if (notEqual system.attackVs 'none')}}
             <span class="view-box">
-              <b class="view-prefix">{{localize "WYRDWOOD_WAND.Item.Ability.Attribute.attack"}}</b>
-              {{localize (concat "WYRDWOOD_WAND.Actor.AttackVS." system.attackVs)}}
+              <b class="view-prefix">{{localize "WW.Item.Ability.Attribute.attack"}}</b>
+              {{localize (concat "WW.Actor.AttackVS." system.attackVs)}}
             </span>
           {{/if}}
       </div>

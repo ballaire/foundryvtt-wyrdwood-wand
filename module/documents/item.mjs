@@ -53,13 +53,6 @@ export class WyrdwoodWandItem extends Item {
    * @param {Event} event   The originating click event
    */
   async roll() {
-    // const item = this;
-
-    // // Initialize chat data.
-    // const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    // const rollMode = game.settings.get('core', 'rollMode');
-    // const label = `[${item.type}] ${item.name}`;
-
     let chatData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -72,31 +65,6 @@ export class WyrdwoodWandItem extends Item {
     chatData.content = await renderTemplate(this.chatTemplates[this.type], cardData);
     chatData.roll = true;
 
-    console.log(chatData);
     return ChatMessage.create(chatData);
-
-    // if (!this.system.formula) {
-    //   ChatMessage.create({
-    //     speaker: speaker,
-    //     rollMode: rollMode,
-    //     flavor: label,
-    //     content: item.system.description ?? '',
-    //   });
-    // }
-    // else {
-    //   // Retrieve roll data.
-    //   const rollData = this.getRollData();
-
-    //   // Invoke the roll and submit it to chat.
-    //   const roll = new Roll(rollData.formula, rollData.actor);
-    //   // If you need to store the value first, uncomment the next line.
-    //   // const result = await roll.evaluate();
-    //   roll.toMessage({
-    //     speaker: speaker,
-    //     rollMode: rollMode,
-    //     flavor: label,
-    //   });
-    //   return roll;
-    // }
   }
 }

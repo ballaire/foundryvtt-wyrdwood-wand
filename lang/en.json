@@ -1,5 +1,5 @@
 {
-  "WYRDWOOD_WAND": {
+  "WW": {
     "SheetLabels": {
       "actor": "WyrdwoodWand Actor Sheet",
       "item": "WyrdwoodWand Item Sheet"
@@ -99,7 +99,8 @@
       }
     },
     "Terms": {
-      "risk": "Risk"
+      "risk": "Risk",
+      "riskRoll": "Risk Roll"
     }
   },
 
@@ -142,6 +143,8 @@
     "meters": "meters",
     "roll": "Roll",
     "sendToChat": "Send to Chat",
+    "defaultBonus": "Default Bonus",
+    "customBonus": "Custom Bonus",
     "AbilitySection": {
       "blank": "Blank",
       "header": "Header",

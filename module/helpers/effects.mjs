@@ -43,17 +43,17 @@ export function prepareActiveEffectCategories(effects) {
   const categories = {
     temporary: {
       type: 'temporary',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.temporary'),
+      label: game.i18n.localize('WW.Effect.temporary'),
       effects: [],
     },
     passive: {
       type: 'passive',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.passive'),
+      label: game.i18n.localize('WW.Effect.passive'),
       effects: [],
     },
     inactive: {
       type: 'inactive',
-      label: game.i18n.localize('WYRDWOOD_WAND.Effect.inactive'),
+      label: game.i18n.localize('WW.Effect.inactive'),
       effects: [],
     },
   };

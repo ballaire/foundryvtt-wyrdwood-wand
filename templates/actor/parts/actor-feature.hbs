@@ -2,7 +2,15 @@
   <label class="input-sizer" data-default-value="Feature Name">
     <input class="edit-mode-input input-sizer-input item-inline-edit" data-field="name" type="text" value="{{name}}" placeholder="Feature Name" size="12" disabled="disabled" />
   </label>
-  <a class="delete-item edit-mode-only">
-    <i class="fas fa-trash"></i>
-  </a>
+  <div class="actor-edit-buttons edit-mode-only">
+    <a class="fas fa-edit feature-edit" title="{{localize "MISC.edit"}}"></a>
+    <a class="fas fa-trash feature-delete" title="{{localize "MISC.delete"}}"></a>
+  </div>
+  {{#if (eq type 'skill')}}
+    <div class="skill-roll-buttons normal-mode-only">
+      <a class="rollable hover-reveal-content" title="{{localize "WW.Actor.Stats.agility"}} {{localize "WW.Terms.risk"}}" data-roll-type="risk" data-attribute="agility" data-skill-id="{{_id}}">A</a>
+      <a class="rollable hover-reveal-content" title="{{localize "WW.Actor.Stats.focus"}} {{localize "WW.Terms.risk"}}" data-roll-type="risk" data-attribute="focus" data-skill-id="{{_id}}">F</a>
+      <a class="rollable hover-reveal-content" title="{{localize "WW.Actor.Stats.strength"}} {{localize "WW.Terms.risk"}}" data-roll-type="risk" data-attribute="strength" data-skill-id="{{_id}}">S</a>
+    </div>
+  {{/if}}
 </div>

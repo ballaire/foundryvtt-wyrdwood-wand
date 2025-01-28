@@ -2,47 +2,44 @@
   <div class="stats-column stats-column-1">
     <div class="stats-area">
       <div class="title-line">
-        {{localize "WYRDWOOD_WAND.Actor.Stats.attributes"}}
+        {{localize "WW.Actor.Stats.attributes"}}
       </div>
       <div class="stats-area-main stats-attributes">
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.agility"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.agility"}}</div>
           <input class="edit-mode-only" name="system.agility" type="text" value="{{numberFormat system.agility sign=true}}" data-dtype="Number" />
-          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.agility}}"
-              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.agility'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+          <a class="normal-mode-only rollable" data-roll-type="risk" data-attribute="agility">
             {{numberFormat system.agility sign=true}}
           </a>
         </div>
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.focus"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.focus"}}</div>
           <input class="edit-mode-only" name="system.focus" type="text" value="{{numberFormat system.focus sign=true}}" data-dtype="Number" />
-          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.focus}}"
-              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.focus'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+          <a class="normal-mode-only rollable"  data-roll-type="risk" data-attribute="focus">
             {{numberFormat system.focus sign=true}}
           </a>
         </div>
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.strength"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.strength"}}</div>
           <input class="edit-mode-only" name="system.strength" type="text" value="{{numberFormat system.strength sign=true}}" data-dtype="Number" />
-          <a class="normal-mode-only rollable" data-roll="1d20 + {{system.strength}}"
-              data-label="{{localize 'WYRDWOOD_WAND.Actor.Stats.strength'}} {{localize 'WYRDWOOD_WAND.Terms.risk'}}">
+          <a class="normal-mode-only rollable"  data-roll-type="risk" data-attribute="strength">
             {{numberFormat system.strength sign=true}}
           </a>
         </div>
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.evasion"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.evasion"}}</div>
           <div class="defense-stat">
             <input name="system.evasion" type="text" value="{{system.evasion}}" data-dtype="Number" disabled="disabled" />
           </div>
         </div>
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.resolve"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.resolve"}}</div>
           <div class="defense-stat">
             <input name="system.resolve" type="text" value="{{system.resolve}}" data-dtype="Number" disabled="disabled" />
           </div>
         </div>
         <div class="attributes-item">
-          <div class="attribute-name">{{localize "WYRDWOOD_WAND.Actor.Stats.tenacity"}}</div>
+          <div class="attribute-name">{{localize "WW.Actor.Stats.tenacity"}}</div>
           <div class="defense-stat">
             <input name="system.tenacity" type="text" value="{{system.tenacity}}" data-dtype="Number" disabled="disabled" />
           </div>
@@ -51,7 +48,7 @@
     </div>
     <div class="stats-area">
       <div class="title-line">
-        {{localize "WYRDWOOD_WAND.Actor.Stats.skills"}}
+        {{localize "WW.Actor.Stats.skills"}}
       </div>
       <div class="stats-area-main feature-list">
         {{#each skills as |skill id|}}
@@ -67,7 +64,7 @@
   <div class="stats-column stats-column-2">
     <div class="stats-area">
       <div class="title-line">
-        {{localize "WYRDWOOD_WAND.Actor.Stats.paths"}}
+        {{localize "WW.Actor.Stats.paths"}}
       </div>
       <div class="stats-area-main feature-list">
         {{#each paths as |path id|}}
@@ -81,7 +78,7 @@
     </div>
     <div class="stats-area">
       <div class="title-line">
-        {{localize "WYRDWOOD_WAND.Actor.Stats.talents"}}
+        {{localize "WW.Actor.Stats.talents"}}
       </div>
       <div class="stats-area-main feature-list">
         {{#each talents as |talent id|}}

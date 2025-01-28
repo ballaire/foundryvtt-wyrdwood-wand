@@ -3,6 +3,9 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+import * as Dice from '../helpers/dice.mjs';
+import * as Format from '../helpers/format.mjs';
+
 /**
  * Extend the basic ItemSheet
  * @extends {ItemSheet}
@@ -11,9 +14,9 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['wyrdwood-wand', 'sheet', 'item'],
       width: 520,
       height: 480,
+      classes: ['wyrdwood-wand', 'sheet', 'item'],
       tabs: [
         {
           navSelector: '.sheet-tabs',
@@ -26,49 +29,20 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = 'systems/wyrdwood-wand/templates/item';
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.hbs`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.hbs`.
-    return `${path}/item-${this.item.type}-sheet.hbs`;
+    return `systems/wyrdwood-wand/templates/item/item-${this.item.type}-sheet.hbs`;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   async getData() {
-    // Retrieve base data structure.
     const context = super.getData();
-
-    // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
 
-    // Enrich description info for display
-    // Enrichment turns text like `[[/r 1d20]]` into buttons
-    context.enrichedDescription = await TextEditor.enrichHTML(
-      this.item.system.description,
-      {
-        // Whether to show secret blocks in the finished html
-        secrets: this.document.isOwner,
-        // Necessary in v11, can be removed in v12
-        async: true,
-        // Data to fill in for inline rolls
-        rollData: this.item.getRollData(),
-        // Relative UUID resolution
-        relativeTo: this.item,
-      }
-    );
-
-    // Add the item's data to context.data for easier access, as well as flags.
     context.system = itemData.system;
     context.flags = itemData.flags;
 
-    // Adding a pointer to CONFIG.WYRDWOOD_WAND
     context.config = CONFIG.WYRDWOOD_WAND;
-
-    // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
     return context;
@@ -85,7 +59,6 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
       onManageActiveEffect(event, this.item)
     );
 
-    html.on('input', '.input-sizer-input', this._onUpdateInputSize.bind(this));
     html.on('click', '.add-section-button', this._onAddAbilitySection.bind(this));
     html.on('click', '.aether-check', this._onToggleAetherCost.bind(this));
     html.on('click', '.dropdown-button', this._onToggleDropdown.bind(this));
@@ -96,33 +69,14 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
     html.on('click', '.delete-section', this._onAbilitySectionDelete.bind(this));
 
     const sheet = html[0].closest('.window-content');
-    sheet.querySelectorAll('.input-sizer-input').forEach((input) => this._updateInputSize(input));
+
     this._disableAbilitySectionArrows(sheet);
     if (this.fromActorSheet)
       this._toggleEditMode(sheet.closest('.app'));
     else
       this._updateEditMode(sheet.closest('.app'));
-  }
 
-  _onUpdateInputSize(event) {
-    event.preventDefault();
-    const input = event.currentTarget;
-
-    this._updateInputSize(input);
-  }
-
-  _updateInputSize(input) {
-    const parent = input.parentNode;
-
-    if (input.value) {
-      parent.dataset.value = input.value;
-    }
-    else if (parent.dataset.defaultValue) {
-      parent.dataset.value = parent.dataset.defaultValue;
-    }
-    else {
-      parent.dataset.value = 'Empty';
-    }
+    Format.activateFormatListeners(html);
   }
 
   _onAddAbilitySection(event) {
@@ -220,8 +174,8 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
   }
 
   _disableAbilitySectionArrows(sheet) {
-    let sections = sheet.querySelector('.extra-sections').children;
-    if (sections.length == 0) return;
+    let sections = sheet.querySelector('.extra-sections')?.children;
+    if (!sections || sections.length == 0) return;
 
     sections[0].querySelector('.ability-section-up').classList.add('gray-out');
     sections[sections.length - 1].querySelector('.ability-section-down').classList.add('gray-out');
@@ -229,6 +183,10 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
   _updateEditMode(app) {
     const sheet = app.querySelector('.window-content');
+    if (!sheet.classList.contains('normal-mode') && !sheet.classList.contains('edit-mode')) {
+      sheet.classList.add('normal-mode');
+    }
+
     const inputs = sheet.querySelectorAll('input.edit-mode-input');
     let editMode = sheet.classList.contains('edit-mode');
     
@@ -243,6 +201,7 @@ export class WyrdwoodWandItemSheet extends ItemSheet {
 
     editButton.classList.toggle('editing-glow');
     sheet.classList.toggle('edit-mode');
+    sheet.classList.toggle('normal-mode');
 
     this._updateEditMode(app);
   }

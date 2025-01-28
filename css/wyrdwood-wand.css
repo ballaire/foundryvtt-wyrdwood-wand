@@ -216,7 +216,7 @@
 .wyrdwood-wand .hover-reveal-parent:hover .hover-reveal-content, .chat-message .hover-reveal-parent:hover .hover-reveal-content {
   display: inherit;
 }
-.wyrdwood-wand .message-content, .chat-message .message-content {
+.wyrdwood-wand .message-content .item-card, .chat-message .message-content .item-card {
   margin: 0 -5px -5px -5px;
   font-size: 0.75rem;
 }
@@ -288,6 +288,10 @@
 .wyrdwood-wand:has(.window-content > .ability-sheet), .chat-message:has(.window-content > .ability-sheet) {
   min-width: 400px;
   min-height: 130px;
+}
+.wyrdwood-wand:has(.window-content > .skill-sheet), .chat-message:has(.window-content > .skill-sheet) {
+  min-width: 400px;
+  min-height: 120px;
 }
 .wyrdwood-wand .gray-out, .chat-message .gray-out {
   color: gray;
@@ -388,7 +392,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 1rem;
 }
 .wyrdwood-wand .actor-sheet .header-area .character-undername .character-info, .chat-message .actor-sheet .header-area .character-undername .character-info {
   display: flex;
@@ -487,14 +490,16 @@
 .wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   font-weight: bold;
-  font-size: 1rem;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item .delete-item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .feature-list .item .delete-item {
   align-self: center;
 }
 .wyrdwood-wand .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item, .chat-message .actor-sheet .sheet-body .stats-tab-body .stats-area .add-item {
+  display: flex;
+  flex-direction: row;
   width: fit-content;
   background-color: rgba(167, 167, 170, 0.3764705882);
   border-radius: 0 0 0.25rem 0.25rem;
@@ -611,18 +616,41 @@
   width: 100%;
   padding: 8px;
 }
+.wyrdwood-wand .actor-sheet .actor-edit-buttons, .chat-message .actor-sheet .actor-edit-buttons {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+}
+.wyrdwood-wand .actor-sheet .actor-edit-buttons a, .chat-message .actor-sheet .actor-edit-buttons a {
+  padding: 0 0.25em;
+}
 .wyrdwood-wand .skill-sheet, .chat-message .skill-sheet {
   display: flex;
   flex-direction: column;
 }
 .wyrdwood-wand .skill-sheet .name, .chat-message .skill-sheet .name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   width: 100%;
   height: 1.25em;
 }
-.wyrdwood-wand .skill-sheet .sheet-body, .chat-message .skill-sheet .sheet-body {
-  height: 100%;
-  padding-top: 0.5rem;
+.wyrdwood-wand .skill-sheet .radio-menu, .chat-message .skill-sheet .radio-menu {
+  display: flex;
+  flex-direction: column;
+}
+.wyrdwood-wand .skill-sheet .radio-menu .radio-row, .chat-message .skill-sheet .radio-menu .radio-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.wyrdwood-wand .skill-sheet .radio-menu .radio-row input, .chat-message .skill-sheet .radio-menu .radio-row input {
+  height: inherit;
+  align-self: flex-start;
+}
+.wyrdwood-wand .skill-sheet .radio-menu .radio-row .label-default, .chat-message .skill-sheet .radio-menu .radio-row .label-default {
+  padding-left: 3px;
+}
+.wyrdwood-wand .skill-sheet .radio-menu .radio-row label, .chat-message .skill-sheet .radio-menu .radio-row label {
+  min-width: 10rem;
 }
 .wyrdwood-wand .ability-sheet, .chat-message .ability-sheet {
   background-color: #fff;
@@ -659,7 +687,7 @@
 .wyrdwood-wand .ability-sheet .header-bar .ability-header-left-side .rollable, .chat-message .ability-sheet .header-bar .ability-header-left-side .rollable {
   margin-left: 0.25rem;
 }
-.wyrdwood-wand .ability-sheet .header-bar .actor-ability-right-side, .chat-message .ability-sheet .header-bar .actor-ability-right-side {
+.wyrdwood-wand .ability-sheet .header-bar .ability-header-right-side, .chat-message .ability-sheet .header-bar .ability-header-right-side {
   display: flex;
   flex-direction: row;
 }
@@ -684,9 +712,6 @@
 .wyrdwood-wand .ability-sheet .header-bar .action-type-normal, .chat-message .ability-sheet .header-bar .action-type-normal {
   margin-right: 0.25em;
   align-self: center;
-}
-.wyrdwood-wand .ability-sheet .header-bar .actor-ability-edit-buttons a, .chat-message .ability-sheet .header-bar .actor-ability-edit-buttons a {
-  padding: 0 0.25em;
 }
 .wyrdwood-wand .ability-sheet .flavor, .chat-message .ability-sheet .flavor {
   font-style: italic;
@@ -721,6 +746,7 @@
   min-height: 0;
 }
 .wyrdwood-wand .ability-sheet .ability-section .textarea-box, .chat-message .ability-sheet .ability-section .textarea-box {
+  display: flex;
   padding: 4px 5.75px;
 }
 .wyrdwood-wand .ability-sheet .ability-section .input-box, .chat-message .ability-sheet .ability-section .input-box {
@@ -886,29 +912,11 @@
 .wyrdwood-wand .ability-sheet .header input, .wyrdwood-wand .ability-sheet .header textarea, .chat-message .ability-sheet .header input, .chat-message .ability-sheet .header textarea {
   color: #fff;
 }
-.wyrdwood-wand .edit-mode-only, .chat-message .edit-mode-only {
-  display: none;
-}
-.wyrdwood-wand .normal-mode-only, .chat-message .normal-mode-only {
-  display: flex;
-}
-.wyrdwood-wand .normal-mode-only.block-display, .chat-message .normal-mode-only.block-display {
-  display: block;
-}
-.wyrdwood-wand .normal-mode-only.inline-block-display, .chat-message .normal-mode-only.inline-block-display {
-  display: inline-block;
-}
-.wyrdwood-wand .edit-mode .edit-mode-only, .chat-message .edit-mode .edit-mode-only {
-  display: flex;
-}
-.wyrdwood-wand .edit-mode .edit-mode-only.block-display, .chat-message .edit-mode .edit-mode-only.block-display {
-  display: block;
-}
-.wyrdwood-wand .edit-mode .edit-mode-only.inline-block-display, .chat-message .edit-mode .edit-mode-only.inline-block-display {
-  display: inline-block;
+.wyrdwood-wand .normal-mode .edit-mode-only, .wyrdwood-wand .message-content .edit-mode-only, .chat-message .normal-mode .edit-mode-only, .chat-message .message-content .edit-mode-only {
+  display: none !important;
 }
 .wyrdwood-wand .edit-mode .normal-mode-only, .chat-message .edit-mode .normal-mode-only {
-  display: none;
+  display: none !important;
 }
 .wyrdwood-wand .edit-button.editing-glow, .chat-message .edit-button.editing-glow {
   text-shadow: 0 0 8px red, 0 0 12px red, 0 0 12px red;

@@ -3,6 +3,9 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+import * as Dice from '../helpers/dice.mjs';
+import * as Format from '../helpers/format.mjs';
+
 /**
  * Extend the basic ActorSheet
  * @extends {ActorSheet}
@@ -44,16 +47,6 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       this._prepareItems(context);
     }
     this._prepareCharacterData(context);
-
-    // context.enrichedBiography = await TextEditor.enrichHTML(
-    //   this.actor.system.description,
-    //   {
-    //     secrets: this.document.isOwner,
-    //     async: true,
-    //     rollData: this.actor.getRollData(),
-    //     relativeTo: this.actor,
-    //   }
-    // );
 
     context.effects = prepareActiveEffectCategories(
       this.actor.allApplicableEffects()
@@ -184,16 +177,8 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
       item.update({[field]: element.value});
     });
 
-    html.on('click', '.delete-item', (event) => {
-      event.preventDefault();
-      
-      let element = event.currentTarget;
-      let itemId = element.closest('.item').dataset.itemId;
-
-      this.actor.deleteEmbeddedDocuments('Item', [itemId]);
-    });
-
-    html.on('input', '.input-sizer-input', this._onUpdateInputSize.bind(this));
+    html.on('click', '.feature-edit', this._onFeatureEdit.bind(this));
+    html.on('click', '.feature-delete', this._onFeatureDelete.bind(this));
     html.on('click', '.ability-filter', this._onToggleAbilityFilter.bind(this));
     html.on('click', '.collapsible-title', this._onToggleCollapsed.bind(this));
     html.on('click', '.hidden-content-title', this._onToggleAbilityExpand.bind(this));
@@ -203,35 +188,14 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     html.on('click', '.ability-delete', this._onAbilityDelete.bind(this));
     html.on('input', '.ability-tab-body .search-bar', this._onUpdateAbilitySearch.bind(this));
 
-
     const sheet = html[0].closest('.window-content');
-    sheet.querySelectorAll('.input-sizer-input').forEach((input) => this._updateInputSize(input));
     this._updateEditMode(sheet);
     this._disableAbilityArrows(sheet);
     this._applyAbilityFilters(sheet);
     this._applyAbilityExpand(sheet);
     this._updateAbilitySearch(sheet);
-  }
 
-  _onUpdateInputSize(event) {
-    event.preventDefault();
-    const input = event.currentTarget;
-
-    this._updateInputSize(input);
-  }
-
-  _updateInputSize(input) {
-    const parent = input.parentNode;
-
-    if (input.value) {
-      parent.dataset.value = input.value;
-    }
-    else if (parent.dataset.defaultValue) {
-      parent.dataset.value = parent.dataset.defaultValue;
-    }
-    else {
-      parent.dataset.value = 'Empty';
-    }
+    Format.activateFormatListeners(html);
   }
 
   /**
@@ -272,25 +236,34 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
+    if (dataset.rollType == 'item') {
+      const itemId = element.closest('.item').dataset.itemId;
+      const item = this.actor.items.get(itemId);
+      if (item) return item.roll();
     }
 
-    // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: dataset.label,
-        rollMode: game.settings.get('core', 'rollMode'),
+    else if (dataset.rollType == 'risk') {
+      Dice.riskRoll({
+        actorData: this.actor.system,
+        attribute: dataset.attribute,
+        skillId: dataset.skillId,
       });
-      return roll;
     }
+  }
+
+  _onFeatureEdit(event) {
+    event.preventDefault();
+
+    const itemId = event.currentTarget.closest('.item').dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    item.sheet.render(true, {fromActorSheet: true});
+  }
+
+  _onFeatureDelete(event) { 
+    event.preventDefault();
+    
+    const itemId = event.currentTarget.closest('.item').dataset.itemId;
+    this.actor.deleteEmbeddedDocuments('Item', [itemId]);
   }
 
   _onUpdateAbilitySearch(event) {
@@ -358,10 +331,15 @@ export class WyrdwoodWandActorSheet extends ActorSheet {
 
     const sheet = editButton.closest('.app').querySelector('.window-content');
     sheet.classList.toggle('edit-mode');
+    sheet.classList.toggle('normal-mode');
     this._updateEditMode(sheet);
   }
 
   _updateEditMode(sheet) {
+    if (!sheet.classList.contains('normal-mode') && !sheet.classList.contains('edit-mode')) {
+      sheet.classList.add('normal-mode');
+    }
+
     const inputs = sheet.querySelectorAll('input.edit-mode-input');
     let editMode = sheet.classList.contains('edit-mode');
     
